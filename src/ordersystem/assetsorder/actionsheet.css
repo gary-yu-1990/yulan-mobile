@@ -1,0 +1,75 @@
+
+.van-actionsheet__item{
+  height: 60px;
+  line-height: 60px;
+}
+
+.tip-item1{
+  background: url("wallpaper.png") no-repeat 28% 50%;
+  background-size:30px 30px ;
+}
+
+.tip-item2{
+  background: url("curtain.png") no-repeat 28% 50%;
+  background-size:30px 30px ;
+}
+
+.tip-item3{
+  background: url("softdec.png") no-repeat 28% 50%;
+  background-size:30px 30px ;
+}
+
+.van-search{
+  position: fixed;
+  top: 50px;
+  width: 100%;
+}
+
+.search-more{
+  top: 0px;
+  width: 100%;
+  z-index: 99;
+  padding-right: 10px !important;
+}
+.van-cell {
+  /*border-radius: 15px !important;*/
+  /*width: 60px;*/
+}
+
+.van-search--show-action{
+  padding-left: 50px !important;
+}
+
+/*改变vant样式方法*/
+/* 自定义的类名+vant组件本身的类名 再引入所需要的文件内*/
+.kucun-popup .van-actionsheet__header {
+  background: url("../assetsorder/kucun.png") no-repeat 33% 45%;
+  background-size: 5% 50%;
+  background-color: white;
+}
+.curtain-item .van-cell__title {
+  text-align: left !important;
+  padding-left: 30px;
+
+}
+.curtain-item .van-collapse-item__title {
+  background: #a0cb8d;
+  background: white url("../assetsorder/curtainList.png") no-repeat 5% 50%;
+  background-size: 6% 50%;
+}
+.show-multiple .van-popup--center{
+  width: 300px;
+  border-radius: 5px;
+}
+.loading {
+  position: fixed;
+  left: 50%;
+  margin-left: -10px;
+  top: 40%;
+  color: #656565 !important;
+}
+/*.reset .van-picker__toolbar {*/
+  /*display: none;*/
+/*}*/
+
+
