@@ -84,9 +84,17 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/Sign',
       name: 'Sign',
       component: Sign
+    },
+    {
+      path: '*',
+      redirect: '/Sign'
+    },
+    {
+      path: '',
+      redirect: '/Sign'
     },
     {
       path: '/cardquery/checktax',
