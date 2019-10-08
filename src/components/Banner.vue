@@ -2,7 +2,7 @@
   <div class="banner">
     <div class="left-arrow" @click="toCustomer"></div>
     <p class="top-p">{{title}}</p>
-    <div class="option-img" @click="Sidebar"></div>
+    <!-- <div class="option-img" @click="Sidebar"></div> -->
     <p class="welcome">欢迎,</p>
     <p class="customer-name">{{customer}}</p>
     <!-- <div class="suona-img"></div>

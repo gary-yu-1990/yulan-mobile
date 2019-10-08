@@ -2,9 +2,9 @@
   <div class="view">
     <!--<div class="shadow" v-show="IsWarn"></div>-->
     <div class="client" ref="client">
-      <div class="sidebar">
+      <!-- <div class="sidebar">
         <div class="user-img"></div>
-        <p class="customer-name">{{customer}}</p>
+        <p class="customer-name">{{customer}}</p> -->
         <!-- <div class="history-box">
             <div class="history"></div><p class="history-p">历年经销协议书</p>
           </div>
@@ -18,11 +18,11 @@
             <div class="about"></div><p class="about-p">关于APP</p>
 
         </div>-->
-        <div class="quit-box" @click="unlogin">
+        <!-- <div class="quit-box" @click="unlogin">
           <div class="quit"></div>
           <p class="quit-p">退出登录</p>
         </div>
-      </div>
+      </div> -->
 
       <section class="content" @click.stop="Sidebar">
         <Banner v-bind:IsSidebarOut="IsSidebarOut" :title="'玉兰产品'"></Banner>

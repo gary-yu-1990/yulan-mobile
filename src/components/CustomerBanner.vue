@@ -1,6 +1,6 @@
 <template>
   <div class="banner">
-    <div class="option-img" ref="option" @click="Sidebar"></div>
+    <!-- <div class="option-img" ref="option" @click="Sidebar"></div> -->
     <div class="app-name">玉兰B2B</div>
     <div class="customer-name" >{{customer}}</div>
     <div class="login-time"><span>登陆:</span><span class="time">{{logintime}}</span></div>
@@ -107,7 +107,6 @@ export default {
     z-index: 1000;
     left: 27px;
     top: 119px;
-    font-size: 20px;
     text-align: left;
   }
   .login-time{
