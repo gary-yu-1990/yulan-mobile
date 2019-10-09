@@ -2,8 +2,8 @@
   <div>
     <top :top="set"></top>
     <div class="my-coupoon">
-      <template v-for="coupon in couponLists">
-      <div class="coupon-item" v-if="coupon.dateId == 1">
+      <template v-for="(coupon,index) in couponLists">
+      <div class="coupon-item" v-if="coupon.dateId == 1" :key="index">
         <div class="coupon-top">
           <div class="coupon-notes">{{coupon.notes}}</div>
           <div class="coupon-allmoney">总面值{{coupon.rebateMoney}}元</div>

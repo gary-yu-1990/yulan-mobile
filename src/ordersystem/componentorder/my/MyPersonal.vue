@@ -4,13 +4,13 @@
     <div class="all-item">
       <div class="user-img"></div>
       <p class="customer-name">{{customer}}</p>
-      <div class="item" @click="myCoupon">
+      <div  v-if="isContainAttr('mycoupon')" class="item" @click="clickToPath('mycoupon')">
         <img class="item-icon" src="../../assetsorder/mycoupon.png" alt />
         <span>我的优惠券</span>
         <img class="item-more" src="../../assetsorder/more.png" alt />
       </div>
       <div style="height:20px;"></div>
-      <div class="item" style="text-align:center;" @click="unlogin">
+      <div class="item" style="text-align:center;" @click="clickToPath()">
         <span style="margin:auto 0;">退出登录</span>
       </div>
     </div>
@@ -41,16 +41,19 @@ export default {
     }
   },
   methods: {
-    myCoupon() {
+        isContainAttr(attr) {
+      //是否包含权限
+      return (
+        this.$store.state.menuTreeListFlatten.filter(
+          item => item.MENU_LINK == attr
+        ).length > 0
+      );
+    },
+    clickToPath(path) {
       this.$router.push({
-        path: "/mycoupon"
+        path: "/" + path
       });
     },
-    unlogin() {
-      this.$router.push({
-        path: "/"
-      });
-    }
   }
 };
 </script>

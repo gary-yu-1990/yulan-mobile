@@ -78,7 +78,7 @@ import { bus } from "../utils/eventBus.js";
 import CustomerBanner from "./CustomerBanner";
 import navBottom from "@/components/navBottom";
 import { Toast } from "vant";
-import { QueryWebMenuByUserId } from "@/api/webMenuASP";
+import { QueryAppMenuByUserId } from "@/api/webMenuASP";
 
 export default {
   data() {
@@ -97,24 +97,32 @@ export default {
     customer() {
       if (this.$store.state.info.data)
         return this.$store.state.info.data.realName;
-    },
+    }
   },
   methods: {
     //获得菜单数组并传入store ,await并不会阻塞主线程，这里并不起作用
     async getMenuTree() {
       this.$store.commit("emptyMenuTreeList");
-      await QueryWebMenuByUserId({
+      await QueryAppMenuByUserId({
         userid: this.$store.state.info.data.userId
       }).then(res => {
         if (res.data.children.length > 0) {
           this.$store.commit("setMenuTreeList", res.data.children);
         } else {
-          this.$alert("没有菜单权限，请联系管理员配置", "提示", {
-            confirmButtonText: "确定",
-            type: "success"
+          Toast({
+            duration: 3000,
+            message: "没有菜单权限，请联系管理员配置"
           });
         }
       });
+    },
+    isContainAttr(attr) {
+      //是否包含权限
+      return (
+        this.$store.state.menuTreeListFlatten.filter(
+          item => item.MENU_LINK == attr
+        ).length > 0
+      );
     },
     clickToPath(path) {
       this.$router.push({
@@ -137,9 +145,9 @@ export default {
       });
     },
     toClient() {
-          this.$router.push({
-            path: "/client"
-          });
+      this.$router.push({
+        path: "/client"
+      });
     },
     //前往商城
     toShopStore() {

@@ -1,19 +1,19 @@
 <template>
   <div class="nav" ref="nav">
     <div class="nav-list">
-      <div class="home" @click="clickHome">
+      <div class="home" @click="clickToPath('customer')">
         <div class="home-pic1" ref="homePic"></div>
         <div class="home-font">主页</div>
       </div>
-      <div class="form" @click="clickForm">
+      <div v-if="isContainAttr('myorder')" class="form" @click="clickToPath('myorder')">
         <div class="form-pic1" ref="formPic"></div>
         <div class="form-font">订单查询</div>
       </div>
-      <div class="shop" @click="clickShop">
+      <div v-if="isContainAttr('shoppingcart')" class="shop" @click="clickToPath('shoppingcart')">
         <div class="shop-pic1" ref="shopPic"></div>
         <div class="shop-font">购物车</div>
       </div>
-      <div class="my" @click="clickMy">
+      <div class="my" @click="clickToPath('mypersonal')">
         <div class="my-pic2" ref="myPic"></div>
         <div class="my-font">我的</div>
       </div>
@@ -35,26 +35,11 @@ export default {
         ).length > 0
       );
     },
-    clickMy() {
+    clickToPath(path) {
       this.$router.push({
-        path: "/mypersonal"
+        path: "/" + path
       });
     },
-    clickHome() {
-      this.$router.push({
-        path: "/customer"
-      });
-    },
-    clickShop() {
-      this.$router.push({
-        path: "/shoppingcart"
-      });
-    },
-    clickForm() {
-      this.$router.push({
-        path: "/myorder"
-      });
-    }
   },
   mounted() {
     // if (this.changeStyle == "customer" || this.changeStyle == "shopstore") {
