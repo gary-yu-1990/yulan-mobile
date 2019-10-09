@@ -191,7 +191,8 @@ export default {
 .signlogo {
   width: 186px;
   height: 61px;
-  background-image: url(http://14.29.221.109:10250/upload/assets/yulan.png);
+  /* background-image: url(http://14.29.221.109:10250/upload/assets/yulan.png); */
+  background-image: url(../assets/yulan.png);
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;
@@ -240,10 +241,12 @@ export default {
   background-repeat: no-repeat;
 }
 .userlogo {
-  background-image: url(http://14.29.221.109:10250/upload/assets/userlogo.png);
+  /* background-image: url(http://14.29.221.109:10250/upload/assets/userlogo.png); */
+  background-image: url(../assets/userlogo.png);
 }
 .passlogo {
-  background-image: url(http://14.29.221.109:10250/upload/assets/passlogo.png);
+  /* background-image: url(http://14.29.221.109:10250/upload/assets/passlogo.png); */
+  background-image: url(../assets/passlogo.png);
 }
 /* 登录按钮 */
 .signbutton {

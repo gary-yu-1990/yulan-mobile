@@ -39,7 +39,7 @@ Vue.prototype.capitalUrl = orderBaseUrl.capitalUrl;
 
 export const $http = axios;
 
-new Vue({
+vm = new Vue({
   el: '#app',
   store,
   router,

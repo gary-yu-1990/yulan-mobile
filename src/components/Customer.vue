@@ -213,7 +213,7 @@
   }
 
   .btn1-img {
-    background: url('http://14.29.221.109:10250/upload/assets/form.png');
+    background: url('../assets/form.png');
     background-size: contain;
     background-position: center;
   }
@@ -282,7 +282,7 @@
   .user-img {
     width: 70px;
     height: 70px;
-    background-image: url("http://14.29.221.109:10250/upload/assets/userImg.png");
+    background-image: url("../assets/userImg.png");
     background-position: center;
     background-size: contain;
     position: relative;
@@ -323,7 +323,7 @@
   .history {
     width: 21px;
     height: 24px;
-    background-image: url("http://14.29.221.109:10250/upload/assets/aggrement2.png");
+    background-image: url("../assets/aggrement2.png");
     background-position: center;
     background-size: contain;
     position: absolute;
@@ -338,7 +338,7 @@
   .about {
     width: 22px;
     height: 22px;
-    background-image: url("http://14.29.221.109:10250/upload/assets/about.png");
+    background-image: url("../assets/about.png");
     background-position: center;
     background-size: contain;
     position: absolute;
@@ -349,7 +349,7 @@
   .revise-load {
     width: 22px;
     height: 22px;
-    background-image: url("http://14.29.221.109:10250/upload/assets/unlock.png");
+    background-image: url("../assets/unlock.png");
     background-position: center;
     background-size: contain;
     position: absolute;
@@ -368,7 +368,7 @@
   .revise-bill {
     width: 22px;
     height: 22px;
-    background-image: url("http://14.29.221.109:10250/upload/assets/edit.png");
+    background-image: url("../assets/edit.png");
     background-position: center;
     background-size: contain;
     position: absolute;
@@ -397,7 +397,7 @@
   .quit {
     width: 22px;
     height: 22px;
-    background-image: url("http://14.29.221.109:10250/upload/assets/quit.png");
+    background-image: url("../assets/quit.png");
     background-position: center;
     background-size: contain;
     position: absolute;

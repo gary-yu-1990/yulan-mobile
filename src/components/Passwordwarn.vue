@@ -74,7 +74,8 @@ export default {
   position: absolute;
   right: 10px;
   top: 10px;
-  background: url("http://14.29.221.109:10250/upload/assets/close.png");
+  /* background: url("http://14.29.221.109:10250/upload/assets/close.png"); */
+  background: url(../assets/close.png);
   background-size: 100% 100%;
 }
 .warn p {
