@@ -260,7 +260,7 @@ p {
 .view {
   height: 100vh;
   width: 375px;
-  overflow: hidden;
+  overflow: scroll;
 }
 .sidebar {
   width: 200px;
@@ -402,7 +402,7 @@ p {
   right: 0;
   position: relative;
   background-color: #efefef;
-  overflow: hidden;
+  overflow: scroll;
   transition: margin-left 0.3s;
   -webkit-transition: margin-left 0.3s;
   -moz-transition: margin-left 0.3s; /* Firefox 4 */

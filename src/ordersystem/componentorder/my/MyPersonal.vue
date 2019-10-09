@@ -9,7 +9,8 @@
         <span>我的优惠券</span>
         <img class="item-more" src="../../assetsorder/more.png" alt />
       </div>
-      <div class="item" style="margin-top:20px;text-align:center;" @click="unlogin">
+      <div style="height:20px;"></div>
+      <div class="item" style="text-align:center;" @click="unlogin">
         <span style="margin:auto 0;">退出登录</span>
       </div>
     </div>
@@ -146,7 +147,7 @@ export default {
 .quit {
   width: 22px;
   height: 22px;
-  background-image: url("http://14.29.221.109:10250/upload/assets/quit.png");
+  background-image: url("../../../assets/quit.png");
   background-position: center;
   background-size: contain;
   position: absolute;

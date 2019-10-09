@@ -57,10 +57,10 @@ export default {
     }
   },
   mounted() {
-    if (this.changeStyle == "customer" || this.changeStyle == "shopstore") {
-      let a = this.$refs.nav;
-      a.className = "nav2";
-    }
+    // if (this.changeStyle == "customer" || this.changeStyle == "shopstore") {
+    //   let a = this.$refs.nav;
+    //   a.className = "nav2";
+    // }
     if (this.tabStage == "customer") {
       if (this.$refs.homePic) {
         this.$refs.homePic.classList.remove("home-pic2");
