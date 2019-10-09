@@ -4,7 +4,7 @@
     <span class="manage" v-if="!showManage" @click="manageCart">管理</span>
     <span class="manage-completed" v-if="showManage" @click="manageCompleted">完成</span>
     <div class="all-products">
-      <div class="single-product" v-for="(group,index) in cartlist">
+      <div class="single-product" v-for="(group,index) in cartlist" :key="index">
         <div class="category-title">
           <input type="checkbox" :value="group" v-model="checkGroupModel" class="qiang"
                  @change.stop="pickGroup(group,index)">
@@ -13,7 +13,7 @@
           <!--<span class="huodong">{{group.activityGroupType}}</span>-->
           <!--<img class="huodong-icon" src="../../assetsorder/hdCart.png" alt="">-->
         </div>
-        <div class="details-content" v-for="(product,inndex) in group.commodities">
+        <div class="details-content" v-for="(product,inndex) in group.commodities" :key="inndex">
           <!--<van-checkbox class="checkbox" @change="buyThis(product.isbuy,index,inndex)" v-model="product.isbuy"-->
           <!--checked-color="#8cbb44"></van-checkbox>-->
           <!--<input @click="buyThis(product.isbuy,index,inndex)" id="color-input-red" class="checkbox chat-button-location-radio-input" type="checkbox"/>-->

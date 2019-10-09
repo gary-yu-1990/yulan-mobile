@@ -107,7 +107,7 @@
     .user-img {
     width: 73px;
     height: 73px;
-    background-image: url("http://14.29.221.109:10250/upload/assets/userImg.png");
+    background-image: url("../../../assets/userImg.png");
     background-position: center;
     background-size: contain;
     position: relative;

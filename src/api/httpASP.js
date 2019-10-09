@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 //var baseUrl = 'http://localhost:49438/';//本地
 var baseUrl = 'http://47.107.56.156:666/';//测试
@@ -20,12 +20,12 @@ const DECODE = {
 export function get(url, params = {}, config = {}) {
     Axios.defaults.withCredentials = false;
     return new Promise((resolve, reject) => {
-        if (Cookies.get("cid") && sessionStorage.getItem("_userId") && sessionStorage.getItem("_userId") != Cookies.get("cid")) {
-            vm.$router.push({
-                path: '/Sign'
-            });
-            reject('登录失效');
-        }
+        // if (Cookies.get("cid") && sessionStorage.getItem("_userId") && sessionStorage.getItem("_userId") != Cookies.get("cid")) {
+        //     vm.$router.push({
+        //         path: '/Sign'
+        //     });
+        //     reject('登录失效');
+        // }
         Axios.get(baseUrl + url, {
             params: params,
         }, config)
@@ -72,12 +72,12 @@ export function get(url, params = {}, config = {}) {
 export function post(url, data = {}, config = {}) {
     Axios.defaults.withCredentials = false;
     return new Promise((resolve, reject) => {
-        if (Cookies.get("cid") && sessionStorage.getItem("_userId") && sessionStorage.getItem("_userId") != Cookies.get("cid")) {
-            vm.$router.push({
-                path: '/Sign'
-            });
-            reject('登录失效');
-        }
+        // if (Cookies.get("cid") && sessionStorage.getItem("_userId") && sessionStorage.getItem("_userId") != Cookies.get("cid")) {
+        //     vm.$router.push({
+        //         path: '/Sign'
+        //     });
+        //     reject('登录失效');
+        // }
         Axios.post(baseUrl + url, data, config)
             .then(response => {
                 Axios.defaults.withCredentials = true;
@@ -122,12 +122,12 @@ export function post(url, data = {}, config = {}) {
 export function patch(url, data = {}, config = {}) {
     Axios.defaults.withCredentials = false;
     return new Promise((resolve, reject) => {
-        if (Cookies.get("cid") && sessionStorage.getItem("_userId") && sessionStorage.getItem("_userId") != Cookies.get("cid")) {
-            vm.$router.push({
-                path: '/Sign'
-            });
-            reject('登录失效');
-        }
+        // if (Cookies.get("cid") && sessionStorage.getItem("_userId") && sessionStorage.getItem("_userId") != Cookies.get("cid")) {
+        //     vm.$router.push({
+        //         path: '/Sign'
+        //     });
+        //     reject('登录失效');
+        // }
         Axios.patch(baseUrl + url, data, config)
             .then(response => {
                 Axios.defaults.withCredentials = true;
@@ -172,12 +172,12 @@ export function patch(url, data = {}, config = {}) {
 export function put(url, data = {}, config = {}) {
     Axios.defaults.withCredentials = false;
     return new Promise((resolve, reject) => {
-        if (Cookies.get("cid") && sessionStorage.getItem("_userId") && sessionStorage.getItem("_userId") != Cookies.get("cid")) {
-            vm.$router.push({
-                path: '/Sign'
-            });
-            reject('登录失效');
-        }
+        // if (Cookies.get("cid") && sessionStorage.getItem("_userId") && sessionStorage.getItem("_userId") != Cookies.get("cid")) {
+        //     vm.$router.push({
+        //         path: '/Sign'
+        //     });
+        //     reject('登录失效');
+        // }
         Axios.put(baseUrl + url, data, config)
             .then(response => {
                 Axios.defaults.withCredentials = true;
