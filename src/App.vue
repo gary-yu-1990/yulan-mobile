@@ -5,7 +5,7 @@
     <router-view v-if="$route.meta.keepAlive"></router-view>
    </keep-alive> 
      <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <!--<van-loading type="spinner" color="white" v-if='LOADING'/>-->
+    <van-loading class="loading" type="spinner" v-if="LOADING" color="black"/>
   </div>
 </template>
 <script>

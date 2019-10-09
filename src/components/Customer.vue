@@ -25,43 +25,43 @@
         <CustomerBanner :IsSidebarOut="IsSidebarOut"></CustomerBanner>
         <div class="gnBlock">
           <div class="blockH">
-            <div class="btn btn1" @click="toClient">
+            <div class="btn" @click="toClient">
               <div class="btn-img btn1-img"></div>
               <p class="btn-p">网络协议签订</p>
             </div>
-            <div class="btn btn2" @click="toShopStore">
+            <div class="btn" @click="toShopStore">
               <div class="btn-img btn2-img"></div>
               <p class="btn-p">玉兰产品</p>
             </div>
-            <div class="btn btn3" @click="toBillmanage">
+            <div class="btn" @click="toBillmanage">
               <div class="btn-img btn3-img"></div>
               <p class="btn-p">对账单管理</p>
             </div>
           </div>
           <div class="blockH">
-            <div class="btn btn1" @click="toBank">
+            <div class="btn" @click="toBank">
               <div class="btn-img btn4-img"></div>
               <p class="btn-p">银行汇款凭证</p>
             </div>
-            <div class="btn btn2" @click="toWtPh">
+            <div class="btn" @click="toWtPh">
               <div class="btn-img btn5-img"></div>
               <p class="btn-p">委托喷绘</p>
             </div>
-            <div class="btn btn3" @click="toTuiHuo">
+            <div class="btn" @click="toTuiHuo">
               <div class="btn-img btn6-img"></div>
               <p class="btn-p">退货赔偿</p>
             </div>
           </div>
           <div class="blockH">
-            <div class="btn btn1" @click="nodo">
+            <div class="btn" @click="nodo">
               <div class="btn-img btn7-img"></div>
               <p class="btn-p">兰居设计</p>
             </div>
-            <div class="btn btn2" @click="nodo">
+            <div class="btn" @click="nodo">
               <div class="btn-img btn8-img"></div>
               <p class="btn-p">形象店设计</p>
             </div>
-            <div class="btn btn3" @click="toSearchTask">
+            <div class="btn" @click="toSearchTask">
               <div class="btn-img btn9-img"></div>
               <p class="btn-p">任务查询</p>
             </div>
@@ -95,24 +95,19 @@ export default {
   },
   computed: {
     customer() {
-      return this.$store.state.info.data.realName;
+      if (this.$store.state.info.data)
+        return this.$store.state.info.data.realName;
     },
-    Ischeck() {
-      let userState = this.$store.state.info.data.userState;
-      console.log(userState);
-      if (userState == "") return false;
-      else if (userState == "1") return true;
-    }
   },
   methods: {
-     //获得菜单数组并传入store ,await并不会阻塞主线程，这里并不起作用
+    //获得菜单数组并传入store ,await并不会阻塞主线程，这里并不起作用
     async getMenuTree() {
       this.$store.commit("emptyMenuTreeList");
       await QueryWebMenuByUserId({
         userid: this.$store.state.info.data.userId
       }).then(res => {
         if (res.data.children.length > 0) {
-          this.$store.commit("setMenuTreeList",res.data.children);
+          this.$store.commit("setMenuTreeList", res.data.children);
         } else {
           this.$alert("没有菜单权限，请联系管理员配置", "提示", {
             confirmButtonText: "确定",
@@ -121,15 +116,20 @@ export default {
         }
       });
     },
+    clickToPath(path) {
+      this.$router.push({
+        path: "/" + path
+      });
+    },
     Sidebar() {
-      var customer = document.getElementsByClassName("customer")[0];
-      if (this.IsSidebarOut == true) {
-        customer.classList.remove("active-option");
-        customer.classList.add("noactive-option");
-        setTimeout(() => {
-          this.IsSidebarOut = false;
-        }, 300);
-      }
+      // var customer = document.getElementsByClassName("customer")[0];
+      // if (this.IsSidebarOut == true) {
+      //   customer.classList.remove("active-option");
+      //   customer.classList.add("noactive-option");
+      //   setTimeout(() => {
+      //     this.IsSidebarOut = false;
+      //   }, 300);
+      // }
     },
     unlogin() {
       this.$router.push({
@@ -137,17 +137,9 @@ export default {
       });
     },
     toClient() {
-      if (this.$store.state.info.data.type == "ECWEB") {
-        if (this.Ischeck) {
           this.$router.push({
             path: "/client"
           });
-        } else {
-          this.$router.push({
-            path: "/protocol"
-          });
-        }
-      }
     },
     //前往商城
     toShopStore() {
@@ -226,54 +218,38 @@ p {
   top: 5px;
   left: 50%;
   margin-left: -15px;
+  background-size: contain !important;
+  background-position: center !important;
 }
 
 .btn1-img {
   background: url("../assets/form.png");
-  background-size: contain;
-  background-position: center;
 }
 
 .btn2-img {
   background: url("../ordersystem/assetsorder/shopping.png");
-  background-size: contain;
-  background-position: center;
 }
 
 .btn3-img {
   background: url("../ordersystem/assetsorder/dzd.png");
-  background-size: contain;
-  background-position: center;
 }
 .btn4-img {
   background: url("../ordersystem/assetsorder/hkpz.png");
-  background-size: contain;
-  background-position: center;
 }
 .btn5-img {
   background: url("../ordersystem/assetsorder/wtph.png");
-  background-size: contain;
-  background-position: center;
 }
 .btn6-img {
   background: url("../ordersystem/assetsorder/thpc.png");
-  background-size: contain;
-  background-position: center;
 }
 .btn7-img {
   background: url("../ordersystem/assetsorder/ljsj.png");
-  background-size: contain;
-  background-position: center;
 }
 .btn8-img {
   background: url("../ordersystem/assetsorder/xxd.png");
-  background-size: contain;
-  background-position: center;
 }
 .btn9-img {
   background: url("../ordersystem/assetsorder/shopping.png");
-  background-size: contain;
-  background-position: center;
 }
 .btn-p {
   margin: 0;

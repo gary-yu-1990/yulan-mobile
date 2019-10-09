@@ -253,7 +253,7 @@ export default {
     box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
   }
   .btn1-img{
-    background: url('http://14.29.221.109:10250/upload/assets/read.png');
+    background: url('../assets/read.png');
     width: 30px;
     height: 30px;
     background-size: contain;
@@ -283,7 +283,7 @@ export default {
     box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
   }
   .btn2-img{
-    background: url('http://14.29.221.109:10250/upload/assets/form.png');
+    background: url('../assets/form.png');
     width: 30px;
     height: 30px;
     background-size: contain;
@@ -346,7 +346,7 @@ export default {
     box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
   }
   .btn3-img{
-    background: url('http://14.29.221.109:10250/upload/assets/address_book.png');
+    background: url('../assets/address_book.png');
     width: 30px;
     height: 30px;
     background-size: contain;
@@ -419,7 +419,7 @@ export default {
     color: #FFFFFF;
   }
   .btn4-img{
-    background: url('http://14.29.221.109:10250/upload/assets/news_hot.png');
+    background: url('../assets/news_hot.png');
     width: 30px;
     height: 30px;
     background-size: contain;
@@ -459,7 +459,7 @@ export default {
     box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
   }
   .btn5-img{
-    background: url('http://14.29.221.109:10250/upload/assets/same.png');
+    background: url('../assets/same.png');
     width: 30px;
     height: 30px;
     background-size: contain;
@@ -489,7 +489,7 @@ export default {
     box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
   }
   .btn6-img{
-    background: url('http://14.29.221.109:10250/upload/assets/news_hot.png');
+    background: url('../assets/news_hot.png');
     width: 30px;
     height: 30px;
     background-size: contain;
@@ -520,7 +520,7 @@ export default {
   .user-img{
     width: 70px;
     height: 70px;
-    background-image: url('http://14.29.221.109:10250/upload/assets/userImg.png');
+    background-image: url('../assets/userImg.png');
     background-position: center;
     background-size: contain;
     position: relative;
@@ -561,7 +561,7 @@ export default {
   .history{
     width: 21px;
     height: 24px;
-    background-image: url('http://14.29.221.109:10250/upload/assets/aggrement2.png');
+    background-image: url('../assets/aggrement2.png');
     background-position: center;
     background-size: contain;
     position: absolute;
@@ -576,7 +576,7 @@ export default {
   .about{
     width: 22px;
     height: 22px;
-    background-image: url('http://14.29.221.109:10250/upload/assets/about.png');
+    background-image: url('../assets/about.png');
     background-position: center;
     background-size: contain;
     position: absolute;
@@ -587,7 +587,7 @@ export default {
   .revise-load{
     width: 22px;
     height: 22px;
-    background-image: url('http://14.29.221.109:10250/upload/assets/unlock.png');
+    background-image: url('../assets/unlock.png');
     background-position: center;
     background-size: contain;
     position: absolute;
@@ -606,7 +606,7 @@ export default {
   .revise-bill{
     width: 22px;
     height: 22px;
-    background-image: url('http://14.29.221.109:10250/upload/assets/edit.png');
+    background-image: url('../assets/edit.png');
     background-position: center;
     background-size: contain;
     position: absolute;
@@ -635,7 +635,7 @@ export default {
   .quit{
     width: 22px;
     height: 22px;
-    background-image: url('http://14.29.221.109:10250/upload/assets/quit.png');
+    background-image: url('../assets/quit.png');
     background-position: center;
     background-size: contain;
     position: absolute;

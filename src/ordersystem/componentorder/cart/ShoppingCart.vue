@@ -124,9 +124,9 @@
                     // cartdata.wallpaper[i].commodities[j].newProductType = cartdata.wallpaper[i].productGroupType
                   }
                 }
-                this.$router.push({
-                  path:"/mycart/wallcart"
-                })
+                // this.$router.push({
+                //   path:"/mycart/wallcart"
+                // })
               }
             )
             //单个活动转换为中文

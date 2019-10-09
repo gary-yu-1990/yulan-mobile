@@ -318,8 +318,7 @@ export default new Router({
       path: "/shoppingcart",
       name: 'shoppingcart',
       component: ShoppingCart,
-      meta: {keepAlive: true},
-      // redirect:'/mycart/wallcart',
+      redirect:'/mycart/wallcart',
       children: [
         // {path:"/mycart/allcart",name:"allcart",component:AllCart},
         {path:"/mycart/wallcart",name:"wallcart",component:WallCart},

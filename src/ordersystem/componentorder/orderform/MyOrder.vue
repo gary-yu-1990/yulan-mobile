@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="orders" v-if="orderLists.length">
-      <div class="single-order" v-for="(orderList,index) in orderLists" @click="toOrderDetails(index)">
+      <div class="single-order" v-for="(orderList,index) in orderLists" @click="toOrderDetails(index)" :key="index">
         <div class="nav">
           <div class="wall-icon"></div>
           <span class="title">订单号:{{orderList.ORDER_NO}}</span>
@@ -41,7 +41,7 @@
               <th width="30%">数量</th>
               <th width="30%">实际价格</th>
             </tr>
-            <tr v-for="product in orderList.ORDERBODY">
+            <tr v-for="(product,inndex) in orderList.ORDERBODY" :key="inndex">
               <td>{{product.ITEM_NO}}</td>
               <td>￥{{product.UNIT_PRICE}}</td>
               <td>{{product.QTY_REQUIRED}}</td>

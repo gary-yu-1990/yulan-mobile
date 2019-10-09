@@ -14,6 +14,26 @@ import orderBaseUrl from './Global.vue'
 
 
 axios.defaults.baseURL = 'http://14.29.221.109:10250/yulan';
+axios.interceptors.request.use(
+  config => {
+      store.commit('showLoading')
+      return config;
+  },
+  error => {
+      store.commit('hideLoading')
+      return Promise.resolve(error);
+  })
+axios.interceptors.response.use(
+  response => {
+      store.commit('hideLoading')
+      return Promise.resolve(response);
+  },
+
+  error => {
+      store.commit('hideLoading')
+      return Promise.reject(error);
+  }
+);
 //中断请求
 // axios.interceptors.request.use(
 //   config => {

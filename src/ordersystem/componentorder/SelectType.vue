@@ -98,9 +98,9 @@
       navBottom
     },
     computed: {
-      customer() {
-        return this.$store.state.info.data.realName;
-      },
+      // customer() {
+      //   return this.$store.state.info.data.realName;
+      // },
       Ischeck() {
         let userState = this.$store.state.info.data.userState;
         console.log(userState);
