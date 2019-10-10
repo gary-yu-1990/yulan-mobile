@@ -4,7 +4,7 @@
     <div class="all-item">
       <div class="user-img"></div>
       <p class="customer-name">{{customer}}</p>
-      <div  v-if="isContainAttr('mycoupon')" class="item" @click="clickToPath('mycoupon')">
+      <div v-if="isContainAttr('mycoupon')" class="item" @click="clickToPath('mycoupon')">
         <img class="item-icon" src="../../assetsorder/mycoupon.png" alt />
         <span>我的优惠券</span>
         <img class="item-more" src="../../assetsorder/more.png" alt />
@@ -41,7 +41,7 @@ export default {
     }
   },
   methods: {
-        isContainAttr(attr) {
+    isContainAttr(attr) {
       //是否包含权限
       return (
         this.$store.state.menuTreeListFlatten.filter(
@@ -54,6 +54,12 @@ export default {
         path: "/" + path
       });
     },
+    logout() {
+      this.$router.push({
+        path: "/"
+      });
+      this.$store.commit("initState");
+    }
   }
 };
 </script>

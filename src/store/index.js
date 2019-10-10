@@ -27,8 +27,8 @@ export default new Vuex.Store({
     orderBaseUrl: "http://14.29.223.114:10250/yulan-order",
     cancelTokenArr: [], // 取消请求token数组
     //导航数组，等权限控制做好通过后台读取
+    menuTreeList: [],
     menuTreeListFlatten: [],
-    menuTreeList: []
   },
   //order
   getters: {
@@ -69,7 +69,15 @@ export default new Vuex.Store({
       state.position = [];
       state.revised = false;
       state.area_M = [];
-      state.route = ""
+      state.route = "";
+      state.orderProduct = [];
+      state.address = {};
+      state.allCart = {};
+      state.LOADING = false;
+      state.orderBaseUrl = "http://14.29.223.114:10250/yulan-order";
+      state.cancelTokenArr = [];
+      state.menuTreeList = [];
+      state.menuTreeListFlatten = [];
     },
     getRoute(state, obj) {
       state.route = obj;

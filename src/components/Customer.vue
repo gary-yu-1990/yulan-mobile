@@ -6,15 +6,6 @@
         <p class="customer-name">{{customer}}</p>
         <!-- <div class="history-box">
             <div class="history"></div><p class="history-p">历年经销协议书</p>
-          </div>
-          <div class="revise-load-box">
-            <div class="revise-load"></div><p class="revise-load-p">修改登陆密码</p>
-          </div>
-          <div class="revise-bill-box">
-            <div class="revise-bill"></div><p class="revise-bill-p">修改对账密码</p>
-          </div>
-          <div class="about-box">
-            <div class="about"></div><p class="about-p">关于APP</p>
         </div>-->
         <div class="quit-box" @click="unlogin">
           <div class="quit"></div>
@@ -25,45 +16,14 @@
         <CustomerBanner :IsSidebarOut="IsSidebarOut"></CustomerBanner>
         <div class="gnBlock">
           <div class="blockH">
-            <div class="btn" @click="toClient">
-              <div class="btn-img btn1-img"></div>
-              <p class="btn-p">网络协议签订</p>
-            </div>
-            <div class="btn" @click="toShopStore">
-              <div class="btn-img btn2-img"></div>
-              <p class="btn-p">玉兰产品</p>
-            </div>
-            <div class="btn" @click="toBillmanage">
-              <div class="btn-img btn3-img"></div>
-              <p class="btn-p">对账单管理</p>
-            </div>
-          </div>
-          <div class="blockH">
-            <div class="btn" @click="toBank">
-              <div class="btn-img btn4-img"></div>
-              <p class="btn-p">银行汇款凭证</p>
-            </div>
-            <div class="btn" @click="toWtPh">
-              <div class="btn-img btn5-img"></div>
-              <p class="btn-p">委托喷绘</p>
-            </div>
-            <div class="btn" @click="toTuiHuo">
-              <div class="btn-img btn6-img"></div>
-              <p class="btn-p">退货赔偿</p>
-            </div>
-          </div>
-          <div class="blockH">
-            <div class="btn" @click="nodo">
-              <div class="btn-img btn7-img"></div>
-              <p class="btn-p">兰居设计</p>
-            </div>
-            <div class="btn" @click="nodo">
-              <div class="btn-img btn8-img"></div>
-              <p class="btn-p">形象店设计</p>
-            </div>
-            <div class="btn" @click="toSearchTask">
-              <div class="btn-img btn9-img"></div>
-              <p class="btn-p">任务查询</p>
+            <div
+              v-for="(item,index) in menuTreeList"
+              :key="index"
+              class="btn"
+              @click="clickToPath(item.MENU_LINK)"
+            >
+              <div class="btn-img" :class="item.ICON_CLASS"></div>
+              <p class="btn-p">{{item.MENU_NAME}}</p>
             </div>
           </div>
         </div>
@@ -97,17 +57,26 @@ export default {
     customer() {
       if (this.$store.state.info.data)
         return this.$store.state.info.data.realName;
+    },
+    menuTreeList() {
+      return this.$store.state.menuTreeListFlatten.filter(
+        item => item.MENU_TYPE == "appmenu"
+      );
     }
   },
   methods: {
     //获得菜单数组并传入store ,await并不会阻塞主线程，这里并不起作用
     async getMenuTree() {
-      this.$store.commit("emptyMenuTreeList");
+      //this.$store.commit("emptyMenuTreeList");
       await QueryAppMenuByUserId({
         userid: this.$store.state.info.data.userId
       }).then(res => {
-        if (res.data.children.length > 0) {
-          this.$store.commit("setMenuTreeList", res.data.children);
+        if (
+          res.data.children.length > 0 &&
+          res.data.children[0].children.length
+        ) {
+          //最顶层为app菜单
+          this.$store.commit("setMenuTreeList", res.data.children[0].children);
         } else {
           Toast({
             duration: 3000,
@@ -125,6 +94,13 @@ export default {
       );
     },
     clickToPath(path) {
+      if (!path) {
+        Toast({
+          duration: 2000,
+          message: "功能正在完善，敬请期待"
+        });
+        return;
+      }
       this.$router.push({
         path: "/" + path
       });
@@ -142,48 +118,6 @@ export default {
     unlogin() {
       this.$router.push({
         path: "/"
-      });
-    },
-    toClient() {
-      this.$router.push({
-        path: "/client"
-      });
-    },
-    //前往商城
-    toShopStore() {
-      this.$router.push({
-        path: "/shopstore"
-      });
-    },
-    toSearchTask() {
-      this.$router.push({
-        path: "/tasksearch"
-      });
-    },
-    toBillmanage() {
-      this.$router.push({
-        path: "/billmanage"
-      });
-    },
-    toBank() {
-      this.$router.push({
-        path: "/bank"
-      });
-    },
-    toWtPh() {
-      this.$router.push({
-        path: "/wtphlists"
-      });
-    },
-    toTuiHuo() {
-      this.$router.push({
-        path: "/tuihuolists"
-      });
-    },
-    nodo() {
-      Toast({
-        duration: 2000,
-        message: "功能正在完善，敬请期待"
       });
     }
   },
@@ -211,8 +145,8 @@ p {
 .btn {
   height: 60px;
   line-height: 90px;
-  width: 120px;
-  margin: 0 10px;
+  width: 100px;
+  margin: 0 11px 20px 0;
   background-color: #fff;
   position: relative;
   z-index: 100;
@@ -229,15 +163,12 @@ p {
   background-size: contain !important;
   background-position: center !important;
 }
-
 .btn1-img {
   background: url("../assets/form.png");
 }
-
 .btn2-img {
   background: url("../ordersystem/assetsorder/shopping.png");
 }
-
 .btn3-img {
   background: url("../ordersystem/assetsorder/dzd.png");
 }
@@ -259,6 +190,18 @@ p {
 .btn9-img {
   background: url("../ordersystem/assetsorder/shopping.png");
 }
+.btn10-img {
+  background: url("../assets/read.png");
+}
+.btn11-img {
+  background: url("../assets/form.png");
+}
+.btn12-img {
+  background: url("../assets/same.png");
+}
+.btn13-img {
+  background: url("../assets/news_hot.png");
+}
 .btn-p {
   margin: 0;
   color: #051d05;
@@ -268,13 +211,12 @@ p {
 .view {
   height: 100vh;
   width: 375px;
-  overflow: scroll;
+  overflow: hidden;
 }
 .sidebar {
-  width: 200px;
+  width: 0px;
   height: 100vh;
   position: relative;
-
   float: right;
   background-color: #efefef;
 }
@@ -288,12 +230,35 @@ p {
   margin: 0 auto;
   margin-top: 52px;
 }
+.customer {
+  width: 375px;
+  height: 100vh;
+  right: 0;
+  position: relative;
+  background-color: #efefef;
+  overflow: hidden;
+  transition: margin-left 0.3s;
+  -webkit-transition: margin-left 0.3s;
+  -moz-transition: margin-left 0.3s; /* Firefox 4 */
+  -o-transition: margin-left 0.3s; /* Opera */
+}
 .customer-name {
   font-size: 15px;
   color: #7d7d7d;
   margin: 0;
   margin-top: 14px;
   margin-bottom: 15px;
+}
+.customer::-webkit-scrollbar {
+  display: none;
+}
+.content {
+  width: 375px;
+  height: 100vh;
+  float: left;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .line {
   width: 100%;
@@ -404,48 +369,20 @@ p {
   margin-top: -11px;
   left: 52px;
 }
-.customer {
-  width: 575px;
-  height: 100vh;
-  right: 0;
-  position: relative;
-  background-color: #efefef;
-  overflow: scroll;
-  transition: margin-left 0.3s;
-  -webkit-transition: margin-left 0.3s;
-  -moz-transition: margin-left 0.3s; /* Firefox 4 */
-  -o-transition: margin-left 0.3s; /* Opera */
-}
-/* .slide-fade-enter-active {
-      transition: all .3s ease;
-  } */
 .active-option {
   margin-left: -200px;
 }
 .noactive-option {
   margin-left: 0px;
 }
-.customer::-webkit-scrollbar {
-  display: none;
-}
-.content {
-  width: 375px;
-  /* height: 100vh; */
-  height: 100vh;
-  float: left;
-  position: relative;
-  z-index: 10;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 .gnBlock {
   position: relative;
 }
-
 .blockH {
-  margin-bottom: 20px;
   position: relative;
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: left;
+  padding: 0 21px;
 }
 </style>

@@ -94,25 +94,25 @@ export default {
             return;
           }
           this.realName = info.data.realName;
-          if (info.code == 0 && info.data.type != "ECWEB") {
-            this.$store.commit("getPos", info.pos);
-            this.$store.commit("loginSuccess", info);
-            this.pos = this.$store.state.pos;
-            if (this.pos.length == 1) {
-              this.$store.commit("getposition", this.pos[0].position);
-              this.$router.push({
-                path: "/salesman"
-              });
-            } else if (this.pos.length > 1) {
-              this.IsShow = true;
-            }
-            // if(this.$store.state.pos[0]){
-            //   this.$store.state.pos[0].position
-            // }
-            // this.$router.push({
-            //   path:'/salesman'
-            // })
-          }
+          // if (info.code == 0 && info.data.type != "ECWEB") {
+          //   this.$store.commit("getPos", info.pos);
+          //   this.$store.commit("loginSuccess", info);
+          //   this.pos = this.$store.state.pos;
+          //   if (this.pos.length == 1) {
+          //     this.$store.commit("getposition", this.pos[0].position);
+          //     this.$router.push({
+          //       path: "/salesman"
+          //     });
+          //   } else if (this.pos.length > 1) {
+          //     this.IsShow = true;
+          //   }
+          //   // if(this.$store.state.pos[0]){
+          //   //   this.$store.state.pos[0].position
+          //   // }
+          //   // this.$router.push({
+          //   //   path:'/salesman'
+          //   // })
+          // }
           // else if(info.code ==0&& info.data.type == 'ECWEB'){
 
           //   this.$store.commit('loginSuccess',info)
@@ -122,7 +122,8 @@ export default {
           //   //   path:'/customer'
           //   // })
           // }
-          if (info.code == 0 && info.data.type == "ECWEB") {
+          if (info.code == 0) {
+            this.$store.commit("getPos", info.pos);
             this.$store.commit("loginSuccess", info);
             this.$router.push({
               path: "/customer"

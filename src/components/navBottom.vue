@@ -1,6 +1,6 @@
 <template>
   <div class="nav" ref="nav">
-    <div class="nav-list">
+    <div class="nav-list" v-cloak>
       <div class="home" @click="clickToPath('customer')">
         <div class="home-pic1" ref="homePic"></div>
         <div class="home-font">主页</div>
@@ -36,10 +36,12 @@ export default {
       );
     },
     clickToPath(path) {
-      this.$router.push({
-        path: "/" + path
-      });
-    },
+      if (path != window.location.href.split("#/")[1]) {
+        this.$router.push({
+          path: "/" + path
+        });
+      }
+    }
   },
   mounted() {
     // if (this.changeStyle == "customer" || this.changeStyle == "shopstore") {
@@ -123,6 +125,9 @@ export default {
 </script>
 
 <style scoped>
+[v-cloak] {
+  display: none !important;
+}
 .nav {
   width: 375px;
   height: 60px;
