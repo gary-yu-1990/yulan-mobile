@@ -4,7 +4,7 @@
     <div class="banner">
       <div class="wait-time" ref="statusIcon"></div>
       <span class="status-title">{{statusTitle}}</span>
-      <span class="wait-pay-time" v-if="timeRemain">剩余05小时16分钟</span>
+      <span class="wait-pay-time" v-if="timeRemain">剩余 小时 分钟</span>
       <div class="address" v-show="orderStatus">
         <img class="address-icon" src="../../assetsorder/address.png" alt />
         <div class="address-contain">
@@ -12,7 +12,7 @@
             <span>{{oneOrder.WL_CONTACTS}}</span>
             <span>{{oneOrder.WL_TEL}}</span>
           </div>
-          <div class="address-text">{{oneOrder.POST_ADDRESS}}</div>
+          <div class="address-text">{{oneOrder.ALL_ADDRESS}}</div>
         </div>
       </div>
       <div class="completed-msg" v-show="!orderStatus">
@@ -168,7 +168,6 @@ export default {
         cid: this.$store.getters.getCId //客户号
       };
       axios.post(orderUrl, data).then(data => {
-        console.log(data);
         this.oneOrder = data.data.data.data[0];
         switch (this.oneOrder.STATUS_ID) {
           case "1":
@@ -205,7 +204,6 @@ export default {
             this.oneOrder.ORDERBODY[i].productTip = "--";
           }
         }
-        console.log(this.oneOrder.ALLBACK_M, this.oneOrder.ALLBACK_Y);
         if (this.statusTitle == "已完成") {
           this.orderStatus = false;
           this.$refs.statusIcon.className = "completed";
@@ -253,7 +251,6 @@ export default {
             orderNo: this.$route.params.find //订单号
           };
           axios.post(orderUrl, orderData).then(res => {
-            console.log(res);
             if (res.data.msg == "SUCCESS") {
               Toast({
                 duration: 1000,
@@ -278,8 +275,6 @@ export default {
           comapnyId: this.$store.getters.getCMId //登录客户号
         };
         axios.post(monUrl, mondata).then(val => {
-          console.log(val.data.data, this.oneOrder.ALL_SPEND);
-          // console.log(val.data.data < (this.orderPrice / 100).toFixed(2))
           if (val.data.data > this.oneOrder.ALL_SPEND) {
             this.onSubmitOrder();
           } else {
@@ -305,7 +300,6 @@ export default {
         orderNo: this.$route.params.find //订单号
       };
       axios.post(orderURL, orderData).then(res => {
-        console.log(res);
         if (res.data.code == 0) {
           Toast({
             duration: 1000,

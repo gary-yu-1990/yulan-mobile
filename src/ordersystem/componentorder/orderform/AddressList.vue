@@ -65,7 +65,6 @@
         }
         axios.post(addressUrl,data).then(
           (data) => {
-            console.log(data)
             let addList = data.data.data
             //一个数组
             for (let i = 0;i < addList.length;i++){
@@ -73,12 +72,14 @@
               singleAdd.id = addList[i].addressId.toString()
               singleAdd.name = addList[i].wlContacts
               singleAdd.tel = addList[i].wlTel
-              singleAdd.address = addList[i].province + addList[i].city + addList[i].country + addList[i].postAddress
+              singleAdd.reciverArea1 = addList[i].province
+              singleAdd.reciverArea2 = addList[i].city
+              singleAdd.reciverArea3 = addList[i].country
+              singleAdd.province = (addList[i].province?addList[i].province:'') + (addList[i].city?addList[i].city:'') + (addList[i].country?addList[i].country:'')
+              singleAdd.address =  singleAdd.province + (addList[i].postAddress?addList[i].postAddress:'')
               singleAdd.postAddress = addList[i].postAddress
-              singleAdd.province = addList[i].province + addList[i].city + addList[i].country
               this.list.push(singleAdd)
             }
-            console.log(this.list)
           }
         )
       }
@@ -94,9 +95,5 @@
   #dress-list{
     margin: 50px 0;
     padding: 0;
-  }
-
-  #dress-list .van-cell-group{
-    /*height: auto !important;*/
   }
 </style>

@@ -39,12 +39,14 @@
             <van-collapse-item title="帘头" name="1" class="curtain-item">
               <!--帘头-->
               <div class="curtain-head">
-                <div class="content" v-for="(liantou,index) in lt">
+                <div class="content" v-for="(liantou,index) in lt" :key="index">
                   <div class="title-item2">
                     <span class="title-left">编码</span>
                     <span
                       @click="changeXh('lt',index,liantou.productType,liantou.itemMLGY.changeFlag,liantou.itemMLGY,liantou.useamount)"
-                      class="title-right title-right2" :class="{'title-right3':liantou.itemMLGY.changeFlag}">{{liantou.itemNo}}</span>
+                      class="title-right title-right2"
+                      :class="{'title-right3':liantou.itemMLGY.changeFlag}"
+                    >{{liantou.itemNo}}</span>
                     <span v-show="liantou.itemMLGY.deleteFlag" class="item-icon2"></span>
                   </div>
                   <div class="title-item2">
@@ -56,7 +58,11 @@
                     <span class="title-left">规格（米/对）</span>
                     <span class="title-right">{{liantou.fixGrade/1000}}</span>
                   </div>
-                  <div class="title-item2" @click="liantou.showFG = true" v-show="liantou.fixType != '--'">
+                  <div
+                    class="title-item2"
+                    @click="liantou.showFG = true"
+                    v-show="liantou.fixType != '--'"
+                  >
                     <span class="title-left">风格</span>
                     <span class="title-right">{{liantou.fixType}}</span>
                     <span class="item-icon"></span>
@@ -65,7 +71,12 @@
                     <span class="title-left">用量</span>
                     <span class="title-right">
                       <span>{{liantou.useamount}}{{liantou.unit}}</span>
-                      <input type="number" v-show="liantou.itemMLGY.modifyFlag" class="use-num" placeholder="输入用量">
+                      <input
+                        type="number"
+                        v-show="liantou.itemMLGY.modifyFlag"
+                        class="use-num"
+                        placeholder="输入用量"
+                      />
                     </span>
                   </div>
                   <div class="title-item2" v-show="liantou.LtZz" @click="liantou.showLtZz = true">
@@ -79,7 +90,9 @@
                   </div>
                   <div class="title-item3">
                     <span class="title-left">备注</span>
-                    <span class="title-right"><input type="text" class="curtain-beizhu" placeholder="填写备注"></span>
+                    <span class="title-right">
+                      <input type="text" class="curtain-beizhu" placeholder="填写备注" />
+                    </span>
                   </div>
                   <!--选择风格-->
                   <div class="show-FG" @click="liantou.showFG = false">
@@ -87,10 +100,10 @@
                       <van-radio-group v-model="liantou.fixType">
                         <van-cell-group>
                           <van-cell title="定宽" clickable @click="changeFG('定宽','lt',liantou)">
-                            <van-radio name="定宽" checked-color="#89cb81"/>
+                            <van-radio name="定宽" checked-color="#89cb81" />
                           </van-cell>
                           <van-cell title="定高" clickable @click="changeFG('定高','lt',liantou)">
-                            <van-radio name="定高" checked-color="#89cb81"/>
+                            <van-radio name="定高" checked-color="#89cb81" />
                           </van-cell>
                         </van-cell-group>
                       </van-radio-group>
@@ -102,19 +115,19 @@
                       <van-radio-group v-model="liantou.LtZz">
                         <van-cell-group>
                           <van-cell title="未选择" clickable @click="liantou.LtZz = '未选择'">
-                            <van-radio name="未选择" checked-color="#89cb81"/>
+                            <van-radio name="未选择" checked-color="#89cb81" />
                           </van-cell>
                           <van-cell title="么术贴正车" clickable @click="liantou.LtZz = '么术贴正车'">
-                            <van-radio name="么术贴正车" checked-color="#89cb81"/>
+                            <van-radio name="么术贴正车" checked-color="#89cb81" />
                           </van-cell>
                           <van-cell title="么术贴反车" clickable @click="liantou.LtZz = '么术贴反车'">
-                            <van-radio name="么术贴反车" checked-color="#89cb81"/>
+                            <van-radio name="么术贴反车" checked-color="#89cb81" />
                           </van-cell>
                           <van-cell title="穿/挂杆款" clickable @click="liantou.LtZz = '穿/挂杆款'">
-                            <van-radio name="穿/挂杆款" checked-color="#89cb81"/>
+                            <van-radio name="穿/挂杆款" checked-color="#89cb81" />
                           </van-cell>
                           <van-cell title="特殊见备注" clickable @click="liantou.LtZz = '特殊见备注'">
-                            <van-radio name="特殊见备注" checked-color="#89cb81"/>
+                            <van-radio name="特殊见备注" checked-color="#89cb81" />
                           </van-cell>
                         </van-cell-group>
                       </van-radio-group>
@@ -129,12 +142,14 @@
             <van-collapse-item title="帘身" name="2" class="curtain-item">
               <!--帘身-->
               <div class="curtain-head">
-                <div class="content" v-for="(liantou,index) in ls">
+                <div class="content" v-for="(liantou,index) in ls" :key="index">
                   <div class="title-item2">
                     <span class="title-left">编码</span>
                     <span
                       @click="changeXh('ls',index,liantou.productType,liantou.itemMLGY.changeFlag,liantou.itemMLGY,liantou.useamount)"
-                      class="title-right title-right2" :class="{'title-right3':liantou.itemMLGY.changeFlag}">{{liantou.itemNo}}</span>
+                      class="title-right title-right2"
+                      :class="{'title-right3':liantou.itemMLGY.changeFlag}"
+                    >{{liantou.itemNo}}</span>
                     <span v-show="liantou.itemMLGY.deleteFlag" class="item-icon2"></span>
                   </div>
                   <div class="title-item2">
@@ -146,7 +161,11 @@
                     <span class="title-left">规格（米/对）</span>
                     <span class="title-right">{{liantou.fixGrade/1000}}</span>
                   </div>
-                  <div class="title-item2" @click="liantou.showFG = true" v-show="liantou.fixType != '--'">
+                  <div
+                    class="title-item2"
+                    @click="liantou.showFG = true"
+                    v-show="liantou.fixType != '--'"
+                  >
                     <span class="title-left">风格</span>
                     <span class="title-right">{{liantou.fixType}}</span>
                     <span class="item-icon"></span>
@@ -155,7 +174,12 @@
                     <span class="title-left">用量</span>
                     <span class="title-right">
                       <span>{{liantou.useamount}}{{liantou.unit}}</span>
-                      <input type="number" v-show="liantou.itemMLGY.modifyFlag" class="use-num" placeholder="输入用量">
+                      <input
+                        type="number"
+                        v-show="liantou.itemMLGY.modifyFlag"
+                        class="use-num"
+                        placeholder="输入用量"
+                      />
                     </span>
                   </div>
                   <div class="title-item2" v-show="liantou.MlZz" @click="liantou.showMlZz = true">
@@ -169,7 +193,9 @@
                   </div>
                   <div class="title-item3">
                     <span class="title-left">备注</span>
-                    <span class="title-right"><input type="text" class="curtain-beizhu" placeholder="填写备注"></span>
+                    <span class="title-right">
+                      <input type="text" class="curtain-beizhu" placeholder="填写备注" />
+                    </span>
                   </div>
                   <!--选择风格-->
                   <div class="show-FG" @click="liantou.showFG = false">
@@ -177,10 +203,10 @@
                       <van-radio-group v-model="liantou.fixType">
                         <van-cell-group>
                           <van-cell title="定宽" clickable @click="changeFG('定宽','lt',liantou)">
-                            <van-radio name="定宽" checked-color="#89cb81"/>
+                            <van-radio name="定宽" checked-color="#89cb81" />
                           </van-cell>
                           <van-cell title="定高" clickable @click="changeFG('定高','lt',liantou)">
-                            <van-radio name="定高" checked-color="#89cb81"/>
+                            <van-radio name="定高" checked-color="#89cb81" />
                           </van-cell>
                         </van-cell-group>
                       </van-radio-group>
@@ -192,16 +218,16 @@
                       <van-radio-group v-model="liantou.MlZz">
                         <van-cell-group>
                           <van-cell title="未选择" clickable @click="liantou.MlZz = '未选择'">
-                            <van-radio name="未选择" checked-color="#89cb81"/>
+                            <van-radio name="未选择" checked-color="#89cb81" />
                           </van-cell>
                           <van-cell title="对开" clickable @click="liantou.MlZz = '对开'">
-                            <van-radio name="对开" checked-color="#89cb81"/>
+                            <van-radio name="对开" checked-color="#89cb81" />
                           </van-cell>
                           <van-cell title="单开" clickable @click="liantou.MlZz = '单开'">
-                            <van-radio name="单开" checked-color="#89cb81"/>
+                            <van-radio name="单开" checked-color="#89cb81" />
                           </van-cell>
                           <van-cell title="特殊见备注" clickable @click="liantou.MlZz = '特殊见备注'">
-                            <van-radio name="特殊见备注" checked-color="#89cb81"/>
+                            <van-radio name="特殊见备注" checked-color="#89cb81" />
                           </van-cell>
                         </van-cell-group>
                       </van-radio-group>
@@ -216,12 +242,14 @@
             <van-collapse-item title="纱" name="3" class="curtain-item">
               <!--纱-->
               <div class="gauze">
-                <div class="content" v-for="(liantou,index) in sha">
+                <div class="content" v-for="(liantou,index) in sha" :key="index">
                   <div class="title-item2">
                     <span class="title-left">编码</span>
                     <span
                       @click="changeXh('sha',index,liantou.productType,liantou.itemMLGY.changeFlag,liantou.itemMLGY)"
-                      class="title-right title-right2" :class="{'title-right3':liantou.itemMLGY.changeFlag}">{{liantou.itemNo}}</span>
+                      class="title-right title-right2"
+                      :class="{'title-right3':liantou.itemMLGY.changeFlag}"
+                    >{{liantou.itemNo}}</span>
                     <span v-show="liantou.itemMLGY.deleteFlag" class="item-icon2"></span>
                   </div>
                   <div class="title-item2">
@@ -242,7 +270,12 @@
                     <span class="title-left">用量</span>
                     <span class="title-right">
                       <span>{{liantou.useamount}}{{liantou.unit}}</span>
-                      <input type="number" v-show="liantou.itemMLGY.modifyFlag" class="use-num" placeholder="输入用量">
+                      <input
+                        type="number"
+                        v-show="liantou.itemMLGY.modifyFlag"
+                        class="use-num"
+                        placeholder="输入用量"
+                      />
                     </span>
                   </div>
                   <div class="title-item2">
@@ -256,7 +289,9 @@
                   </div>
                   <div class="title-item3">
                     <span class="title-left">备注</span>
-                    <span class="title-right"><input type="text" class="curtain-beizhu" placeholder="填写备注"></span>
+                    <span class="title-right">
+                      <input type="text" class="curtain-beizhu" placeholder="填写备注" />
+                    </span>
                   </div>
                 </div>
               </div>
@@ -267,12 +302,14 @@
             <van-collapse-item title="配件" name="4" class="curtain-item">
               <!--配件-->
               <div class="gauze">
-                <div class="content" v-for="liantou in pjb">
+                <div class="content" v-for="(liantou,index) in pjb" :key="index">
                   <div class="title-item2">
                     <span class="title-left">编码</span>
                     <span
                       @click="changeXh('pjb',index,liantou.productType,liantou.itemMLGY.changeFlag,liantou.itemMLGY)"
-                      class="title-right title-right2" :class="{'title-right3':liantou.itemMLGY.changeFlag}">{{liantou.itemNo}}</span>
+                      class="title-right title-right2"
+                      :class="{'title-right3':liantou.itemMLGY.changeFlag}"
+                    >{{liantou.itemNo}}</span>
                     <span v-show="liantou.itemMLGY.deleteFlag" class="item-icon2"></span>
                   </div>
                   <div class="title-item2">
@@ -293,7 +330,12 @@
                     <span class="title-left">用量</span>
                     <span class="title-right">
                       <span>{{liantou.useamount}}{{liantou.unit}}</span>
-                      <input type="number" v-show="liantou.itemMLGY.modifyFlag" class="use-num" placeholder="输入用量">
+                      <input
+                        type="number"
+                        v-show="liantou.itemMLGY.modifyFlag"
+                        class="use-num"
+                        placeholder="输入用量"
+                      />
                     </span>
                   </div>
                   <div class="title-item2">
@@ -307,7 +349,9 @@
                   </div>
                   <div class="title-item3">
                     <span class="title-left">备注</span>
-                    <span class="title-right"><input type="text" class="curtain-beizhu" placeholder="填写备注"></span>
+                    <span class="title-right">
+                      <input type="text" class="curtain-beizhu" placeholder="填写备注" />
+                    </span>
                   </div>
                 </div>
               </div>
@@ -322,16 +366,16 @@
         <van-radio-group v-model="bodyMakeDetails">
           <van-cell-group>
             <van-cell title="未选择" clickable @click="bodyMakeDetails = '未选择'">
-              <van-radio name="未选择" checked-color="#89cb81"/>
+              <van-radio name="未选择" checked-color="#89cb81" />
             </van-cell>
             <van-cell title="对开" clickable @click="bodyMakeDetails = '对开'">
-              <van-radio name="对开" checked-color="#89cb81"/>
+              <van-radio name="对开" checked-color="#89cb81" />
             </van-cell>
             <van-cell title="单开" clickable @click="bodyMakeDetails = '单开'">
-              <van-radio name="单开" checked-color="#89cb81"/>
+              <van-radio name="单开" checked-color="#89cb81" />
             </van-cell>
             <van-cell title="特殊见备注" clickable @click="bodyMakeDetails = '特殊见备注'">
-              <van-radio name="特殊见备注" checked-color="#89cb81"/>
+              <van-radio name="特殊见备注" checked-color="#89cb81" />
             </van-cell>
           </van-cell-group>
         </van-radio-group>
@@ -346,16 +390,16 @@
         <van-radio-group v-model="partsPackage">
           <van-cell-group>
             <van-cell title="上样安装包(罗马杆+方轨)" clickable @click="partsPackage = '上样安装包(罗马杆+方轨)'">
-              <van-radio name="上样安装包(罗马杆+方轨)" checked-color="#89cb81"/>
+              <van-radio name="上样安装包(罗马杆+方轨)" checked-color="#89cb81" />
             </van-cell>
             <van-cell title="上样安装包(罗马杆)" clickable @click="partsPackage = '上样安装包(罗马杆)'">
-              <van-radio name="上样安装包(罗马杆)" checked-color="#89cb81"/>
+              <van-radio name="上样安装包(罗马杆)" checked-color="#89cb81" />
             </van-cell>
             <van-cell title="上样安装包(方轨)" clickable @click="partsPackage = '上样安装包(方轨)'">
-              <van-radio name="上样安装包(方轨)" checked-color="#89cb81"/>
+              <van-radio name="上样安装包(方轨)" checked-color="#89cb81" />
             </van-cell>
             <van-cell title="未选择配件包" clickable @click="partsPackage = '未选择配件包'">
-              <van-radio name="未选择配件包" checked-color="#89cb81"/>
+              <van-radio name="未选择配件包" checked-color="#89cb81" />
             </van-cell>
           </van-cell-group>
         </van-radio-group>
@@ -377,15 +421,25 @@
         >
           <div slot="action" @click="onSearchWall" style="color: white">搜索</div>
         </van-search>
-        <img class="img" src="../assetsorder/back.png" @click="nolist">
+        <img class="img" src="../assetsorder/back.png" @click="nolist" />
       </div>
       <!--可替换型号列表-->
       <div class="all-itemlists">
         <ul v-if="productType != 'GY'">
-          <li v-for="item in itemNolists" @click="selthisItemNo(item)" class="itemNolist">{{item.itemNo}}</li>
+          <li
+            v-for="(item,index) in itemNolists"
+            @click="selthisItemNo(item)"
+            class="itemNolist"
+            :key="index"
+          >{{item.itemNo}}</li>
         </ul>
         <ul v-else>
-          <li v-for="item in itemNolists" @click="selthisItemNo(item)" class="itemNolist">{{item.itemNo}}</li>
+          <li
+            v-for="(item,index) in itemNolists"
+            @click="selthisItemNo(item)"
+            class="itemNolist"
+            :key="index"
+          >{{item.itemNo}}</li>
         </ul>
       </div>
       <!--底部分页-->
@@ -406,858 +460,852 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import top from '../../components/Top'
-  import {
-    Search,
-    Checkbox,
-    CheckboxGroup,
-    Popup,
-    RadioGroup,
-    Radio,
-    Cell,
-    CellGroup,
-    Collapse,
-    CollapseItem,
-    Icon,
-    Pagination
-  } from 'vant';
-  // import
+import axios from "axios";
+import top from "../../components/Top";
+import {
+  Search,
+  Checkbox,
+  CheckboxGroup,
+  Popup,
+  RadioGroup,
+  Radio,
+  Cell,
+  CellGroup,
+  Collapse,
+  CollapseItem,
+  Icon,
+  Pagination
+} from "vant";
 
-  export default {
-    name: "singlecurtain",
-    components: {
-      top,
-      [Checkbox.name]: Checkbox,
-      [CheckboxGroup.name]: CheckboxGroup,
-      [Popup.name]: Popup,
-      [RadioGroup.name]: RadioGroup,
-      [Radio.name]: Radio,
-      [Cell.name]: Cell,
-      [CellGroup.name]: CellGroup,
-      [Collapse.name]: Collapse,
-      [CollapseItem.name]: CollapseItem,
-      [Icon.name]: Icon,
-      [Search.name]: Search,
-      [Pagination.name]: Pagination,
-    },
-    data() {
-      return {
-        url: "http://106.14.159.244:8080/yulan-order",
-        set: 28,
-        activeName: '',
+export default {
+  name: "singlecurtain",
+  components: {
+    top,
+    [Checkbox.name]: Checkbox,
+    [CheckboxGroup.name]: CheckboxGroup,
+    [Popup.name]: Popup,
+    [RadioGroup.name]: RadioGroup,
+    [Radio.name]: Radio,
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup,
+    [Collapse.name]: Collapse,
+    [CollapseItem.name]: CollapseItem,
+    [Icon.name]: Icon,
+    [Search.name]: Search,
+    [Pagination.name]: Pagination
+  },
+  data() {
+    return {
+      url: "http://106.14.159.244:8080/yulan-order",
+      set: 28,
+      activeName: "",
+      itemNO: this.$route.params.itemNO,
+      width: this.$route.params.width, //成品宽度
+      height: this.$route.params.height, //成品高度
+      WBH: this.$route.params.WBH, //帘头外包盒宽度
+      multiple: this.$route.params.multiple, //褶皱倍数
+      location: this.$route.params.location,
+      //帘头制造说明
+      showHeadMakeDetails: false,
+      heaadMakeDetails: "未选择",
+      //帘身和纱制造说明
+      showBodyMakeDetails: false,
+      bodyMakeDetails: "未选择",
+      //配件包
+      showPartsPackage: false,
+      //制造工艺
+      showGy: false,
+      type: "",
+      partsPackage: "无",
+      partsPackageNum: "未选择配件包",
+      lt: [], //帘头
+      ls: [], //帘身
+      sha: [], //纱
+      pjb: [], //配件包
+      inputValue: "",
+      itemNolists: [], //所有可供选择的型号
+      //当前页数
+      currentPage: 1,
+      //总页数
+      totalPage: 0,
+      //总记录数
+      totalLists: 0,
+      //每页记录数
+      itemsPerPage: 10,
+      //通过页数来判断change是执行哪个函数
+      pageMark: 0,
+      index: "",
+      productType: "",
+      itemType: "",
+      changeFlage: "",
+      itemMLGY: {},
+      useamount: "" //用量
+    };
+  },
+  methods: {
+    //选择此款
+    selectThis() {
+      if (this.$route.params.WBH == "") {
+        this.$route.params.WBH = "0";
+      }
+      let URL = this.url + "/item/getCurtainInfo.do";
+      let data = {
         itemNO: this.$route.params.itemNO,
         width: this.$route.params.width, //成品宽度
         height: this.$route.params.height, //成品高度
-        WBH: this.$route.params.WBH,  //帘头外包盒宽度
+        WBH: this.$route.params.WBH, //帘头外包盒宽度
         multiple: this.$route.params.multiple, //褶皱倍数
-        location: this.$route.params.location,
-        //帘头制造说明
-        showHeadMakeDetails: false,
-        heaadMakeDetails: "未选择",
-        //帘身和纱制造说明
-        showBodyMakeDetails: false,
-        bodyMakeDetails: "未选择",
-        //配件包
-        showPartsPackage: false,
-        //制造工艺
-        showGy: false,
-        type: "",
-        partsPackage: "无",
-        partsPackageNum: "未选择配件包",
-        lt: [], //帘头
-        ls: [],//帘身
-        sha: [],//纱
-        pjb: [],//配件包
-        inputValue: "",
-        itemNolists: [],   //所有可供选择的型号
-        //当前页数
-        currentPage: 1,
-        //总页数
-        totalPage: 0,
-        //总记录数
-        totalLists: 0,
-        //每页记录数
-        itemsPerPage: 10,
-        //通过页数来判断change是执行哪个函数
-        pageMark: 0,
-        index: "",
-        productType: "",
-        itemType: "",
-        changeFlage: "",
-        itemMLGY: {},
-        useamount: ""//用量
-      }
-    },
-    methods: {
-      //选择此款
-      selectThis() {
-        if (this.$route.params.WBH == "") {
-          this.$route.params.WBH = "0"
+        location: this.$route.params.location
+      };
+      axios.post(URL, data).then(res => {
+        console.log(res);
+        let itemLists = res.data.itemList;
+        this.lt = [];
+        this.ls = [];
+        this.sha = [];
+        this.pjb = [];
+        //是否可计算出用量
+        if (
+          res.data.LCB ==
+          "MLXB101091 has null values and can not be calculated,please checkout WidthHh,FixType,DuihuaLoss,HighJia"
+        ) {
+          res.data.LCB = "";
         }
-        let URL = this.url + "/item/getCurtainInfo.do"
-        let data = {
-          "itemNO": this.$route.params.itemNO,
-          "width": this.$route.params.width, //成品宽度
-          "height": this.$route.params.height, //成品高度
-          "WBH": this.$route.params.WBH,  //帘头外包盒宽度
-          "multiple": this.$route.params.multiple, //褶皱倍数
-          "location": this.$route.params.location
+        if (
+          res.data.lt ==
+          "MLXB101091 has null values and can not be calculated,please checkout WidthHh,FixType,DuihuaLoss,HighJia"
+        ) {
+          res.data.lt = "";
         }
-        axios.post(URL, data).then(
-          res => {
-            console.log(res)
-            let itemLists = res.data.itemList
-            this.lt = []
-            this.ls = []
-            this.sha = []
-            this.pjb = []
-            //是否可计算出用量
-            if (res.data.LCB == "MLXB101091 has null values and can not be calculated,please checkout WidthHh,FixType,DuihuaLoss,HighJia") {
-              res.data.LCB = ""
-            }
-            if (res.data.lt == "MLXB101091 has null values and can not be calculated,please checkout WidthHh,FixType,DuihuaLoss,HighJia") {
-              res.data.lt = ""
-            }
-            if (res.data.ls == "MLXB101091 has null values and can not be calculated,please checkout WidthHh,FixType,DuihuaLoss,HighJia") {
-              res.data.ls = ""
-            }
-            if (res.data.sha == "MLXB101091 has null values and can not be calculated,please checkout WidthHh,FixType,DuihuaLoss,HighJia") {
-              res.data.sha = ""
-            }
-            if (res.data.pjb == "MLXB101091 has null values and can not be calculated,please checkout WidthHh,FixType,DuihuaLoss,HighJia") {
-              res.data.pjb = ""
-            }
-            //将数据进行分类
-            for (let i = 0; i < itemLists.length; i++) {
-              //风格
-              if (itemLists[i].fixType == "01") {
-                itemLists[i].fixType = "定宽"
-              } else if (itemLists[i].fixType == "02") {
-                itemLists[i].fixType = "定高"
-              } else {
-                itemLists[i].fixType = "--"
-              }
-              this.$set(itemLists[i], 'showFG', false)
-              //规格
-              // if (itemLists[i].fixGrade == 0) {
-              //   itemLists[i].fixGrade = "--"
-              // }
-              //单位乱码转换
-              if (itemLists[i].unit == "°ü") {
-                itemLists[i].unit = "包"
-              }
-              //用量是否可修改
-              if (itemLists[i].itemMLGY.modifyFlag == "N") {
-                itemLists[i].itemMLGY.modifyFlag = false
-              }
-              //物料是否可更换
-              if (itemLists[i].itemMLGY.itemType == "lt") {
-                //帘头部分，除了productType为KS的不可更换，其他的都可以更换
-                if (itemLists[i].itemMLGY.productType == "KS") {
-                  itemLists[i].itemMLGY.changeFlag = false
-                } else {
-                  itemLists[i].itemMLGY.changeFlag = true
-                }
-              } else {
-                if (itemLists[i].itemMLGY.changeFlag == "Y") {
-                  itemLists[i].itemMLGY.changeFlag = true
-                } else {
-                  itemLists[i].itemMLGY.changeFlag = false
-                }
-              }
-              //物料是否可删除
-              if (itemLists[i].itemMLGY.deleteFlag == "Y") {
-                itemLists[i].itemMLGY.deleteFlag = true
-              } else {
-                itemLists[i].itemMLGY.deleteFlag = false
-              }
-              if (itemLists[i].itemMLGY.itemType == "lt") {
-                if (itemLists[i].itemMLGY.productType == "LCB") {
-                  this.$set(itemLists[i], 'useamount', res.data.LCB)
-                } else if (itemLists[i].itemMLGY.productType == "XHB") {
-                  this.$set(itemLists[i], 'useamount', res.data.XHBlt)
-                } else {
-                  this.$set(itemLists[i], 'useamount', res.data.lt)
-                }
-                this.$set(itemLists[i], 'LtZz', "未选")
-                this.$set(itemLists[i], 'showLtZz', false)
-                this.lt.push(itemLists[i])
-              } else if (itemLists[i].itemMLGY.itemType == "ls") {
-                if (itemLists[i].itemMLGY.productType == "LCB") {
-                  this.$set(itemLists[i], 'useamount', res.data.LCB)
-                } else if (itemLists[i].itemMLGY.productType == "XHB") {
-                  this.$set(itemLists[i], 'useamount', res.data.XHBls)
-                } else {
-                  this.$set(itemLists[i], 'useamount', res.data.ls)
-                }
-                //制造说明
-                if (itemLists[i].itemMLGY.productType == "ML") {
-                  this.$set(itemLists[i], 'MlZz', "未选")
-                  this.$set(itemLists[i], 'showMlZz', false)
-                }
-                this.ls.push(itemLists[i])
-              } else if (itemLists[i].itemMLGY.itemType == "sha") {
-                if (itemLists[i].itemMLGY.productType == "LCB") {
-                  this.$set(itemLists[i], 'useamount', res.data.LCB)
-                } else {
-                  this.$set(itemLists[i], 'useamount', res.data.sha)
-                }
-                //制造说明
-                if (itemLists[i].itemMLGY.productType == "ML") {
-                  this.$set(itemLists[i], 'MlZz', "未选")
-                  this.$set(itemLists[i], 'showMlZz', false)
-                }
-                this.sha.push(itemLists[i])
-              } else if (itemLists[i].itemMLGY.itemType == "pjb") {
-                if (itemLists[i].itemMLGY.productType == "LCB") {
-                  this.$set(itemLists[i], 'useamount', res.data.LCB)
-                } else {
-                  this.$set(itemLists[i], 'useamount', res.data.pjb)
-                }
-                //制造说明
-                if (itemLists[i].itemMLGY.productType == "ML") {
-                  this.$set(itemLists[i], 'MlZz', "未选")
-                  this.$set(itemLists[i], 'showMlZz', false)
-                }
-                this.pjb.push(itemLists[i])
-              }
-            }
-            console.log(this.lt, this.ls, this.sha, this.pjb);
-          }
-        )
-      },
-      //改变型号类型
-      changeXh(itemType, index, productType, changeFlag, itemMLGY, useamount) {
-        this.inputValue = ""
-        this.itemType = itemType
-        this.index = index
-        this.productType = productType
-        this.changeFlage = itemMLGY.changeFlag
-        this.itemMLGY = itemMLGY
-        this.useamount = useamount
-        if (this.showGy == false) {
-          this.currentPage = 1
+        if (
+          res.data.ls ==
+          "MLXB101091 has null values and can not be calculated,please checkout WidthHh,FixType,DuihuaLoss,HighJia"
+        ) {
+          res.data.ls = "";
         }
-        this.itemNolists = []
-        if (changeFlag) {
-          if (productType == "ML") {
-            this.type = "面料"
-          } else if (productType == "LCB") {
-            this.type = "里衬布"
-          } else if (productType == "PJB") {
-            this.type = "配件包"
-          }
-          if (productType != "GY") {
-            let url = this.url + "/item/getCurtainItemTypeAll.do"
-            let data = {
-              "limit": 26,
-              "page": this.currentPage,
-              "itemNO": productType
-            }
-            axios.post(url, data).then(
-              res => {
-                console.log(res)
-                this.itemNolists = res.data.data
-                this.totalPage = parseInt(this.itemNolists[0].total / 10) + 1
-                this.pageMark = this.totalPage
-              }
-            )
+        if (
+          res.data.sha ==
+          "MLXB101091 has null values and can not be calculated,please checkout WidthHh,FixType,DuihuaLoss,HighJia"
+        ) {
+          res.data.sha = "";
+        }
+        if (
+          res.data.pjb ==
+          "MLXB101091 has null values and can not be calculated,please checkout WidthHh,FixType,DuihuaLoss,HighJia"
+        ) {
+          res.data.pjb = "";
+        }
+        //将数据进行分类
+        for (let i = 0; i < itemLists.length; i++) {
+          //风格
+          if (itemLists[i].fixType == "01") {
+            itemLists[i].fixType = "定宽";
+          } else if (itemLists[i].fixType == "02") {
+            itemLists[i].fixType = "定高";
           } else {
-            let url = this.url + "/item/getGYList.do"
-            let data = {
-              "itemNO": this.$route.params.itemNO //所属型号
-            }
-            axios.post(url, data).then(
-              res => {
-                console.log(res)
-                this.itemNolists = res.data.itemList
-                this.totalPage = 1
-                this.pageMark = this.totalPage
-                console.log(this.itemNolists)
-              }
-            )
+            itemLists[i].fixType = "--";
           }
-          this.showGy = true
-        }
-      },
-      //风格转码
-      fgChange(fg) {
-        if (fg == "01") {
-          return "定宽"
-        } else if (fg == "02") {
-          return "定高"
-        }
-      },
-      //改变风格
-      changeFG(fg, itemType, liantou) {
-        if (fg != liantou.fixType) {
-          if (fg == "定宽") {
-            fg = "01"
-          } else if (fg == "定高") {
-            fg = "02"
+          this.$set(itemLists[i], "showFG", false);
+          //规格
+          // if (itemLists[i].fixGrade == 0) {
+          //   itemLists[i].fixGrade = "--"
+          // }
+          //单位乱码转换
+          if (itemLists[i].unit == "°ü") {
+            itemLists[i].unit = "包";
           }
-          let url = this.url + "/item/changeCurtainItem.do"
-          let data = {
-            "width": this.$route.params.width, //成品宽度
-            "height": this.$route.params.height, //成品高度
-            "WBH": this.$route.params.WBH,  //帘头外包盒宽度
-            "multiple": this.$route.params.multiple, //褶皱倍数
-            "parentItemNo": this.$route.params.itemNO,
-            "itemNO": liantou.itemNo,
-            "itemType": itemType,
-            "fixType": fg //01--定宽，02--定高，如果客户没有修改也要传入默认值，不能为空
+          //用量是否可修改
+          if (itemLists[i].itemMLGY.modifyFlag == "N") {
+            itemLists[i].itemMLGY.modifyFlag = false;
           }
-          console.log(data)
-          axios.post(url, data).then(
-            res => {
-              console.log(res)
-              if (itemType == "ls") {
-                for (let i = 0; i < this.ls.length; i++) {
-                  if (this.ls[i].productType != "LCB") {
-                    this.$set(this.ls[i], 'useamount', res.data.ls)
-                  }
-                }
-              } else if (itemType == "sha") {
-                for (let i = 0; i < this.sha.length; i++) {
-                  if (this.sha[i].productType != "LCB") {
-                    this.$set(this.sha[i], 'useamount', res.data.sha)
-                  }
-                }
-              }
-              liantou.fixType = this.fgChange(fg)
-            }
-          )
-        }
-        liantou.showFG = false
-      },
-      //隐藏列表
-      nolist() {
-        this.showGy = false
-      },
-      //窗帘模糊查询
-      onSearchWall() {
-        this.itemNolists = []
-        this.currentPage = 1
-        let url = this.url + "/item/searchCurtainItemTypeAll.do"
-        let data = {
-          "limit": 26,
-          "page": this.currentPage,
-          "itemType": this.productType,
-          "itemNO": this.inputValue //模糊查询的内容
-        }
-        axios.post(url, data).then(
-          res => {
-            console.log(res)
-            this.itemNolists = res.data.data
-            if (this.itemNolists.length == 0) {
-              this.itemNolists = []
-              this.currentPage = 1
-              this.totalPage = 1
-              Toast({
-                duration: 2000,
-                message: "暂无查询结果"
-              })
+          //物料是否可更换
+          if (itemLists[i].itemMLGY.itemType == "lt") {
+            //帘头部分，除了productType为KS的不可更换，其他的都可以更换
+            if (itemLists[i].itemMLGY.productType == "KS") {
+              itemLists[i].itemMLGY.changeFlag = false;
             } else {
-              this.totalPage = parseInt(this.itemNolists[0].total / 10) + 1
+              itemLists[i].itemMLGY.changeFlag = true;
+            }
+          } else {
+            if (itemLists[i].itemMLGY.changeFlag == "Y") {
+              itemLists[i].itemMLGY.changeFlag = true;
+            } else {
+              itemLists[i].itemMLGY.changeFlag = false;
             }
           }
-        )
-      },
-      //改变页数
-      changePage() {
-        if (this.pageMark == this.totalPage) {
-          this.changeXh(this.itemType, this.index, this.productType, this.changeFlag, this.itemMLGY)
-        } else {
-          this.onSearchWall(this.inputValue)
+          //物料是否可删除
+          if (itemLists[i].itemMLGY.deleteFlag == "Y") {
+            itemLists[i].itemMLGY.deleteFlag = true;
+          } else {
+            itemLists[i].itemMLGY.deleteFlag = false;
+          }
+          if (itemLists[i].itemMLGY.itemType == "lt") {
+            if (itemLists[i].itemMLGY.productType == "LCB") {
+              this.$set(itemLists[i], "useamount", res.data.LCB);
+            } else if (itemLists[i].itemMLGY.productType == "XHB") {
+              this.$set(itemLists[i], "useamount", res.data.XHBlt);
+            } else {
+              this.$set(itemLists[i], "useamount", res.data.lt);
+            }
+            this.$set(itemLists[i], "LtZz", "未选");
+            this.$set(itemLists[i], "showLtZz", false);
+            this.lt.push(itemLists[i]);
+          } else if (itemLists[i].itemMLGY.itemType == "ls") {
+            if (itemLists[i].itemMLGY.productType == "LCB") {
+              this.$set(itemLists[i], "useamount", res.data.LCB);
+            } else if (itemLists[i].itemMLGY.productType == "XHB") {
+              this.$set(itemLists[i], "useamount", res.data.XHBls);
+            } else {
+              this.$set(itemLists[i], "useamount", res.data.ls);
+            }
+            //制造说明
+            if (itemLists[i].itemMLGY.productType == "ML") {
+              this.$set(itemLists[i], "MlZz", "未选");
+              this.$set(itemLists[i], "showMlZz", false);
+            }
+            this.ls.push(itemLists[i]);
+          } else if (itemLists[i].itemMLGY.itemType == "sha") {
+            if (itemLists[i].itemMLGY.productType == "LCB") {
+              this.$set(itemLists[i], "useamount", res.data.LCB);
+            } else {
+              this.$set(itemLists[i], "useamount", res.data.sha);
+            }
+            //制造说明
+            if (itemLists[i].itemMLGY.productType == "ML") {
+              this.$set(itemLists[i], "MlZz", "未选");
+              this.$set(itemLists[i], "showMlZz", false);
+            }
+            this.sha.push(itemLists[i]);
+          } else if (itemLists[i].itemMLGY.itemType == "pjb") {
+            if (itemLists[i].itemMLGY.productType == "LCB") {
+              this.$set(itemLists[i], "useamount", res.data.LCB);
+            } else {
+              this.$set(itemLists[i], "useamount", res.data.pjb);
+            }
+            //制造说明
+            if (itemLists[i].itemMLGY.productType == "ML") {
+              this.$set(itemLists[i], "MlZz", "未选");
+              this.$set(itemLists[i], "showMlZz", false);
+            }
+            this.pjb.push(itemLists[i]);
+          }
         }
-      },
-      //选择改变的型号
-      selthisItemNo(item) {
-        //说明字段
-        if (this.productType == "ML") {
-          item.notes = "非标配"
+        console.log(this.lt, this.ls, this.sha, this.pjb);
+      });
+    },
+    //改变型号类型
+    changeXh(itemType, index, productType, changeFlag, itemMLGY, useamount) {
+      this.inputValue = "";
+      this.itemType = itemType;
+      this.index = index;
+      this.productType = productType;
+      this.changeFlage = itemMLGY.changeFlag;
+      this.itemMLGY = itemMLGY;
+      this.useamount = useamount;
+      if (this.showGy == false) {
+        this.currentPage = 1;
+      }
+      this.itemNolists = [];
+      if (changeFlag) {
+        if (productType == "ML") {
+          this.type = "面料";
+        } else if (productType == "LCB") {
+          this.type = "里衬布";
+        } else if (productType == "PJB") {
+          this.type = "配件包";
         }
-        if (this.productType == "ML" || this.productType == "XHB") {
-          let url = this.url + "/item/changeCurtainItem.do"
+        if (productType != "GY") {
+          let url = this.url + "/item/getCurtainItemTypeAll.do";
           let data = {
-            "width": this.$route.params.width, //成品宽度
-            "height": this.$route.params.height, //成品高度
-            "WBH": this.$route.params.WBH,  //帘头外包盒宽度
-            "multiple": this.$route.params.multiple, //褶皱倍数
-            "parentItemNo": this.$route.params.itemNO,
-            "itemNO": item.itemNo,
-            "itemType": this.itemType,
-            "fixType": item.fixType //01--定宽，02--定高，如果客户没有修改也要传入默认值，不能为空
-          }
-          axios.post(url, data).then(
-            res => {
-              console.log(res)
-              res.data.item.itemMLGY = this.itemMLGY  //为了保留是否可改变的三个字段
-              res.data.item.fixType = this.fgChange(res.data.item.fixType)
-              this.$set(res.data.item, 'showFG', false)
-              if (this.itemType == "ls") {
-                //制造说明
-                if (res.data.item.productType == "ML") {
-                  this.$set(this.ls[this.index], 'MlZz', "未选")
-                  this.$set(this.ls[this.index], 'showMlZz', false)
-                }
-                this.$set(this.ls, this.index, res.data.item);
-                for (let i = 0; i < this.ls.length; i++) {
-                  if (this.ls[i].productType != "LCB") {
-                    this.$set(this.ls[i], 'useamount', res.data.ls)
-                  } else if (this.ls[i].productType == "XHB") {
-                    this.$set(this.ls[i], 'useamount', this.useamount)
-                  }
-                }
-              } else if (this.itemType == "sha") {
-                //制造说明
-                if (res.data.item.productType == "ML") {
-                  this.$set(this.sha[this.index], 'MlZz', "未选")
-                  this.$set(this.sha[this.index], 'showMlZz', false)
-                }
-                this.$set(this.sha, this.index, res.data.item);
-                for (let i = 0; i < this.sha.length; i++) {
-                  if (this.sha[i].productType != "LCB") {
-                    this.$set(this.sha[i], 'useamount', res.data.sha)
-                  }
-                }
-              } else if (this.itemType == "lt") {
-                //制造说明
-                this.$set(this.lt[this.index], 'LtZz', "未选")
-                this.$set(this.lt[this.index], 'showLtZz', false)
-                this.$set(this.lt, this.index, res.data.item);
-                for (let i = 0; i < this.lt.length; i++) {
-                  if (this.lt[i].productType == "XHB") {
-                    console.log(this.useamount)
-                    this.$set(this.lt[i], 'useamount', this.useamount)
-                  }
-                }
-              }
-            }
-          )
+            limit: 26,
+            page: this.currentPage,
+            itemNO: productType
+          };
+          axios.post(url, data).then(res => {
+            console.log(res);
+            this.itemNolists = res.data.data;
+            this.totalPage = parseInt(this.itemNolists[0].total / 10) + 1;
+            this.pageMark = this.totalPage;
+          });
+        } else {
+          let url = this.url + "/item/getGYList.do";
+          let data = {
+            itemNO: this.$route.params.itemNO //所属型号
+          };
+          axios.post(url, data).then(res => {
+            console.log(res);
+            this.itemNolists = res.data.itemList;
+            this.totalPage = 1;
+            this.pageMark = this.totalPage;
+            console.log(this.itemNolists);
+          });
         }
-        this.showGy = false
-      },
-      comfirmMakeDetails() {
-        this.showHeadMakeDetails = false;
-        this.showBodyMakeDetails = false;
-        this.showPartsPackage = false;
-      },
-      toCart() {
-
+        this.showGy = true;
       }
     },
-    created() {
-      this.selectThis()
+    //风格转码
+    fgChange(fg) {
+      if (fg == "01") {
+        return "定宽";
+      } else if (fg == "02") {
+        return "定高";
+      }
     },
-    watch: {
-      partsPackage: function (val, oldVal) {
-        if (val == "上样安装包(罗马杆+方轨)") {
-          this.partsPackageNum = "PJB-005";
+    //改变风格
+    changeFG(fg, itemType, liantou) {
+      if (fg != liantou.fixType) {
+        if (fg == "定宽") {
+          fg = "01";
+        } else if (fg == "定高") {
+          fg = "02";
         }
-        if (val == "上样安装包(方轨)") {
-          this.partsPackageNum = "PJB-003";
+        let url = this.url + "/item/changeCurtainItem.do";
+        let data = {
+          width: this.$route.params.width, //成品宽度
+          height: this.$route.params.height, //成品高度
+          WBH: this.$route.params.WBH, //帘头外包盒宽度
+          multiple: this.$route.params.multiple, //褶皱倍数
+          parentItemNo: this.$route.params.itemNO,
+          itemNO: liantou.itemNo,
+          itemType: itemType,
+          fixType: fg //01--定宽，02--定高，如果客户没有修改也要传入默认值，不能为空
+        };
+        console.log(data);
+        axios.post(url, data).then(res => {
+          console.log(res);
+          if (itemType == "ls") {
+            for (let i = 0; i < this.ls.length; i++) {
+              if (this.ls[i].productType != "LCB") {
+                this.$set(this.ls[i], "useamount", res.data.ls);
+              }
+            }
+          } else if (itemType == "sha") {
+            for (let i = 0; i < this.sha.length; i++) {
+              if (this.sha[i].productType != "LCB") {
+                this.$set(this.sha[i], "useamount", res.data.sha);
+              }
+            }
+          }
+          liantou.fixType = this.fgChange(fg);
+        });
+      }
+      liantou.showFG = false;
+    },
+    //隐藏列表
+    nolist() {
+      this.showGy = false;
+    },
+    //窗帘模糊查询
+    onSearchWall() {
+      this.itemNolists = [];
+      this.currentPage = 1;
+      let url = this.url + "/item/searchCurtainItemTypeAll.do";
+      let data = {
+        limit: 26,
+        page: this.currentPage,
+        itemType: this.productType,
+        itemNO: this.inputValue //模糊查询的内容
+      };
+      axios.post(url, data).then(res => {
+        console.log(res);
+        this.itemNolists = res.data.data;
+        if (this.itemNolists.length == 0) {
+          this.itemNolists = [];
+          this.currentPage = 1;
+          this.totalPage = 1;
+          Toast({
+            duration: 2000,
+            message: "暂无查询结果"
+          });
+        } else {
+          this.totalPage = parseInt(this.itemNolists[0].total / 10) + 1;
         }
-        if (val == "上样安装包(罗马杆)") {
-          this.partsPackageNum = "PJB-004";
-        }
-        if (val == "未选择配件包") {
-          this.partsPackageNum = "未选择配件包";
-        }
+      });
+    },
+    //改变页数
+    changePage() {
+      if (this.pageMark == this.totalPage) {
+        this.changeXh(
+          this.itemType,
+          this.index,
+          this.productType,
+          this.changeFlag,
+          this.itemMLGY
+        );
+      } else {
+        this.onSearchWall(this.inputValue);
+      }
+    },
+    //选择改变的型号
+    selthisItemNo(item) {
+      //说明字段
+      if (this.productType == "ML") {
+        item.notes = "非标配";
+      }
+      if (this.productType == "ML" || this.productType == "XHB") {
+        let url = this.url + "/item/changeCurtainItem.do";
+        let data = {
+          width: this.$route.params.width, //成品宽度
+          height: this.$route.params.height, //成品高度
+          WBH: this.$route.params.WBH, //帘头外包盒宽度
+          multiple: this.$route.params.multiple, //褶皱倍数
+          parentItemNo: this.$route.params.itemNO,
+          itemNO: item.itemNo,
+          itemType: this.itemType,
+          fixType: item.fixType //01--定宽，02--定高，如果客户没有修改也要传入默认值，不能为空
+        };
+        axios.post(url, data).then(res => {
+          console.log(res);
+          res.data.item.itemMLGY = this.itemMLGY; //为了保留是否可改变的三个字段
+          res.data.item.fixType = this.fgChange(res.data.item.fixType);
+          this.$set(res.data.item, "showFG", false);
+          if (this.itemType == "ls") {
+            //制造说明
+            if (res.data.item.productType == "ML") {
+              this.$set(this.ls[this.index], "MlZz", "未选");
+              this.$set(this.ls[this.index], "showMlZz", false);
+            }
+            this.$set(this.ls, this.index, res.data.item);
+            for (let i = 0; i < this.ls.length; i++) {
+              if (this.ls[i].productType != "LCB") {
+                this.$set(this.ls[i], "useamount", res.data.ls);
+              } else if (this.ls[i].productType == "XHB") {
+                this.$set(this.ls[i], "useamount", this.useamount);
+              }
+            }
+          } else if (this.itemType == "sha") {
+            //制造说明
+            if (res.data.item.productType == "ML") {
+              this.$set(this.sha[this.index], "MlZz", "未选");
+              this.$set(this.sha[this.index], "showMlZz", false);
+            }
+            this.$set(this.sha, this.index, res.data.item);
+            for (let i = 0; i < this.sha.length; i++) {
+              if (this.sha[i].productType != "LCB") {
+                this.$set(this.sha[i], "useamount", res.data.sha);
+              }
+            }
+          } else if (this.itemType == "lt") {
+            //制造说明
+            this.$set(this.lt[this.index], "LtZz", "未选");
+            this.$set(this.lt[this.index], "showLtZz", false);
+            this.$set(this.lt, this.index, res.data.item);
+            for (let i = 0; i < this.lt.length; i++) {
+              if (this.lt[i].productType == "XHB") {
+                console.log(this.useamount);
+                this.$set(this.lt[i], "useamount", this.useamount);
+              }
+            }
+          }
+        });
+      }
+      this.showGy = false;
+    },
+    comfirmMakeDetails() {
+      this.showHeadMakeDetails = false;
+      this.showBodyMakeDetails = false;
+      this.showPartsPackage = false;
+    },
+    toCart() {}
+  },
+  created() {
+    this.selectThis();
+  },
+  watch: {
+    partsPackage: function(val, oldVal) {
+      if (val == "上样安装包(罗马杆+方轨)") {
+        this.partsPackageNum = "PJB-005";
+      }
+      if (val == "上样安装包(方轨)") {
+        this.partsPackageNum = "PJB-003";
+      }
+      if (val == "上样安装包(罗马杆)") {
+        this.partsPackageNum = "PJB-004";
+      }
+      if (val == "未选择配件包") {
+        this.partsPackageNum = "未选择配件包";
       }
     }
   }
+};
 </script>
 
 <style scoped>
-  .single-curtain {
-    height: 100vh;
-    width: 375px;
-    overflow: scroll;
-    background-color: #f8f8f8;
-    font-size: 13px;
-  }
+.single-curtain {
+  height: 100vh;
+  width: 375px;
+  overflow: scroll;
+  background-color: #f8f8f8;
+  font-size: 13px;
+}
 
-  .curtain-item {
-    margin-bottom: 8px;
-    position: relative;
-  }
+.curtain-item {
+  margin-bottom: 8px;
+  position: relative;
+}
 
-  .contain {
-    margin-top: 60px;
-    margin-bottom: 60px;
-  }
+.contain {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
 
-  .select-this {
-    position: relative;
-    padding: 10px 15px;
-    background-color: white;
-  }
+.select-this {
+  position: relative;
+  padding: 10px 15px;
+  background-color: white;
+}
 
-  .title-item {
-    position: relative;
-    height: 20px;
-    line-height: 20px;
-    font-size: 13px;
-  }
+.title-item {
+  position: relative;
+  height: 20px;
+  line-height: 20px;
+  font-size: 13px;
+}
 
-  .title-item2 {
-    position: relative;
-    font-size: 13px;
-    height: 30px;
-    line-height: 30px;
-    border-bottom: 1px solid #f5f6f7;
-  }
+.title-item2 {
+  position: relative;
+  font-size: 13px;
+  height: 30px;
+  line-height: 30px;
+  border-bottom: 1px solid #f5f6f7;
+}
 
-  .title-item3 {
-    position: relative;
-    font-size: 13px;
-    height: 30px;
-    line-height: 30px;
-  }
+.title-item3 {
+  position: relative;
+  font-size: 13px;
+  height: 30px;
+  line-height: 30px;
+}
 
-  .title-left {
-    float: left;
-  }
+.title-left {
+  float: left;
+}
 
-  .title-right {
-    margin-right: 20px;
-    float: right;
-  }
+.title-right {
+  margin-right: 20px;
+  float: right;
+}
 
-  .title-right2 {
-    margin-right: 20px;
-  }
+.title-right2 {
+  margin-right: 20px;
+}
 
-  .title-right3 {
-    color: #007aff;
-    text-decoration: underline;
-  }
+.title-right3 {
+  color: #007aff;
+  text-decoration: underline;
+}
 
-  .use-num {
-    width: 100px;
-    height: 13px;
-    border: none;
-    text-align: right;
-  }
+.use-num {
+  width: 100px;
+  height: 13px;
+  border: none;
+  text-align: right;
+}
 
-  .curtain-beizhu {
-    width: 200px;
-    height: 13px;
-    border: none;
-    text-align: right;
-  }
+.curtain-beizhu {
+  width: 200px;
+  height: 13px;
+  border: none;
+  text-align: right;
+}
 
-  .item-icon {
-    position: absolute;
-    width: 15px;
-    height: 30px;
-    right: 0;
-    background: url("../assetsorder/more.png") center no-repeat;
-    background-size: 12px 12px;
-  }
+.item-icon {
+  position: absolute;
+  width: 15px;
+  height: 30px;
+  right: 0;
+  background: url("../assetsorder/more.png") center no-repeat;
+  background-size: 12px 12px;
+}
 
-  .item-icon2 {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    right: 0;
-    background: url("../assetsorder/del.png") center no-repeat;
-    background-size: 15px 15px;
-  }
+.item-icon2 {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 0;
+  background: url("../assetsorder/del.png") center no-repeat;
+  background-size: 15px 15px;
+}
 
-  .select-this input {
-    width: 50px;
-    border: none;
+.select-this input {
+  width: 50px;
+  border: none;
+}
 
-  }
+.select-this .need-head {
+  width: 80px;
+  text-align: right;
+  /*margin-left: 20px;*/
+}
 
-  .select-this .need-head {
-    width: 80px;
-    text-align: right;
-    /*margin-left: 20px;*/
-  }
+.select-this .position {
+  width: 130px;
+}
 
-  .select-this .position {
-    width: 130px;
-  }
+/*选择褶皱倍数*/
+.select-multiple {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("../assetsorder/more.png") no-repeat center;
+  background-size: 100% 100%;
+}
 
-  /*选择褶皱倍数*/
-  .select-multiple {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background: url("../assetsorder/more.png") no-repeat center;
-    background-size: 100% 100%;
-  }
+.select-this tr {
+  /*height: 30px;*/
+  /*padding: 5px;*/
+}
 
-  .select-this tr {
-    /*height: 30px;*/
-    /*padding: 5px;*/
-  }
+.select-this th {
+  text-align: left;
+  width: 170px;
+}
 
-  .select-this th {
-    text-align: left;
-    width: 170px;
-  }
+.select-this td {
+  text-align: left;
+}
 
-  .select-this td {
-    text-align: left;
-  }
+.select-this-bottom {
+  height: 50px;
+  line-height: 50px;
+  text-align: right;
+}
 
-  .select-this-bottom {
-    height: 50px;
-    line-height: 50px;
-    text-align: right;
-  }
+.select-this-bottom span {
+  width: 100px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: #89cb81;
+  color: white;
+}
 
-  .select-this-bottom span {
-    width: 100px;
-    padding: 10px 20px;
-    border-radius: 20px;
-    background: #89cb81;
-    color: white;
-  }
+.show-multiple .van-cell-group {
+  height: 300px;
+  overflow: scroll;
+  margin-bottom: 50px;
+}
 
-  .show-multiple .van-cell-group {
-    height: 300px;
-    overflow: scroll;
-    margin-bottom: 50px;
-  }
+.head-make-details .van-cell-group {
+  height: 220px;
+  overflow: scroll;
+  width: 290px;
+}
 
-  .head-make-details .van-cell-group {
-    height: 220px;
-    overflow: scroll;
-    width: 290px;
-  }
+.head-make-details .van-popup--center {
+  border-radius: 5px;
+}
 
-  .head-make-details .van-popup--center {
-    border-radius: 5px;
-  }
+.body-make-details .van-cell-group {
+  height: 210px;
+  overflow: scroll;
+  margin-bottom: 50px;
+}
 
-  .body-make-details .van-cell-group {
-    height: 210px;
-    overflow: scroll;
-    margin-bottom: 50px;
-  }
+.comfirm-bottom {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background: #89cb81;
+  position: fixed;
+  bottom: 0;
+  z-index: 99;
+}
 
-  .comfirm-bottom {
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    background: #89cb81;
-    position: fixed;
-    bottom: 0;
-    z-index: 99;
-  }
+.comfirm-bottom span {
+  color: white;
+  font-size: 20px;
+}
+.nav-tip {
+  height: 30px;
+  line-height: 30px;
+  background: #f8f8f8;
+}
 
-  .comfirm-bottom span {
-    color: white;
-    font-size: 20px;
-  }
+.nav-tip span {
+  margin: 0 20px;
+}
 
-  .show-result {
-    /*padding: 10px;*/
-  }
+.del-this {
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  font-size: 15px;
+  z-index: 9;
+}
 
-  .nav-tip {
-    height: 30px;
-    line-height: 30px;
-    background: #f8f8f8;
-  }
+/*帘头*/
+.curtain-head,
+.curtain-body,
+.gauze,
+.parts {
+  background: white;
+  border-radius: 8px;
+}
 
-  .nav-tip span {
-    margin: 0 20px;
-  }
+.type-head {
+  height: 30px;
+  line-height: 30px;
+  position: relative;
+  /*background: #89cb81;*/
+  /*color: white;*/
+  border-bottom: 1px solid #ececec;
+}
 
-  .del-this {
-    position: absolute;
-    top: 10px;
-    right: 40px;
-    font-size: 15px;
-    z-index: 9;
-  }
+.curtain-list-icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 25px;
+  top: 10px;
+}
 
-  /*帘头*/
-  .curtain-head, .curtain-body, .gauze, .parts {
-    background: white;
-    border-radius: 8px;
-  }
+.delete {
+  width: 20px;
+  height: 20px;
+  float: right;
+  margin-right: 50px;
+  margin-top: 5px;
+}
 
-  .type-head {
-    height: 30px;
-    line-height: 30px;
-    position: relative;
-    /*background: #89cb81;*/
-    /*color: white;*/
-    border-bottom: 1px solid #ececec;
-  }
+.type-title {
+  float: left;
+  margin-left: 50px;
+  font-size: 15px;
+  font-weight: bold;
+}
 
-  .curtain-list-icon {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    left: 25px;
-    top: 10px;
-  }
+/*详细细节*/
+.content {
+  padding: 0px 10px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  border: 1px solid #a0cb8d;
+}
 
-  .delete {
-    width: 20px;
-    height: 20px;
-    float: right;
-    margin-right: 50px;
-    margin-top: 5px;
-  }
+.cntent-item1 span {
+  display: inline-block;
+  margin: 5px 20px;
+}
 
-  .type-title {
-    float: left;
-    margin-left: 50px;
-    font-size: 15px;
-    font-weight: bold;
-  }
+.select-make-details {
+  /*float: right;*/
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("../assetsorder/more.png") no-repeat center;
+  background-size: 100% 100%;
+}
 
-  /*详细细节*/
-  .content {
-    padding: 0px 10px;
-    border-radius: 5px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    border: 1px solid #a0cb8d;
-  }
+.item-left {
+  text-align: left;
+  width: 113px;
+}
 
-  .cntent-item1 span {
-    display: inline-block;
-    margin: 5px 20px;
-  }
+.item-right {
+  width: 55px;
+  text-align: right;
+}
 
-  .select-make-details {
-    /*float: right;*/
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background: url("../assetsorder/more.png") no-repeat center;
-    background-size: 100% 100%;
-  }
+.mark {
+  text-align: left;
+  position: relative;
+}
 
-  .item-left {
-    text-align: left;
-    width: 113px;
-  }
+.mark-title {
+  padding-left: 2px;
+}
 
-  .item-right {
-    width: 55px;
-    text-align: right;
-  }
+.mark-content {
+  position: absolute;
+  width: 180px;
+  border: none;
+  top: 2px;
+  left: 120px;
+}
 
-  .mark {
-    text-align: left;
-    position: relative;
-  }
+.shop-btn {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #89cb81;
+  line-height: 50px;
+  color: white;
+  font-size: 20px;
+  z-index: 99;
+}
 
-  .mark-title {
-    padding-left: 2px;
-  }
+.show-gy {
+  width: 100%;
+  height: 100%;
+}
 
-  .mark-content {
-    position: absolute;
-    width: 180px;
-    border: none;
-    top: 2px;
-    left: 120px;
-  }
+.coupon-title {
+  background: #363636;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  top: 0;
+  color: white;
+  font-size: 15px;
+  position: fixed;
+}
 
-  .shop-btn {
-    width: 100%;
-    height: 50px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background: #89cb81;
-    line-height: 50px;
-    color: white;
-    font-size: 20px;
-    z-index: 99;
-  }
+.backCoupon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 17px;
+  top: 50%;
+  margin-top: -10px;
+}
 
-  .show-gy {
-    width: 100%;
-    height: 100%;
-  }
+.searchtop {
+  height: 50px;
+  /*overflow: hidden;*/
+  /*position: fixed;*/
+  top: 0;
+}
 
-  .coupon-title {
-    background: #363636;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    top: 0;
-    color: white;
-    font-size: 15px;
-    position: fixed;
-  }
+.img {
+  width: 20px;
+  height: 20px;
+  z-index: 999;
+  position: fixed;
+  left: 17px;
+  top: 12px;
+}
 
-  .backCoupon {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    left: 17px;
-    top: 50%;
-    margin-top: -10px;
-  }
+.itemNolist {
+  display: inline-block;
+  width: 45%;
+  margin: 5px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #89cb81;
+}
 
-  .searchtop {
-    height: 50px;
-    /*overflow: hidden;*/
-    /*position: fixed;*/
-    top: 0;
-  }
+.fy-bottom {
+  border-top: 1px solid #d8d8d8;
+  background: #f8f8f8;
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  bottom: 0;
+  color: white !important;
+}
+.fy-bottom .van-pagination__item {
+  color: #89cb81;
+}
+.show-FG .van-cell-group {
+  height: 96px;
+  width: 280px;
+  overflow: scroll;
+}
 
-  .img {
-    width: 20px;
-    height: 20px;
-    z-index: 999;
-    position: fixed;
-    left: 17px;
-    top: 12px;
-  }
-
-  .itemNolist {
-    display: inline-block;
-    width: 45%;
-    margin: 5px;
-    height: 30px;
-    line-height: 30px;
-    border: 1px solid #89cb81;
-  }
-
-  .fy-bottom {
-    border-top: 1px solid #d8d8d8;
-    background: #f8f8f8;
-    position: absolute;
-    width: 100%;
-    height: 50px;
-    bottom: 0;
-    color: white !important;
-  }
-
-  .fy-bottom .van-pagination__item {
-    color: #89cb81;
-  }
-
-  .all-itemlists {
-    /*margin-top: 50px;*/
-  }
-
-  .show-FG .van-cell-group {
-    height: 96px;
-    width: 280px;
-    overflow: scroll;
-  }
-
-  .show-FG .van-popup--center {
-    border-radius: 5px;
-  }
-</style>
-<style>
-
+.show-FG .van-popup--center {
+  border-radius: 5px;
+}
 </style>

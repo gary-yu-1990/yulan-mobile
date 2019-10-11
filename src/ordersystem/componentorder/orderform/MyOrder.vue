@@ -15,7 +15,6 @@
       </div>
       <div class="search">
         <ul class="ulhead" id="ulhead">
-          <!--<li class="lileft">提交时间</li>-->
           <li class="licenter" @click="showks = true">
             <input class="time time-ks" type="text" v-model="ksDataSet" disabled />
           </li>
@@ -202,23 +201,15 @@ export default {
   },
   methods: {
     confirmTimejs(value) {
-      console.log(value);
       this.jsSet(this.jsData);
       this.showjs = false;
-      // this.onConfirm(value);
-      console.log(this.myStatu);
     },
     confirmTimeks(value) {
-      console.log(value);
       this.ksSet2(this.ksData);
       this.showks = false;
-      // this.onConfirm(value);
-      console.log(this.myStatu);
     },
-
     //结束时间设置
     jsSet(time) {
-      // console.log(this.ksData)
       let current_date = time.getDate();
       let current_month = time.getMonth() + 1;
       let current_year = time.getFullYear();
@@ -226,7 +217,6 @@ export default {
     },
     //开始时间设置
     ksSet2(time) {
-      // console.log(this.ksData)
       let current_date = time.getDate();
       let current_month = time.getMonth() + 1;
       let current_year = time.getFullYear();
@@ -234,7 +224,6 @@ export default {
     },
     //初始化开始时间(前三个月)
     ksSet(time) {
-      // console.log(this.ksData)
       let current_date = time.getDate();
       let current_month = time.getMonth() + 1;
       let current_year = time.getFullYear();
@@ -287,8 +276,6 @@ export default {
     orderSearch() {
       this.orderLists = [];
       this.loading = true;
-      // this.$store.commit('showLoading')
-      // console.log(this.currentPage,"C01613",this.statusExchange(this.myStatu),this.xhInput,this.ksDataSet + " 00:00:00",this.jsDataSet + " 23:59:59")
       let orderUrl = this.orderBaseUrl + "/order/getOrders.do";
       let data = {
         limit: "10", //每页限制条数（必须）
@@ -305,8 +292,6 @@ export default {
       };
       axios.post(orderUrl, data).then(data => {
         this.loading = false;
-        // console.log(this.currentPage,this.statusExchange(this.myStatu),this.ksDataSet,this.jsDataSet)
-        console.log(data);
         this.totalLists = data.data.count;
         //获取总页数
         this.totalPage = parseInt(data.data.count / 10) + 1;
@@ -319,7 +304,6 @@ export default {
         }
         for (let i = 0; i < this.orderLists.length; i++) {
           this.orderLists[i].showStatus = false;
-          console.log(this.orderLists[i].STATUS_ID);
           if (this.statusExchange(this.myStatu) == "0") {
             switch (this.orderLists[i].STATUS_ID) {
               case "0":

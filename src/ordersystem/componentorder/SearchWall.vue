@@ -16,9 +16,14 @@
     </div>
     <!--历史搜索-->
     <div v-show="showSearch" class="search-page">
-      <div class="recent-search-title">最近搜索</div>
-      <div>
-        <span class="currItem" v-for="(hisSearch,index) in historySearch" :key="index" @click="onSearchWall(hisSearch)">{{hisSearch}}</span>
+      <div class="recent-search-title">最近搜索:</div>
+      <div style="text-align:left">
+        <span
+          class="currItem"
+          v-for="(hisSearch,index) in historySearch"
+          :key="index"
+          @click="onSearchWall(hisSearch)"
+        >{{hisSearch}}</span>
       </div>
       <div v-if="historySearch" class="clear-search" @click="clearHistory">
         <span>清空历史搜索</span>
@@ -27,9 +32,7 @@
     <!--搜索结果-->
     <div class="search-result" v-show="!showSearch">
       <div class="single-wall" v-show="wallMegs.itemNo" @click="wallDetails">
-        <div class="wall-title">
-          墙纸、配套类
-        </div>
+        <div class="wall-title">墙纸、配套类</div>
         <table>
           <tr>
             <th>型号：</th>
@@ -46,12 +49,14 @@
           <tr>
             <th>品牌：</th>
             <td>{{wallMegs.productBrand}}</td>
-            <td class="show-kucun"><span @click.stop="checkKucun">查看库存</span></td>
+            <td class="show-kucun">
+              <span @click.stop="checkKucun">查看库存</span>
+            </td>
           </tr>
         </table>
       </div>
       <!--<div v-show="!wallMegs.itemNo">-->
-        <!--暂无查询结果-->
+      <!--暂无查询结果-->
       <!--</div>-->
     </div>
     <navBottom v-show="hidshow"></navBottom>
@@ -77,318 +82,283 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import {Search, Actionsheet,Toast,Loading} from 'vant';
-  import "../assetsorder/actionsheet.css"
-  import navBottom from '../../components/navBottom'
+import axios from "axios";
+import { Search, Actionsheet, Toast, Loading } from "vant";
+import "../assetsorder/actionsheet.css";
+import navBottom from "../../components/navBottom";
 
-  export default {
-    name: "",
-    data() {
-      return {
-        url:"http://106.13.32.172:8080/yulan-order",
-        //搜索框输入值
-        inputValue: "",
-        //显示库存
-        showKucun: false,
-        //库存信息
-        kcMsgs: [],
-        showSearch:true,//是否显示历史搜索结果
-        // historySearch:localStorage.historyItems.split("|"),//历史搜索内容
-        historySearch:null,//历史搜索内容
-        //是否有查询结果
-        resY: false,
-        resN: false,
-        //墙纸详情信息
-        wallMegs: {},
-        docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
-        showHeight: document.documentElement.clientHeight,   //实时屏幕高度
-        hidshow:true,  //显示或者隐藏footer
-        loading:false
-      }
+export default {
+  name: "",
+  data() {
+    return {
+      url: "http://106.13.32.172:8080/yulan-order",
+      //搜索框输入值
+      inputValue: "",
+      //显示库存
+      showKucun: false,
+      //库存信息
+      kcMsgs: [],
+      showSearch: true, //是否显示历史搜索结果
+      historySearch: null, //历史搜索内容
+      //是否有查询结果
+      resY: false,
+      resN: false,
+      //墙纸详情信息
+      wallMegs: {},
+      docmHeight: document.documentElement.clientHeight, //默认屏幕高度
+      showHeight: document.documentElement.clientHeight, //实时屏幕高度
+      hidshow: true, //显示或者隐藏footer
+      loading: false
+    };
+  },
+  components: {
+    [Search.name]: Search,
+    [Actionsheet.name]: Actionsheet,
+    [Toast.name]: Toast,
+    [Loading.name]: Loading,
+    navBottom
+  },
+  methods: {
+    back() {
+      this.$router.push({
+        path: "/shopstore"
+      });
     },
-    components: {
-      [Search.name]: Search,
-      [Actionsheet.name]: Actionsheet,
-      [Toast.name]: Toast,
-      [Loading.name]: Loading,
-      navBottom
-    },
-    methods: {
-      back() {
-        this.$router.push({
-          path:"/shopstore"
-        });
-      },
-      //查看墙纸库存
-      checkKucun() {
-        this.loading = true
-        let wallKcURL = this.orderBaseUrl + "/item/getStockShow.do";
-        let data = {
-          "itemNo": this.wallMegs.itemNo //产品型号，不能是旧的产品型号
-        }
-        axios.post(wallKcURL, data).then(
-          (data) => {
-            // console.log(data.data.data);
-            this.loading = false
-            if (data.data.data == "没有查询到数据") {
-              this.showKucun = false;
-              Toast({
-                duration: 2000,
-                message: '暂无库存信息'
-              })
-            } else {
-              this.showKucun = true
-            }
-              this.kcMsgs = data.data.data;
-            // console.log(this.kcMsgs);
-            //这里面axios的this不指向vue,所以在使用axios是最好使用es6箭头函数
-          }
-        )
-      },
-      //墙纸详情
-      wallDetails() {
-        // let xh = this.wallMegs.itemNo
-        this.$router.push({
-          name: "walldetails",
-          params: {
-            //墙纸类型,获取墙纸信息
-            papertype: this.wallMegs.oldItemNo
-          }
-        })
-        this.inputValue = ""
-        this.resY = false
-        this.resN = false
-      },
-      //墙纸查询
-      onSearchWall(inputValue) {
-        this.wallMegs = {}
-        this.loading = true
-        this.inputValue = inputValue
-        let wallUrl = this.orderBaseUrl + "/item/getWallpaperInfo.do";
-        let data = {
-          "paperType": inputValue,
-          // "cid": "C01613"
-          "cid": this.CID
-        }
-        axios.post(wallUrl, data).then(
-          (data) => {
-            console.log(data);
-            this.wallMegs = data.data.data
-            if (data.data.code == 0) {
-              this.resY = true
-              this.resN = false
-              this.loading = false
-            } else {
-              this.loading = false
-              this.resY = false
-              this.resN = true
-              Toast({
-                duration: 2000,
-                message: "暂无查询结果"
-              })
-            }
-          }
-        )
-        this.showSearch = false
-        this.setHistoryItems(this.inputValue)
-      },
-      setHistoryItems(keyword) {
-        keyword = keyword.trim();
-        let { historyItems } = localStorage;
-        if (historyItems === undefined) {
-          localStorage.historyItems = keyword;
+    //查看墙纸库存
+    checkKucun() {
+      this.loading = true;
+      let wallKcURL = this.orderBaseUrl + "/item/getStockShow.do";
+      let data = {
+        itemNo: this.wallMegs.itemNo //产品型号，不能是旧的产品型号
+      };
+      axios.post(wallKcURL, data).then(data => {
+        this.loading = false;
+        if (data.data.data == "没有查询到数据") {
+          this.showKucun = false;
+          Toast({
+            duration: 2000,
+            message: "暂无库存信息"
+          });
         } else {
-          const onlyItem = historyItems.split('|').filter(e => e != keyword);
-          if (onlyItem.length > 0) historyItems = keyword + '|' + onlyItem.join('|');
-          localStorage.historyItems = historyItems;
+          this.showKucun = true;
         }
-        this.historySearch = localStorage.historyItems.split("|")
-        console.log(localStorage.historyItems,this.historySearch)
-      },
-      //清空历史搜索
-      clearHistory(){
-        localStorage.removeItem('historyItems');
-        this.historySearch = localStorage.historyItems
-      },
+        this.kcMsgs = data.data.data;
+        //这里面axios的this不指向vue,所以在使用axios是最好使用es6箭头函数
+      });
     },
-    computed: {
-      filteredProduct() {
-        return this.products.filter((product) => {
-          // console.log(product);
-          return product.type.match(this.inputValue);
-        })
-      },
-      //获取用户cid
-      CID() {
-        // if (this.$store.state.info.data.type != 'ECWEB') {
-        //   return this.$store.state.CCID;
-        // } else {
-        //   return this.$store.state.info.data.loginName
-        // }
-        return this.$store.state.info.data.loginName
-      }
-    },
-    created(){
-      if (localStorage.historyItems == undefined) {
-        this.historySearch = ""
-      }else {
-        this.historySearch = localStorage.historyItems.split("|")
-      }
-      console.log(localStorage.historyItems)
-    },
-    mounted() {
-      // window.onresize监听页面高度的变化
-      window.onresize = ()=>{
-        return(()=>{
-          this.showHeight = document.body.clientHeight;
-        })()
-      }
-    },
-    watch:{
-      showHeight:function() {
-        if(this.docmHeight > this.showHeight){
-          this.hidshow=false
-        }else{
-          this.hidshow=true
+    //墙纸详情
+    wallDetails() {
+      // let xh = this.wallMegs.itemNo
+      this.$router.push({
+        name: "walldetails",
+        params: {
+          //墙纸类型,获取墙纸信息
+          papertype: this.wallMegs.oldItemNo
         }
+      });
+      this.inputValue = "";
+      this.resY = false;
+      this.resN = false;
+    },
+    //墙纸查询
+    onSearchWall(inputValue) {
+      this.wallMegs = {};
+      this.loading = true;
+      this.inputValue = inputValue;
+      let wallUrl = this.orderBaseUrl + "/item/getWallpaperInfo.do";
+      let data = {
+        paperType: inputValue,
+        // "cid": "C01613"
+        cid: this.CID
+      };
+      axios.post(wallUrl, data).then(data => {
+        this.wallMegs = data.data.data;
+        if (data.data.code == 0) {
+          this.resY = true;
+          this.resN = false;
+          this.loading = false;
+        } else {
+          this.loading = false;
+          this.resY = false;
+          this.resN = true;
+          Toast({
+            duration: 2000,
+            message: "暂无查询结果"
+          });
+        }
+      });
+      this.showSearch = false;
+      this.setHistoryItems(this.inputValue);
+    },
+    setHistoryItems(keyword) {
+      keyword = keyword.trim();
+      if(!keyword) return;
+      let { historyItems } = localStorage;
+      if (historyItems === undefined) {
+        localStorage.historyItems = keyword;
+      } else {
+        const onlyItem = historyItems.split("|").filter(e => e != keyword);
+        if (onlyItem.length > 0)
+          historyItems = keyword + "|" + onlyItem.join("|");
+        localStorage.historyItems = historyItems;
+      }
+      this.historySearch = localStorage.historyItems.split("|");
+    },
+    //清空历史搜索
+    clearHistory() {
+      localStorage.removeItem("historyItems");
+      this.historySearch = localStorage.historyItems;
+    }
+  },
+  computed: {
+    filteredProduct() {
+      return this.products.filter(product => {
+        return product.type.match(this.inputValue);
+      });
+    },
+    //获取用户cid
+    CID() {
+      return this.$store.state.info.data.loginName;
+    }
+  },
+  created() {
+    if (localStorage.historyItems == undefined) {
+      this.historySearch = "";
+    } else {
+      this.historySearch = localStorage.historyItems.split("|");
+    }
+  },
+  mounted() {
+    // window.onresize监听页面高度的变化
+    window.onresize = () => {
+      return (() => {
+        this.showHeight = document.body.clientHeight;
+      })();
+    };
+  },
+  watch: {
+    showHeight: function() {
+      if (this.docmHeight > this.showHeight) {
+        this.hidshow = false;
+      } else {
+        this.hidshow = true;
       }
     }
-
   }
+};
 </script>
 
 <style scoped>
-  .search-order {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    top: 0px;
-    background-color: #f8f8f8;
-    overflow: scroll;
-  }
-  .img {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    z-index: 999;
-    position: absolute;
-    left: 17px;
-    top: 12px;
-    background-image: url(http://14.29.221.109:10250/upload/assets/arrow.png);
-    background-repeat: no-repeat;
-    background-size: contain;
+.search-order {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  background-color: #f8f8f8;
+  overflow: scroll;
+}
+.img {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  z-index: 999;
+  position: absolute;
+  left: 17px;
+  top: 12px;
+  background-image: url(../../assets/arrow.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.searchtop {
+  height: 50px;
+}
+.search-page ul {
+  text-align: left;
+  margin: 0 15px;
+}
+.recent-search li {
+  height: 35px;
+  line-height: 35px;
+  border-bottom: 1px solid rgb(250, 255, 248);
+}
+.single-wall {
+  font-size: 15px;
+  margin: 20px 20px;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(19, 19, 19, 0.2),
+    0 6px 20px 0 rgba(12, 12, 12, 0.19);
+}
 
-  }
+.single-wall th,
+.single-wall td {
+  text-align: left;
+}
 
-  .searchtop {
-    height: 50px;
-  }
+.wall-title {
+  /*text-align: left;*/
+  margin-bottom: 5px;
+  padding: 10px;
+  border-bottom: 1px solid #ebedf0;
+  font-size: 16px;
+  padding: 10px;
+  background: #a0cb8d;
+  color: white;
+}
 
-  .search-page ul, .recent-search-title {
-    text-align: left;
-    margin: 0 15px;
-  }
+.show-kucun {
+  width: 120px;
+  text-align: right !important;
+}
 
-  /*.recent-search{*/
-  /*font-size: 15px;*/
-  /*color: #8B8B7A;*/
-  /*margin-top: 15px;*/
-  /*}*/
+.show-kucun span {
+  display: inline-block;
+  width: 80px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 15px;
+  color: white;
+  background: #a0cb8d;
+  font-size: 13px;
+}
 
-  .recent-search li {
-    height: 35px;
-    line-height: 35px;
-    border-bottom: 1px solid rgb(250, 255, 248);
-  }
+.kucun-result table {
+  font-size: 15px;
+  /*padding: 20px;*/
+  margin: 10px 0 70px 0;
+  border-collapse: collapse;
+  border: none;
+}
 
-  /*.clear-search{*/
-  /*width:150px;*/
-  /*height: 50px;*/
-  /*line-height: 50px;*/
-  /*margin: 40px auto;*/
-  /*border-radius: 30px;*/
-  /*border: 1px solid #8B8B7A;*/
-  /*}*/
-
-  .single-wall {
-    font-size: 15px;
-    margin: 20px 20px;
-    border-radius: 10px;
-    padding: 10PX;
-    box-shadow: 0 4px 8px 0 rgba(19, 19, 19, 0.2), 0 6px 20px 0 rgba(12, 12, 12, 0.19);
-  }
-
-  .single-wall th, .single-wall td {
-    text-align: left;
-  }
-
-  .wall-title {
-    /*text-align: left;*/
-    margin-bottom: 5px;
-    padding:10px;
-    border-bottom: 1px solid #ebedf0;
-    font-size: 16px;
-    padding: 10px;
-    background: #a0cb8d;
-    color: white;
-  }
-
-  .show-kucun {
-    width: 120px;
-    text-align: right !important;
-  }
-
-  .show-kucun span {
-    display: inline-block;
-    width: 80px;
-    height: 25px;
-    line-height: 25px;
-    text-align: center;
-    border-radius: 15px;
-    color: white;
-    background: #a0cb8d;
-    font-size: 13px;
-  }
-
-  .kucun-result table {
-    font-size: 15px;
-    /*padding: 20px;*/
-    margin:10px 0 70px 0;
-    border-collapse: collapse;
-    border: none;
-  }
-
-  .kucun-result table th,.kucun-result table td{
-    border: solid #000 1px;
-  }
-  .kucun-item {
-    padding: 10px 0;
-  }
-  .recent-search-title{
-    text-align: left;
-    margin: 0 15px;
-    font-size: 15px;
-
-  }
-
-
-  .currItem {
-    display: inline-block;
-    padding: 5px 15px;
-    background: rgba(229, 229, 229, 0.8);
-    border-radius: 15px;
-    margin: 10px;
-    font-size: 13px;
-    /* float: left; */
-  }
-  .clear-search{
-    width:150px;
-    height: 50px;
-    line-height: 50px;
-    margin: 80px auto;
-    border-radius: 30px;
-    border: 1px solid #a0cb8d;
-    clear: both;
-  }
+.kucun-result table th,
+.kucun-result table td {
+  border: solid #000 1px;
+}
+.kucun-item {
+  padding: 10px 0;
+}
+.recent-search-title {
+  text-align: left;
+  margin: 10px 15px;
+  font-size: 15px;
+}
+.currItem {
+  display: inline-block;
+  padding: 5px 15px;
+  background: rgba(229, 229, 229, 0.8);
+  border-radius: 15px;
+  margin: 10px;
+  font-size: 13px;
+  /* float: left; */
+}
+.clear-search {
+  width: 150px;
+  height: 50px;
+  line-height: 50px;
+  margin: 50px auto;
+  border-radius: 30px;
+  border: 1px solid #a0cb8d;
+  clear: both;
+}
 </style>

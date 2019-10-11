@@ -29,7 +29,6 @@
         <div class="option1">
           <div class="top-div">
             <div class="item-box">
-              <!-- <p>待审核</p> -->
               <div class="item-img1"></div>
             </div>
           </div>
@@ -37,13 +36,11 @@
             <p class="middle-div-p">墙纸配套类产品</p>
             <div class="right-arrow"></div>
           </div>
-          <!--<div class="bottom-div"></div>-->
         </div>
 
         <div class="option2">
           <div class="top-div">
             <div class="item-box active-item">
-              <!-- <p>已通过</p> -->
               <div class="item-img2"></div>
             </div>
           </div>
