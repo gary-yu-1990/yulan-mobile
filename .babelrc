@@ -15,5 +15,9 @@
     "libraryDirectory": "es",
     "style": true
     }]
+],
+"ignore": [
+  "src/assets/mui/js/mui.js",
+  "src/assets/mui/js/mui.min.js"
 ]
 }
