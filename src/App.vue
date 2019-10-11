@@ -36,6 +36,11 @@ export default {
   components: {
     [Loading.name]: Loading
   },
+  mounted(){
+    window.onpopstate = () => {
+      history.go(1);//阻止页面后退
+    };
+  },
   computed: {
     ...mapState(["LOADING"])
   }

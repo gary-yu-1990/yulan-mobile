@@ -80,8 +80,7 @@ import WtDetails from '@/ordersystem/componentorder/Wtph/WtDetails'
 import TuiHuoLists from '@/ordersystem/componentorder/tuiHuo/TuiHuoLists'
 import TuiHDetails from '@/ordersystem/componentorder/tuiHuo/TuiHDetails'
 Vue.use(Router)
-
-export default new Router({
+var router = new Router({
   routes: [
     {
       path: '/Sign',
@@ -428,4 +427,11 @@ export default new Router({
       component: TuiHDetails,
     },
   ]
-})
+});
+//路由守卫
+router.beforeEach((to, from, next) => {
+  next();
+      history.pushState(null, null, location.href);//禁止后退，搭配APP.VUE里面的mounted
+
+});
+export default router;
