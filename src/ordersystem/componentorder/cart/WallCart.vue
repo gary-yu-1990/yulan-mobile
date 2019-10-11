@@ -157,7 +157,8 @@ export default {
           height: this.cartlist[index].commodities[inndex].height, //高度
           note: this.cartlist[index].commodities[inndex].note,
           tip: this.cartlist[index].commodities[inndex].newsplitShipment,
-          price: this.cartlist[index].commodities[inndex].price
+          price: this.cartlist[index].commodities[inndex].price,
+          from: "mycart/wallcart"
         }
       });
     },

@@ -47,6 +47,10 @@
             <td>{{wallMegs.itemVersion}}</td>
           </tr>
           <tr>
+            <th>名称：</th>
+            <td>{{wallMegs.note}}</td>
+          </tr>
+          <tr>
             <th>品牌：</th>
             <td>{{wallMegs.productBrand}}</td>
             <td class="show-kucun">
@@ -167,12 +171,13 @@ export default {
       this.inputValue = inputValue;
       let wallUrl = this.orderBaseUrl + "/item/getWallpaperInfo.do";
       let data = {
-        paperType: inputValue,
+        paperType: inputValue.toUpperCase(),
         // "cid": "C01613"
         cid: this.CID
       };
       axios.post(wallUrl, data).then(data => {
         this.wallMegs = data.data.data;
+        this.wallMegs.note = this.wallMegs.itemType.note;
         if (data.data.code == 0) {
           this.resY = true;
           this.resN = false;

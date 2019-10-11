@@ -186,7 +186,7 @@ var router = new Router({
       path: '/swiper',
       name: 'Swiper',
       component: Swiper,
-      meta: {keepAlive: true}
+      meta: { keepAlive: true }
     },
     {
       path: '/proimage',
@@ -282,13 +282,13 @@ var router = new Router({
       component: SearchSoft,
       redirect: '/searchsoft/hbian',
       children: [
-        {path: '/searchsoft/bzhen', name: 'bzhen', component: Bzhen},
-        {path: '/searchsoft/ghua', name: 'ghua', component: Ghua},
-        {path: '/searchsoft/guadai', name: 'guadai', component: Guadai},
-        {path: '/searchsoft/hbian', name: 'hbian', component: Hbian},
-        {path: '/searchsoft/mliao', name: 'mliao', component: Mliao},
-        {path: '/searchsoft/qita', name: 'qita', component: Qita},
-        {path: '/searchsoft/taoci', name: 'taoci', component: Taoci},
+        { path: '/searchsoft/bzhen', name: 'bzhen', component: Bzhen },
+        { path: '/searchsoft/ghua', name: 'ghua', component: Ghua },
+        { path: '/searchsoft/guadai', name: 'guadai', component: Guadai },
+        { path: '/searchsoft/hbian', name: 'hbian', component: Hbian },
+        { path: '/searchsoft/mliao', name: 'mliao', component: Mliao },
+        { path: '/searchsoft/qita', name: 'qita', component: Qita },
+        { path: '/searchsoft/taoci', name: 'taoci', component: Taoci },
       ]
     },
     {
@@ -320,9 +320,9 @@ var router = new Router({
       //redirect:'/mycart/wallcart',
       children: [
         // {path:"/mycart/allcart",name:"allcart",component:AllCart},
-        {path:"/mycart/wallcart",name:"wallcart",component:WallCart},
-        {path:"/mycart/softcart",name:"softcart",component:SoftCart},
-        {path:"/mycart/curtaincart",name:"curtaincart",component:CurtainCart}
+        { path: "/mycart/wallcart", name: "wallcart", component: WallCart },
+        { path: "/mycart/softcart", name: "softcart", component: SoftCart },
+        { path: "/mycart/curtaincart", name: "curtaincart", component: CurtainCart }
       ]
     },
     //我的订单
@@ -392,9 +392,9 @@ var router = new Router({
       component: BillDetails,
     },
     {
-      path:'/bank',
-      name:"bank",
-      component:Bank
+      path: '/bank',
+      name: "bank",
+      component: Bank
     },
     {
       path: "/bankdetails",
@@ -431,7 +431,6 @@ var router = new Router({
 //路由守卫
 router.beforeEach((to, from, next) => {
   next();
-      history.pushState(null, null, location.href);//禁止后退，搭配APP.VUE里面的mounted
-
+  history.pushState(null, null, location.href);//禁止后退，搭配APP.VUE里面的mounted
 });
 export default router;

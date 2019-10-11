@@ -48,7 +48,7 @@
               <th class="good-msg" width="35%">型号</th>
               <th class="good-msg" width="10%">单价</th>
               <th width="30%">数量</th>
-              <th width="30%">实际价格</th>
+              <th width="30%">应付金额</th>
             </tr>
             <tr v-for="(product,inndex) in orderList.ORDERBODY" :key="inndex">
               <td>{{product.ITEM_NO}}</td>
@@ -279,7 +279,7 @@ export default {
     },
     back() {
       this.$router.push({
-        path: "/shopstore"
+        path: "/customer"
       });
     },
     //获取订单列表及订单查询
@@ -385,7 +385,8 @@ export default {
         params: {
           state_id: this.statusExchange(this.orderLists[index].STATUS_ID), //订单状态（（可传空串，空串表示全部状态） --1提交、12-接收、2--受理、3--作废、--5欠款待提交、--6欠款可提交、--7已完成）
           find: this.orderLists[index].ORDER_NO, //查找订单号，可模糊查找（可传空串，获取全部）
-          orderType: this.myTypeCode
+          orderType: this.myTypeCode,
+          from: "myorder"
         }
       });
     },

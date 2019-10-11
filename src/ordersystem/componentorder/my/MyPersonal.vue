@@ -56,12 +56,13 @@ export default {
     },
     clickToPath(path) {
       this.$router.push({
-        path: "/" + path
+        path: "/" + path,
+        params: {
+          from: path
+        }
       });
     },
-    checkVersion(){
-
-    },
+    checkVersion() {},
     logout() {
       this.$router.push({
         path: "/"

@@ -20,6 +20,11 @@
         <input type="password" placeholder="密码" v-model="password" @keyup.enter="normalsign()" />
       </div>
     </div>
+    <div class="remember">
+      <div style="position:relative;left:50px;">
+        <input style="width:14px;height:14px;" type="checkbox" value v-model="rememberPassWord" />记住密码
+      </div>
+    </div>
     <div class="signbutton">
       <input type="button" class="normalsign" value="登录" @click="normalsign()" />
     </div>
@@ -40,7 +45,8 @@ export default {
       pos: [],
       realName: "",
       bodyHeight: "",
-      warnMsg: "账号或密码错误 ！"
+      warnMsg: "账号或密码错误 ！",
+      rememberPassWord: false
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -70,8 +76,10 @@ export default {
   mounted() {
     this.isai();
     this.$store.commit("initState");
-    this.name=window.localStorage.getItem('username');
-    this.password=window.localStorage.getItem('password');
+    this.name = window.localStorage.getItem("username");
+    this.password = window.localStorage.getItem("password");
+    this.rememberPassWord =
+      window.localStorage.getItem("rememberPassWord") == "true";
   },
   methods: {
     normalsign() {
@@ -127,8 +135,17 @@ export default {
           if (info.code == 0) {
             this.$store.commit("getPos", info.pos);
             this.$store.commit("loginSuccess", info);
-            window.localStorage.setItem('username', this.name);
-            window.localStorage.setItem('password', this.password);
+            if (this.rememberPassWord) {
+              window.localStorage.setItem("username", this.name);
+              window.localStorage.setItem("password", this.password);
+            } else {
+              window.localStorage.setItem("username", "");
+              window.localStorage.setItem("password", "");
+            }
+            window.localStorage.setItem(
+              "rememberPassWord",
+              this.rememberPassWord
+            );
             this.$router.push({
               path: "/customer"
             });
@@ -257,7 +274,7 @@ export default {
 .signbutton {
   position: relative;
   margin: 0 auto;
-  margin-top: 48px;
+  margin-top: 30px;
 }
 .signbutton input {
   border-radius: 25px;
@@ -271,5 +288,8 @@ export default {
 .normalsign {
   background: -webkit-linear-gradient(left, #bedd81, #87ca81);
   color: #ffffff;
+}
+.remember {
+  margin-top: 10px;
 }
 </style>

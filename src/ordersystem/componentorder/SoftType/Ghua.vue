@@ -27,6 +27,10 @@
             <td>{{mliao.itemNo}}</td>
           </tr>
           <tr>
+            <th>名称：</th>
+            <td>{{mliao.note}}</td>
+          </tr>
+          <tr>
             <th>风格：</th>
             <td>{{mliao.fixType}}</td>
           </tr>
@@ -140,7 +144,7 @@ export default {
         itemType: "GH",
         // "cid":"C01613",
         cid: this.$store.getters.getCId,
-        itemNo: this.searchvalue, //模糊查询内容
+        itemNo: this.searchvalue.toUpperCase(), //模糊查询内容
         limit: 10, //一页限制条数
         page: this.currentPage //第几页
       };

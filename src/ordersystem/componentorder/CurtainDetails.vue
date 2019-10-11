@@ -539,7 +539,8 @@ export default {
       itemType: "",
       changeFlage: "",
       itemMLGY: {},
-      useamount: "" //用量
+      useamount: "", //用量
+      from: ""
     };
   },
   methods: {
@@ -558,7 +559,6 @@ export default {
         location: this.$route.params.location
       };
       axios.post(URL, data).then(res => {
-        console.log(res);
         let itemLists = res.data.itemList;
         this.lt = [];
         this.ls = [];
@@ -690,7 +690,6 @@ export default {
             this.pjb.push(itemLists[i]);
           }
         }
-        console.log(this.lt, this.ls, this.sha, this.pjb);
       });
     },
     //改变型号类型
@@ -722,7 +721,6 @@ export default {
             itemNO: productType
           };
           axios.post(url, data).then(res => {
-            console.log(res);
             this.itemNolists = res.data.data;
             this.totalPage = parseInt(this.itemNolists[0].total / 10) + 1;
             this.pageMark = this.totalPage;
@@ -733,11 +731,9 @@ export default {
             itemNO: this.$route.params.itemNO //所属型号
           };
           axios.post(url, data).then(res => {
-            console.log(res);
             this.itemNolists = res.data.itemList;
             this.totalPage = 1;
             this.pageMark = this.totalPage;
-            console.log(this.itemNolists);
           });
         }
         this.showGy = true;
@@ -770,9 +766,7 @@ export default {
           itemType: itemType,
           fixType: fg //01--定宽，02--定高，如果客户没有修改也要传入默认值，不能为空
         };
-        console.log(data);
         axios.post(url, data).then(res => {
-          console.log(res);
           if (itemType == "ls") {
             for (let i = 0; i < this.ls.length; i++) {
               if (this.ls[i].productType != "LCB") {
@@ -807,7 +801,6 @@ export default {
         itemNO: this.inputValue //模糊查询的内容
       };
       axios.post(url, data).then(res => {
-        console.log(res);
         this.itemNolists = res.data.data;
         if (this.itemNolists.length == 0) {
           this.itemNolists = [];
@@ -855,7 +848,6 @@ export default {
           fixType: item.fixType //01--定宽，02--定高，如果客户没有修改也要传入默认值，不能为空
         };
         axios.post(url, data).then(res => {
-          console.log(res);
           res.data.item.itemMLGY = this.itemMLGY; //为了保留是否可改变的三个字段
           res.data.item.fixType = this.fgChange(res.data.item.fixType);
           this.$set(res.data.item, "showFG", false);
@@ -892,7 +884,6 @@ export default {
             this.$set(this.lt, this.index, res.data.item);
             for (let i = 0; i < this.lt.length; i++) {
               if (this.lt[i].productType == "XHB") {
-                console.log(this.useamount);
                 this.$set(this.lt[i], "useamount", this.useamount);
               }
             }
@@ -909,6 +900,7 @@ export default {
     toCart() {}
   },
   created() {
+    this.from = this.$route.params.from;
     this.selectThis();
   },
   watch: {

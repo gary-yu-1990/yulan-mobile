@@ -1,6 +1,6 @@
 <template>
   <div class="order-details">
-    <top :top="set"></top>
+    <top :top="set" :from="from"></top>
     <div class="banner">
       <div class="wait-time" ref="statusIcon"></div>
       <span class="status-title">{{statusTitle}}</span>
@@ -95,16 +95,16 @@
     <div class="order-msg order-msg-item2">
       <table>
         <tr>
-          <th>返现：</th>
+          <th>年返利使用金额：</th>
           <td>￥{{oneOrder.ALLBACK_M + oneOrder.ALLBACK_Y}}</td>
         </tr>
         <tr>
-          <th>商品总额：</th>
+          <th>应付金额：</th>
           <td>￥{{oneOrder.ALL_SPEND}}</td>
         </tr>
       </table>
       <div class="total">
-        <span>订单总额：</span>
+        <span>应付总额：</span>
         <span class="total-amount">￥{{oneOrder.ALL_SPEND}}</span>
       </div>
     </div>
@@ -147,7 +147,8 @@ export default {
       //订单状态
       statusTitle: "",
       //是否能查看出货详情
-      canCheckch: ""
+      canCheckch: "",
+      from:"",
     };
   },
   methods: {
@@ -313,6 +314,7 @@ export default {
     }
   },
   created() {
+    this.from = this.$route.params.from;
     this.thisOrder();
   },
   mounted() {}

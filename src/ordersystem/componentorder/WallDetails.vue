@@ -180,7 +180,8 @@ export default {
       showHeight: document.documentElement.clientHeight, //实时屏幕高度
       hidshow: true, //显示或者隐藏footer
       decimalNum: 2, //保留小数的位数
-      AddOrNot: true
+      AddOrNot: true,
+      from: ""
     };
   },
   methods: {
@@ -463,6 +464,7 @@ export default {
     }
   },
   created() {
+    this.from = this.$route.params.from;
     let wallUrl = this.orderBaseUrl + "/item/getWallpaperInfo.do";
     let data = {
       paperType: this.$route.params.papertype,

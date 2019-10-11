@@ -147,7 +147,8 @@ export default {
           width: this.cartlist[index].commodities[inndex].width, //宽度
           height: this.cartlist[index].commodities[inndex].height, //高度
           note: this.cartlist[index].commodities[inndex].note,
-          tip: this.cartlist[index].commodities[inndex].newsplitShipment
+          tip: this.cartlist[index].commodities[inndex].newsplitShipment,
+          from: "mycart/curtaincart"
         }
       });
     },
