@@ -70,6 +70,8 @@ export default {
   mounted() {
     this.isai();
     this.$store.commit("initState");
+    this.name=window.localStorage.getItem('username');
+    this.password=window.localStorage.getItem('password');
   },
   methods: {
     normalsign() {
@@ -125,6 +127,8 @@ export default {
           if (info.code == 0) {
             this.$store.commit("getPos", info.pos);
             this.$store.commit("loginSuccess", info);
+            window.localStorage.setItem('username', this.name);
+            window.localStorage.setItem('password', this.password);
             this.$router.push({
               path: "/customer"
             });

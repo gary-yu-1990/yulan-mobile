@@ -9,6 +9,11 @@
         <span>我的优惠券</span>
         <img class="item-more" src="../../assetsorder/more.png" alt />
       </div>
+      <div class="item" @click="checkVersion()">
+        <img class="item-icon" src="../../assetsorder/setting.png" alt />
+        <span>检查新版本</span>
+        <img class="item-more" src="../../assetsorder/more.png" alt />
+      </div>
       <div style="height:20px;"></div>
       <div class="item" style="text-align:center;" @click="clickToPath()">
         <span style="margin:auto 0;">退出登录</span>
@@ -53,6 +58,9 @@ export default {
       this.$router.push({
         path: "/" + path
       });
+    },
+    checkVersion(){
+
     },
     logout() {
       this.$router.push({
