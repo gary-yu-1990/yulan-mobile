@@ -12,27 +12,25 @@ import store from './store'
 import orderBaseUrl from './Global.vue'
 import mui from './assets/mui/js/mui'
 
-
-
 axios.defaults.baseURL = 'http://14.29.221.109:10250/yulan';
 axios.interceptors.request.use(
   config => {
-      store.commit('showLoading')
-      return config;
+    store.commit('showLoading')
+    return config;
   },
   error => {
-      store.commit('hideLoading')
-      return Promise.resolve(error);
+    store.commit('hideLoading')
+    return Promise.resolve(error);
   })
 axios.interceptors.response.use(
   response => {
-      store.commit('hideLoading')
-      return Promise.resolve(response);
+    store.commit('hideLoading')
+    return Promise.resolve(response);
   },
 
   error => {
-      store.commit('hideLoading')
-      return Promise.reject(error);
+    store.commit('hideLoading')
+    return Promise.reject(error);
   }
 );
 //中断请求
@@ -54,12 +52,11 @@ Vue.use(Picker);
 Vue.use(VueAwesomeSwiper);
 
 Vue.config.productionTip = false;
-Vue.prototype.$http=axios;
+Vue.prototype.$http = axios;
 Vue.prototype.orderBaseUrl = orderBaseUrl.orderBaseUrl;
 Vue.prototype.capitalUrl = orderBaseUrl.capitalUrl;
 Vue.prototype.mui = mui;
 export const $http = axios;
-
 
 vm = new Vue({
   el: '#app',

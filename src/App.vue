@@ -50,7 +50,7 @@ export default {
   left: 0;
   top: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.2);
+  /* background: rgba(0, 0, 0, 0.2); */
 }
 </style>
 <style>
