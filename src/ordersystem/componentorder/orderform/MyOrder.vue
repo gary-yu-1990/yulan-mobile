@@ -127,6 +127,12 @@ import {
   Toast,
   Loading
 } from "vant";
+import {
+  getAllOrders,
+  InsertOperationRecord,
+  cancelOrderNew,
+  copyCartItem
+} from "@/api/orderListASP";
 import navBottom from "../../../components/navBottom";
 import "../../assetsorder/actionsheet.css";
 
@@ -160,15 +166,19 @@ export default {
       //订单状态
       orderStatus: [
         "全部",
-        "已提交",
-        "欠款可提交",
+        "待提交",
         "余额不足待提交",
-        "已接收",
+        "余额不足可提交",
+        "待确认",
+        "待修改",
         "待审核",
+        "兰居待修改",
+        "已提交",
+        "已接收",
         "已受理",
+        "部分发货",
         "已完成",
-        "已作废",
-        "窗帘待审核"
+        "已作废"
       ],
       orderType: ["全部产品", "墙纸配套类", "软装", "窗帘"],
       showType: false,
@@ -275,27 +285,39 @@ export default {
     //获取订单列表及订单查询
     orderSearch() {
       this.orderLists = [];
-      this.loading = true;
-      let orderUrl = this.orderBaseUrl + "/order/getOrders.do";
-      let data = {
-        limit: "10", //每页限制条数（必须）
-        page: this.currentPage, //页数，第几页（必须）
-        cid: this.$store.getters.getCId, //登录的用户账号（必须）
-        // "cid": "C01613",//登录的用户账号（必须）
-        state_id: this.statusExchange(this.myStatu), //订单状态（（可传空串，空串表示全部状态） --1提交、12-接收、2--受理、3--作废、--5欠款待提交、--6欠款可提交、--7已完成）
-        find: this.xhInput, //查找订单好，可模糊查找（可传空串，获取全部）
-        beginTime: this.ksDataSet + " 00:00:00", //开始时间（开始结束时间同时传或不传）
-        finishTime: this.jsDataSet + " 23:59:59", //结束时间
-        orderType: this.myTypeCode, //订单类型，W为墙纸，X窗帘，Y是软装
-        curtainStatusId: "", //（new）窗帘状态,点击审核页面时传，其他页面传空串 （0待审核，客户待修改1，客户待确认2，兰居待修改3，可提交4）
-        companyId: this.$store.getters.getCMId //公司所属id(xing),必传，空串获取所有公司
+      //this.loading = true;
+      //let orderUrl = this.orderBaseUrl + "/order/getOrders.do";
+      // let data = {
+      //   limit: "10", //每页限制条数（必须）
+      //   page: this.currentPage, //页数，第几页（必须）
+      //   cid: this.$store.getters.getCId, //登录的用户账号（必须）
+      //   // "cid": "C01613",//登录的用户账号（必须）
+      //   state_id: this.statusExchange(this.myStatu), //订单状态（（可传空串，空串表示全部状态） --1提交、12-接收、2--受理、3--作废、--5欠款待提交、--6欠款可提交、--7已完成）
+      //   find: this.xhInput, //查找订单好，可模糊查找（可传空串，获取全部）
+      //   beginTime: this.ksDataSet + " 00:00:00", //开始时间（开始结束时间同时传或不传）
+      //   finishTime: this.jsDataSet + " 23:59:59", //结束时间
+      //   orderType: this.myTypeCode, //订单类型，W为墙纸，X窗帘，Y是软装
+      //   curtainStatusId: "", //（new）窗帘状态,点击审核页面时传，其他页面传空串 （0待审核，客户待修改1，客户待确认2，兰居待修改3，可提交4）
+      //   companyId: this.$store.getters.getCMId //公司所属id(xing),必传，空串获取所有公司
+      // };
+      var data = {
+        companyId: this.$store.getters.getCMId,
+        limit: 5,
+        page: this.currentPage,
+        cid: this.$store.getters.getCId,
+        statusId: this.statusExchange(this.myStatu),
+        find: this.xhInput,
+        beginTime: this.ksDataSet + " 00:00:00",
+        finishTime: this.jsDataSet + " 23:59:59",
+        orderType: this.myTypeCode
       };
-      axios.post(orderUrl, data).then(data => {
-        this.loading = false;
-        this.totalLists = data.data.count;
+      getAllOrders(data).then(data => {
+        //axios.post(orderUrl, data).then(data => {
+        // this.loading = false;
+        this.totalLists = data.count;
         //获取总页数
-        this.totalPage = parseInt(data.data.count / 10) + 1;
-        this.orderLists = data.data.data;
+        this.totalPage = parseInt(data.count / 5) + 1;
+        this.orderLists = data.data;
         if (this.orderLists.length == 0) {
           Toast({
             message: "暂无订单",
@@ -373,6 +395,27 @@ export default {
         case "全部":
           myStatu = "";
           break;
+        case "待提交":
+          myStatu = "0";
+          break;
+        case "余额不足待提交":
+          myStatu = "5";
+          break;
+        case "余额不足可提交":
+          myStatu = "6";
+          break;
+        case "待确认":
+          myStatu = "22";
+          break;
+        case "待修改":
+          myStatu = "21";
+          break;
+        case "待审核":
+          myStatu = "20";
+          break;
+        case "兰居待修改":
+          myStatu = "23";
+          break;
         case "已提交":
           myStatu = "1";
           break;
@@ -382,20 +425,14 @@ export default {
         case "已受理":
           myStatu = "2";
           break;
-        case "已作废":
-          myStatu = "3";
-          break;
-        case "余额不足待提交":
-          myStatu = "5";
-          break;
-        case "欠款可提交":
-          myStatu = "6";
+        case "部分发货":
+          myStatu = "4";
           break;
         case "已完成":
           myStatu = "7";
           break;
-        case "窗帘待审核":
-          myStatu = "0";
+        case "已作废":
+          myStatu = "3";
           break;
       }
       return myStatu;
@@ -472,7 +509,7 @@ li {
 }
 
 .arrow-img {
-  background: url("http://14.29.221.109:10250/upload/assets/arrow.png");
+  background: url("../../../assets/arrow.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
