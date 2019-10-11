@@ -10,6 +10,7 @@ import { Picker } from 'vant'
 import store from './store'
 //订单系统的URL
 import orderBaseUrl from './Global.vue'
+import mui from './assets/mui/js/mui'
 
 
 
@@ -56,8 +57,9 @@ Vue.config.productionTip = false;
 Vue.prototype.$http=axios;
 Vue.prototype.orderBaseUrl = orderBaseUrl.orderBaseUrl;
 Vue.prototype.capitalUrl = orderBaseUrl.capitalUrl;
-
+Vue.prototype.mui = mui;
 export const $http = axios;
+
 
 vm = new Vue({
   el: '#app',
