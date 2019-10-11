@@ -5,7 +5,10 @@
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <van-loading class="loading" type="spinner" v-if="LOADING" color="black" />
+     <!--遮罩层-->
+    <div v-if="LOADING" class="loadingMask">
+      <van-loading v-if="LOADING" class="loading" type="spinner" color="black" />
+    </div>
   </div>
 </template>
 <script>
@@ -39,6 +42,17 @@ export default {
 };
 </script>
 
+<style scope>
+.loadingMask {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.2);
+}
+</style>
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
