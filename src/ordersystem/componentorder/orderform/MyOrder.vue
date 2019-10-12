@@ -88,11 +88,24 @@
     <!--<navBottom :tab-stage="myRoute" v-show="hidshow"></navBottom>-->
     <van-loading class="loading" type="spinner" v-if="loading" color="black" />
     <!--时间选择-->
-    <van-popup v-model="showjs" position="bottom">
-      <van-datetime-picker class="reset" v-model="jsData" type="date" @confirm="confirmTimejs" />
-    </van-popup>
     <van-popup v-model="showks" position="bottom">
-      <van-datetime-picker v-model="ksData" type="date" @confirm="confirmTimeks" />
+      <van-datetime-picker
+        v-model="ksData"
+        type="date"
+        title="开始时间"
+        @confirm="confirmTimeks"
+        @cancel="cancelTimeks"
+      />
+    </van-popup>
+    <van-popup v-model="showjs" position="bottom">
+      <van-datetime-picker
+        class="reset"
+        v-model="jsData"
+        type="date"
+        title="结束时间"
+        @confirm="confirmTimejs"
+        @cancel="cancelTimejs"
+      />
     </van-popup>
 
     <!--订单状态选择-->
@@ -210,20 +223,19 @@ export default {
     };
   },
   methods: {
-    confirmTimejs(value) {
-      this.jsSet(this.jsData);
-      this.showjs = false;
-    },
     confirmTimeks(value) {
       this.ksSet2(this.ksData);
       this.showks = false;
     },
-    //结束时间设置
-    jsSet(time) {
-      let current_date = time.getDate();
-      let current_month = time.getMonth() + 1;
-      let current_year = time.getFullYear();
-      this.jsDataSet = current_year + "-" + current_month + "-" + current_date;
+    cancelTimeks() {
+      this.showks = false;
+    },
+    confirmTimejs(value) {
+      this.jsSet(this.jsData);
+      this.showjs = false;
+    },
+    cancelTimejs() {
+      this.showjs = false;
     },
     //开始时间设置
     ksSet2(time) {
@@ -231,6 +243,7 @@ export default {
       let current_month = time.getMonth() + 1;
       let current_year = time.getFullYear();
       this.ksDataSet = current_year + "-" + current_month + "-" + current_date;
+      this.ksData = time;
     },
     //初始化开始时间(前三个月)
     ksSet(time) {
@@ -250,6 +263,15 @@ export default {
       }
       current_month = current_month < 10 ? "0" + current_month : current_month;
       this.ksDataSet = current_year + "-" + current_month + "-" + current_date;
+      this.ksData = new Date(this.ksDataSet);
+    },
+    //结束时间设置
+    jsSet(time) {
+      let current_date = time.getDate();
+      let current_month = time.getMonth() + 1;
+      let current_year = time.getFullYear();
+      this.jsDataSet = current_year + "-" + current_month + "-" + current_date;
+      this.jsData = time;
     },
     //订单状态选择
     onConfirmStatu(index) {
