@@ -26,6 +26,7 @@
 <script>
 import top from "../../../components/Top";
 import navBottom from "../../../components/navBottom";
+import { Toast } from "vant";
 
 export default {
   name: "",
@@ -62,7 +63,18 @@ export default {
         }
       });
     },
-    checkVersion() {},
+    checkVersion() {
+      if(!this.plus){
+        Toast(
+          {
+            duration:3000,
+            message: "调试模式，不能检查更新"
+          }
+        );
+      }else{
+        UpdateVersion(true);
+      }
+    },
     logout() {
       this.$router.push({
         path: "/"
