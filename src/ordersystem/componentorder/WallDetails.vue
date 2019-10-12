@@ -1,6 +1,6 @@
 <template>
   <div>
-    <top :top="set"></top>
+    <top :top="set" :from ="from"></top>
     <div class="single-msg">
       <ul class="lists">
         <li>型号： {{wallMegs.itemNo}}</li>

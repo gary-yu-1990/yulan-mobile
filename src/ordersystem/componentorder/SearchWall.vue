@@ -157,7 +157,8 @@ export default {
         name: "walldetails",
         params: {
           //墙纸类型,获取墙纸信息
-          papertype: this.wallMegs.oldItemNo
+          papertype: this.wallMegs.oldItemNo,
+          from: "searchwall"
         }
       });
       this.inputValue = "";

@@ -185,7 +185,8 @@ export default {
         params: {
           itemType: "XHB",
           // "cid":this.$store.getters.getCId,
-          itemNo: this.mliaos[index].itemNo //模糊查询的内容
+          itemNo: this.mliaos[index].itemNo, //模糊查询的内容
+          from: "searchsoft/hbian"
         }
       });
     },

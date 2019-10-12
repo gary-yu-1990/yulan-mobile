@@ -81,8 +81,8 @@ import TuiHuoLists from '@/ordersystem/componentorder/tuiHuo/TuiHuoLists'
 import TuiHDetails from '@/ordersystem/componentorder/tuiHuo/TuiHDetails'
 //查询
 import StockQuery from '@/ordersystem/componentorder/query/stockQuery'
-import AreaQuery from '@/ordersystem/componentorder/query/areaQuery'
-import OrderQuery from '@/ordersystem/componentorder/query/orderQuery'
+// import AreaQuery from '@/ordersystem/componentorder/query/areaQuery'
+// import OrderQuery from '@/ordersystem/componentorder/query/orderQuery'
 Vue.use(Router)
 var router = new Router({
   routes: [
@@ -439,22 +439,22 @@ var router = new Router({
         keepAlive: true
       }
     },
-    {
-      path: '/areaQuery',
-      name: 'areaQuery',
-      component: AreaQuery,
-      meta: {
-        keepAlive: true
-      }
-    },
-    {
-      path: '/orderQuery',
-      name: 'orderQuery',
-      component: OrderQuery,
-      meta: {
-        keepAlive: true
-      }
-    },
+    // {
+    //   path: '/areaQuery',
+    //   name: 'areaQuery',
+    //   component: AreaQuery,
+    //   meta: {
+    //     keepAlive: true
+    //   }
+    // },
+    // {
+    //   path: '/orderQuery',
+    //   name: 'orderQuery',
+    //   component: OrderQuery,
+    //   meta: {
+    //     keepAlive: true
+    //   }
+    // },
   ]
 });
 //路由守卫

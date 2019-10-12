@@ -357,7 +357,8 @@ export default {
           height: this.allCurtain[index].height, //成品高度
           WBH: this.allCurtain[index].lwbWidth, //帘头外包盒宽度
           multiple: this.allCurtain[index].multiple, //褶皱倍数
-          location: this.allCurtain[index].myposition
+          location: this.allCurtain[index].myposition,
+          from: "searchcurtain"
         }
       });
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="single-curtain">
-    <top :top="set"></top>
+    <top :top="set" :from="from"></top>
     <div class="contain">
       <div class="select-this">
         <div class="title-item">

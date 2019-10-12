@@ -185,7 +185,8 @@ export default {
         params: {
           itemType: "other",
           // "cid":this.$store.getters.getCId,
-          itemNo: this.mliaos[index].itemNo //模糊查询的内容
+          itemNo: this.mliaos[index].itemNo, //模糊查询的内容
+          from: "searchsoft/qita"
         }
       });
     },

@@ -104,7 +104,7 @@ export default {
     top: 15px;
   }
   .left-arrow{
-    background-image: url('http://14.29.221.109:10250/upload/assets/arrow.png');
+    background-image: url('../assets/arrow.png');
     position: absolute;
     background-position: center;
     background-size: contain;
@@ -114,7 +114,7 @@ export default {
     top: 12px;
   }
   .option-img{
-    background-image: url('http://14.29.221.109:10250/upload/assets/option.png');
+    background-image: url('../assets/option.png');
     width: 30px;
     height: 30px;
     background-size: contain;
@@ -143,7 +143,7 @@ export default {
     left: 122px;
   }
   .suona-img{
-    background-image: url('http://14.29.221.109:10250/upload/assets/suona.png');
+    background-image: url('../assets/suona.png');
     width: 24px;
     height: 20px;
     background-size: contain;

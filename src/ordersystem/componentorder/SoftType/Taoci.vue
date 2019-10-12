@@ -186,7 +186,8 @@ export default {
         params: {
           itemType: "TC",
           // "cid":this.$store.getters.getCId,
-          itemNo: this.mliaos[index].itemNo //模糊查询的内容
+          itemNo: this.mliaos[index].itemNo, //模糊查询的内容
+          from: "searchsoft/taoci"
         }
       });
     },

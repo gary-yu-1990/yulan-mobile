@@ -355,7 +355,7 @@ p {
 .history {
   width: 21px;
   height: 24px;
-  background-image: url("http://14.29.221.109:10250/upload/assets/aggrement2.png");
+  background-image: url("../../assets/aggrement2.png");
   background-position: center;
   background-size: contain;
   position: absolute;

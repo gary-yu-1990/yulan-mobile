@@ -482,7 +482,7 @@ body {
   position: absolute;
   left: 17px;
   bottom: 16px;
-  background-image: url(http://14.29.221.109:10250/upload/assets/arrow.png);
+  background-image: url(../assets/arrow.png);
   background-repeat: no-repeat;
   background-size: contain;
 }
