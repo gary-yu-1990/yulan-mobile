@@ -616,7 +616,8 @@ export default {
           buyUserPhone: this.buyUserPhone
         },
         ctm_orders: this.productList,
-        cartItemIDs: deleteArray
+        cartItemIDs: deleteArray,
+        device: "app"
       };
       normalOrderSettlement(data).then(data => {
         //axios.post(orderUrl, data).then(data => {
