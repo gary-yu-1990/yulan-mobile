@@ -252,6 +252,11 @@ export default {
             path: "/customer"
           });
           break;
+        case 95:
+          this.$router.push({
+            path: "/customer"
+          });
+          break;  
       }
 
       //   if(this.top == 0|| this.top ==1 || this.top ==5  ){
@@ -420,6 +425,11 @@ export default {
     }
     if (this.top == 92) {
       this.msg = "区域订单查询";
+      let a = this.$refs.top;
+      a.className = "top-green";
+    }
+    if (this.top == 95) {
+      this.msg = "兰居设计";
       let a = this.$refs.top;
       a.className = "top-green";
     }
