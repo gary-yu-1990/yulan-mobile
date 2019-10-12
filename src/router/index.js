@@ -83,6 +83,9 @@ import TuiHDetails from '@/ordersystem/componentorder/tuiHuo/TuiHDetails'
 import StockQuery from '@/ordersystem/componentorder/query/stockQuery'
 // import AreaQuery from '@/ordersystem/componentorder/query/areaQuery'
 // import OrderQuery from '@/ordersystem/componentorder/query/orderQuery'
+//兰居设计
+import lanjuDesign from '@/ordersystem/componentorder/lanju/lanjuDesign'
+
 Vue.use(Router)
 var router = new Router({
   routes: [
@@ -438,6 +441,11 @@ var router = new Router({
       meta: {
         keepAlive: true
       }
+    },
+    {
+      path: '/lanjuDesign',
+      name: 'lanjuDesign',
+      component: lanjuDesign
     },
     // {
     //   path: '/areaQuery',
