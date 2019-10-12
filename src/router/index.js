@@ -79,6 +79,10 @@ import WtDetails from '@/ordersystem/componentorder/Wtph/WtDetails'
 //退货赔偿
 import TuiHuoLists from '@/ordersystem/componentorder/tuiHuo/TuiHuoLists'
 import TuiHDetails from '@/ordersystem/componentorder/tuiHuo/TuiHDetails'
+//查询
+import StockQuery from '@/ordersystem/componentorder/query/stockQuery'
+import AreaQuery from '@/ordersystem/componentorder/query/areaQuery'
+import OrderQuery from '@/ordersystem/componentorder/query/orderQuery'
 Vue.use(Router)
 var router = new Router({
   routes: [
@@ -425,6 +429,31 @@ var router = new Router({
       path: "/tuihdetails",
       name: 'tuihdetails',
       component: TuiHDetails,
+    },
+    // 查询
+    {
+      path: '/stockQuery',
+      name: 'stockQuery',
+      component: StockQuery,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: '/areaQuery',
+      name: 'areaQuery',
+      component: AreaQuery,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: '/orderQuery',
+      name: 'orderQuery',
+      component: OrderQuery,
+      meta: {
+        keepAlive: true
+      }
     },
   ]
 });
