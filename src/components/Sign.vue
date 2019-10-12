@@ -198,6 +198,7 @@ export default {
   /* background-image: url('http://14.29.221.109:10250/upload/assets/sign2.png'); */
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  overflow: hidden;
   /* bottom: 0; */
 }
 .sign-box {
