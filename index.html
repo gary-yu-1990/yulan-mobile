@@ -24,11 +24,13 @@
     <div id="app"></div>
     <script>
         var vm;
-        function UpdateVersion() {
+        var updateUrl="http://47.107.56.156:666/app/version.json";
+        
+        function UpdateVersion(ischeck) {
             var showLoading = plus.nativeUI.showWaiting("检查更新...");
             plus.runtime.getProperty(plus.runtime.appid, function (inf) {
                 console.log("当前版本号为:" + inf.version)
-                mui.ajax("http://47.107.56.156:666/app/version.json?v=" + Date.parse(new Date()), {
+                mui.ajax(updateUrl+"?v=" + Date.parse(new Date()), {
                     data: {},
                     dataType: 'json',
                     type: 'get',
@@ -102,6 +104,9 @@
                             })
                         }
                         else {
+                            if(ischeck){
+                                showLoading.setTitle("已是最新版本");
+                            }
                             plus.nativeUI.closeWaiting();
                         }
                     },
@@ -146,6 +151,7 @@
             //// 在这里调用5+ API
             var first = null;
             window.plus = plus;
+            vm.plus = plus;
             plus.key.addEventListener('backbutton', function () { //监听返回键
                 //首次按键，提示‘再按一次退出应用’
                 if (!first) {
