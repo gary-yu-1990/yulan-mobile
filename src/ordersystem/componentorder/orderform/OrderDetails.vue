@@ -343,7 +343,7 @@ export default {
   margin-top: 49px;
   /*background: -webkit-linear-gradient(left,#ABD46C, #89CB81);*/
   background: linear-gradient(to right, #bedd81, #87ca81);
-  height: 100px;
+  height: 80px;
   position: relative;
   color: white;
 }
@@ -435,7 +435,7 @@ export default {
 }
 
 .address-contain {
-  padding: 25px 35px;
+  padding: 20px 30px;
 }
 
 .contct {

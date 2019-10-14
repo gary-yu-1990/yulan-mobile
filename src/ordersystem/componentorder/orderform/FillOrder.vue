@@ -94,24 +94,32 @@
                 class="good-num"
                 v-if="!product.quantity"
               >{{product.width}} * {{product.height}}(长*宽)</span>
-              <span class="price">￥{{product.price}}</span>
+              <span v-if="showPrice" class="price">￥{{product.price}}</span>
+              <span v-else class="price">***</span>
             </div>
             <div class="good-item2">
               <span>{{product.newactivityId}}</span>
-              <span class="hd-after">￥{{product.activityPrice}}</span>
+              <span v-if="showPrice" class="hd-after">￥{{product.activityPrice}}</span>
+              <span v-else class="hd-after">***</span>
               <span class="good-num">折后金额：</span>
             </div>
             <div class="good-item3">
               <span>年返利券</span>
-              <span class="hd-after">-{{product.yCoupon}}</span>
+              <span v-if="showPrice" class="hd-after">-{{product.yCoupon}}</span>
+              <span v-else class="hd-after">-***</span>
             </div>
             <div class="good-item4">
               <span>月返利券</span>
-              <span class="hd-after">-{{product.mCoupon}}</span>
+              <span v-if="showPrice" class="hd-after">-{{product.mCoupon}}</span>
+              <span v-else class="hd-after">-***</span>
             </div>
             <div class="good-item4">
               <span>应付金额</span>
-              <span class="hd-after">{{product.activityPrice - product.mCoupon - product.yCoupon}}</span>
+              <span
+                v-if="showPrice"
+                class="hd-after"
+              >{{product.activityPrice - product.mCoupon - product.yCoupon}}</span>
+              <span v-else class="hd-after">***</span>
             </div>
             <!--<div class="good-item5">-->
             <!--<span>合计：</span>-->
@@ -132,13 +140,15 @@
           <tr class="delivery">
             <td class="left">商品总金额</td>
             <td class="right">
-              <span>￥{{totalHdPrice}}</span>
+              <span v-if="showPrice">￥{{totalHdPrice}}</span>
+              <span v-else>***</span>
             </td>
           </tr>
           <tr class="delivery">
             <td class="left">总返利</td>
             <td class="right">
-              <span>￥{{couponPrice}}</span>
+              <span v-if="showPrice">￥{{couponPrice}}</span>
+              <span v-else>***</span>
             </td>
           </tr>
         </table>
@@ -150,11 +160,13 @@
     </div>
     <div class="bottom-nav" v-show="hidshow">
       <van-submit-bar
+        v-if="showPrice"
         :price="orderPrice * 100"
         button-text="提交订单"
         label="应付总金额："
         @submit="wantoSubmit"
       />
+      <van-submit-bar v-else button-text="提交订单" @submit="wantoSubmit" />
     </div>
     <!--物流选择-->
     <van-popup v-model="showDelivery">
@@ -216,7 +228,10 @@
         />
         <span>优惠券使用记录</span>
       </div>
-      <div class="all-record">
+      <div class="all-record" style="margin-top: 30px;">
+        <div class="record-title">
+          <span style="margin-left:10px;">累计使用金额：{{accMoney}}元</span>
+        </div>
         <div class="singleRecord" v-for="(couponRecord,index) in allCouponRecord" :key="index">
           <table>
             <!--<tr>-->
@@ -225,15 +240,19 @@
             <!--</tr>-->
             <tr>
               <td>订单号</td>
-              <td>{{couponRecord.orderNo}}</td>
+              <td>{{couponRecord.ORDER_NO}}</td>
             </tr>
             <tr>
               <td>订单商品型号</td>
-              <td>{{couponRecord.itemNo}}</td>
+              <td>{{couponRecord.ITEM_NO}}</td>
             </tr>
             <tr>
               <td>使用记录</td>
-              <td>{{couponRecord.dateUse}}</td>
+              <td>{{couponRecord.DATE_USE | datatrans}}</td>
+            </tr>
+            <tr>
+              <td>备注</td>
+              <td>{{couponRecord.NOTES}}</td>
             </tr>
             <!--<tr>-->
             <!--<td>使用金额</td>-->
@@ -241,7 +260,8 @@
             <!--</tr>-->
           </table>
           <div class="use-amount">
-            <span>使用金额：{{couponRecord.rebateMoney}}</span>
+            <span v-if="showPrice">使用金额：{{couponRecord.REBATE_MONEY}}</span>
+            <span v-else>使用金额：***</span>
           </div>
         </div>
       </div>
@@ -307,7 +327,8 @@ import {
   orderSettlement,
   normalOrderSettlement,
   getUseRecord,
-  getCustomerInfo
+  getCustomerInfo,
+  getTotalRecordSum
 } from "@/api/orderListASP";
 import top from "../../../components/Top";
 
@@ -402,8 +423,32 @@ export default {
       docmHeight: document.documentElement.clientHeight, //默认屏幕高度
       showHeight: document.documentElement.clientHeight, //实时屏幕高度
       hidshow: true, //显示或者隐藏footer
-      loading: false
+      loading: false,
+      accMoney: 0
     };
+  },
+  computed: {
+    showPrice() {
+      return this.$store.getters.getIsManage != "0";
+    }
+  },
+  filters: {
+    datatrans(value) {
+      //时间戳转化大法
+      let date = new Date(value);
+      let y = date.getFullYear();
+      let MM = date.getMonth() + 1;
+      MM = MM < 10 ? "0" + MM : MM;
+      let d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      let h = date.getHours();
+      h = h < 10 ? "0" + h : h;
+      let m = date.getMinutes();
+      m = m < 10 ? "0" + m : m;
+      let s = date.getSeconds();
+      s = s < 10 ? "0" + s : s;
+      return y + "-" + MM + "-" + d + " " + h + ":" + m + ":" + s;
+    }
   },
   methods: {
     toAddList() {
@@ -861,12 +906,19 @@ export default {
     },
     //优惠券使用记录
     UseRecord(couponId) {
-      let idurl = this.orderBaseUrl + "/order/findRecrods.do";
-      let data = {
-        id: couponId //优惠券id
+      getTotalRecordSum({ couponId: couponId }).then(res => {
+        this.accMoney = res.data;
+      });
+      var data = {
+        couponId: couponId,
+        keyWords: "",
+        beginTime: "0001/1/1",
+        finishTime: "9999/12/31",
+        page: 1,
+        limit: 10000
       };
-      axios.post(idurl, data).then(res => {
-        this.allCouponRecord = res.data.data;
+      getUseRecord(data).then(res => {
+        this.allCouponRecord = res.data;
         if (this.allCouponRecord.length == 0) {
           Toast({
             duration: 2000,
@@ -874,13 +926,28 @@ export default {
           });
           return;
         }
-        for (let i = 0; i < this.allCouponRecord.length; i++) {
-          this.allCouponRecord[i].dateUse = this.dataExchange(
-            this.allCouponRecord[i].dateUse
-          );
-        }
         this.showUseCouponRecord = true;
       });
+      // let idurl = this.orderBaseUrl + "/order/findRecrods.do";
+      // let data = {
+      //   id: couponId //优惠券id
+      // };
+      // axios.post(idurl, data).then(res => {
+      //   this.allCouponRecord = res.data.data;
+      //   if (this.allCouponRecord.length == 0) {
+      //     Toast({
+      //       duration: 2000,
+      //       message: "暂无使用记录"
+      //     });
+      //     return;
+      //   }
+      //   for (let i = 0; i < this.allCouponRecord.length; i++) {
+      //     this.allCouponRecord[i].dateUse = this.dataExchange(
+      //       this.allCouponRecord[i].dateUse
+      //     );
+      //   }
+      //   this.showUseCouponRecord = true;
+      // });
     },
     //优惠券返利记录
     couponRecord(couponId) {
@@ -975,7 +1042,7 @@ export default {
 
 .address {
   position: relative;
-  height: 80px;
+  height: 60px;
   padding-top: 10px;
   background: white;
 }
@@ -997,7 +1064,7 @@ export default {
   font-size: 20px;
   font-weight: bold;
   /*float: left;*/
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   text-align: left;
 }
 
@@ -1282,7 +1349,7 @@ export default {
   position: absolute;
   bottom: 10px;
   right: 10px;
-  font-size: 7px;
+  font-size: 12px;
 }
 
 .coupon-more span {
@@ -1365,6 +1432,22 @@ export default {
   position: absolute;
   bottom: 13px;
   left: 200px;
+}
+.record-title {
+  position: fixed;
+  z-index: 99;
+  height: 30px;
+  width: 100%;
+  display: -webkit-box;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  line-height: 30px;
+  top: 50px;
+  background: #ffffff;
+  border-bottom: 1px solid #dedede;
+  font-size: 11px;
 }
 </style>
 <!--覆盖优惠券样式-->

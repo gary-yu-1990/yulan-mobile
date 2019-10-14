@@ -60,7 +60,10 @@
         />
         <span>优惠券使用记录</span>
       </div>
-      <div class="all-record">
+      <div class="all-record" style="margin-top: 30px;">
+        <div class="record-title">
+          <span style="margin-left:10px;">累计使用金额：{{accMoney}}元</span>
+        </div>
         <div class="singleRecord" v-for="(couponRecord,index) in allCouponRecord" :key="index">
           <table>
             <!--<tr>-->
@@ -69,15 +72,19 @@
             <!--</tr>-->
             <tr>
               <td>订单号</td>
-              <td>{{couponRecord.orderNo}}</td>
+              <td>{{couponRecord.ORDER_NO}}</td>
             </tr>
             <tr>
-              <td>订单商品型号</td>
-              <td>{{couponRecord.itemNo}}</td>
+              <td>商品型号</td>
+              <td>{{couponRecord.ITEM_NO}}</td>
             </tr>
             <tr>
-              <td>使用记录</td>
-              <td>{{couponRecord.dateUse}}</td>
+              <td>使用时间</td>
+              <td>{{couponRecord.DATE_USE | datatrans}}</td>
+            </tr>
+            <tr>
+              <td>备注</td>
+              <td>{{couponRecord.NOTES}}</td>
             </tr>
             <!--<tr>-->
             <!--<td>使用金额</td>-->
@@ -85,7 +92,7 @@
             <!--</tr>-->
           </table>
           <div class="use-amount">
-            <span v-if="showPrice">使用金额：{{couponRecord.rebateMoney}}</span>
+            <span v-if="showPrice">使用金额：{{couponRecord.REBATE_MONEY}}</span>
             <span v-else>使用金额：***</span>
           </div>
         </div>
@@ -136,6 +143,8 @@
 import top from "../../../components/Top";
 import { Popup, Toast } from "vant";
 import axios from "axios";
+import { getUseRecord, getTotalRecordSum } from "@/api/orderListASP";
+
 export default {
   name: "",
   components: {
@@ -152,12 +161,31 @@ export default {
       allCouponRecord: [], //使用记录（数组）
       showCouponRecord: false, //优惠券返利记录
       allflRecord: [],
-      from: ""
+      from: "",
+      accMoney: 0
     };
   },
   computed: {
     showPrice() {
       return this.$store.getters.getIsManage != "0";
+    }
+  },
+  filters: {
+    datatrans(value) {
+      //时间戳转化大法
+      let date = new Date(value);
+      let y = date.getFullYear();
+      let MM = date.getMonth() + 1;
+      MM = MM < 10 ? "0" + MM : MM;
+      let d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      let h = date.getHours();
+      h = h < 10 ? "0" + h : h;
+      let m = date.getMinutes();
+      m = m < 10 ? "0" + m : m;
+      let s = date.getSeconds();
+      s = s < 10 ? "0" + s : s;
+      return y + "-" + MM + "-" + d + " " + h + ":" + m + ":" + s;
     }
   },
   methods: {
@@ -183,12 +211,19 @@ export default {
     },
     //优惠券使用记录
     UseRecord(couponId) {
-      let idurl = this.orderBaseUrl + "/order/findRecrods.do";
-      let data = {
-        id: couponId //优惠券id
+      getTotalRecordSum({ couponId: couponId }).then(res => {
+        this.accMoney = res.data;
+      });
+      var data = {
+        couponId: couponId,
+        keyWords: "",
+        beginTime: "0001/1/1",
+        finishTime: "9999/12/31",
+        page: 1,
+        limit: 10000
       };
-      axios.post(idurl, data).then(res => {
-        this.allCouponRecord = res.data.data;
+      getUseRecord(data).then(res => {
+        this.allCouponRecord = res.data;
         if (this.allCouponRecord.length == 0) {
           Toast({
             duration: 2000,
@@ -196,13 +231,28 @@ export default {
           });
           return;
         }
-        for (let i = 0; i < this.allCouponRecord.length; i++) {
-          this.allCouponRecord[i].dateUse = this.dataExchange(
-            this.allCouponRecord[i].dateUse
-          );
-        }
         this.showUseCouponRecord = true;
       });
+      // let idurl = this.orderBaseUrl + "/order/findRecrods.do";
+      // let data = {
+      //   id: couponId //优惠券id
+      // };
+      // axios.post(idurl, data).then(res => {
+      //   this.allCouponRecord = res.data.data;
+      //   if (this.allCouponRecord.length == 0) {
+      //     Toast({
+      //       duration: 2000,
+      //       message: "暂无使用记录"
+      //     });
+      //     return;
+      //   }
+      //   for (let i = 0; i < this.allCouponRecord.length; i++) {
+      //     this.allCouponRecord[i].dateUse = this.dataExchange(
+      //       this.allCouponRecord[i].dateUse
+      //     );
+      //   }
+      //   this.showUseCouponRecord = true;
+      // });
     },
     //优惠券返利记录
     couponRecord(couponId) {
@@ -407,5 +457,21 @@ export default {
   position: absolute;
   bottom: 13px;
   left: 240px;
+}
+.record-title {
+  position: fixed;
+  z-index: 99;
+  height: 30px;
+  width: 100%;
+  display: -webkit-box;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  line-height: 30px;
+  top: 50px;
+  background: #ffffff;
+  border-bottom: 1px solid #dedede;
+  font-size: 11px;
 }
 </style>

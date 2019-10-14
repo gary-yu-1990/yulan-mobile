@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="../assets/swiper.css">
-    <title>b2bphone</title>
+        <!-- css，图片等文件尽量放在static文件夹下面，路径编译不会出错 -->
+    <link rel="icon" type="image/x-icon" href="./static/base/img/headerLogo.jpg" />
+    <link rel="stylesheet" href="./static/base/css/swiper.css">
+    <title>玉兰B2BAPP</title>
     <style>
         html,
         body {
@@ -20,17 +23,18 @@
         }
     </style>
 </head>
+
 <body>
     <div id="app"></div>
     <script>
         var vm;
-        var updateUrl="http://47.107.56.156:666/app/version.json";
-        
+        var updateUrl = "http://47.107.56.156:666/app/version.json";
+
         function UpdateVersion(ischeck) {
             var showLoading = plus.nativeUI.showWaiting("检查更新...");
             plus.runtime.getProperty(plus.runtime.appid, function (inf) {
                 console.log("当前版本号为:" + inf.version)
-                mui.ajax(updateUrl+"?v=" + Date.parse(new Date()), {
+                mui.ajax(updateUrl + "?v=" + Date.parse(new Date()), {
                     data: {},
                     dataType: 'json',
                     type: 'get',
@@ -104,8 +108,8 @@
                             })
                         }
                         else {
-                            if(ischeck){
-                                plus.nativeUI.toast("已是最新版本",{
+                            if (ischeck) {
+                                plus.nativeUI.toast("已是最新版本", {
                                     duration: 'long',
                                     align: 'center',
                                     verticalAlign: 'center',
@@ -177,4 +181,5 @@
         });
     </script>
 </body>
+
 </html>

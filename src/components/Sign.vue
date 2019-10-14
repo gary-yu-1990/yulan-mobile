@@ -83,6 +83,7 @@ export default {
   },
   methods: {
     normalsign() {
+      if(!this.name || !this.password){ return;}
       let th = this;
       let year = new Date().getFullYear();
       this.$store.commit("getYear", year);
