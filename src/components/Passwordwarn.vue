@@ -2,9 +2,7 @@
   <div class="box">
     <div class="wrap"></div>
     <div class="warn">
-      <!-- <img src="http://14.29.221.109:10250/upload/assets/warn.png" alt="" class="img-warn"> -->
-      <!-- <div class="img-warn"></div> -->
-      <!-- <img src="http://14.29.221.109:10250/upload/assets/close.png" alt="" class="img-close" @click="close"> -->
+      <div class="img-warn"></div>
       <div class="img-close" @click="close"></div>
       <p>{{msg}}</p>
     </div>
@@ -58,16 +56,18 @@ export default {
   background-color: #ffffff;
   border-radius: 10px;
 }
-/* .img-warn{
-        width: 65px;
-        height: 65px;
-        margin-top:57px;
-        position: relative;
-        left: -2px;
-        margin-left: 100px;
-        background: url("http://14.29.221.109:10250/upload/assets/warn.png");
-        background-size: 100% 100%
-    } */
+.img-warn {
+  float:left;
+  text-align: center;
+  vertical-align:middle;
+  width: 65px;
+  height: 65px;
+  position: relative;
+  margin-left: 5px;
+  margin-top: 34px;
+  background: url(../assets/warn.png) no-repeat;
+  background-size: 100% 100%;
+}
 .img-close {
   width: 15px;
   height: 15px;
