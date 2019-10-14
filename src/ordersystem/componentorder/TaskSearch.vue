@@ -34,7 +34,7 @@
           </tr>
           <tr>
             <td>订单金额：</td>
-            <td>{{taskItem.ALL_SPEND}}（元）</td>
+            <td>{{taskItem.sumMoney}}（元）</td>
           </tr>
           <tr>
             <td>年返利/月返利：</td>
@@ -42,7 +42,7 @@
           </tr>
           <tr>
             <td>实付金额：</td>
-            <td>{{taskItem.ALL_SPEND-taskItem.ALLBACK_Y-taskItem.ALLBACK_M}}（元）</td>
+            <td>{{taskItem.ALL_SPEND}}（元）</td>
           </tr>
           <tr>
             <td>返利金额：</td>

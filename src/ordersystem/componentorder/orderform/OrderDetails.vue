@@ -96,16 +96,19 @@
       <table>
         <tr>
           <th>年返利使用金额：</th>
-          <td>￥{{oneOrder.ALLBACK_M + oneOrder.ALLBACK_Y}}</td>
+          <td v-if="showPrice">￥{{oneOrder.ALLBACK_M + oneOrder.ALLBACK_Y}}</td>
+          <td v-else>***</td>
         </tr>
         <tr>
           <th>应付金额：</th>
-          <td>￥{{oneOrder.ALL_SPEND}}</td>
+          <td v-if="showPrice">￥{{oneOrder.ALL_SPEND}}</td>
+          <td v-else>***</td>
         </tr>
       </table>
       <div class="total">
         <span>应付总额：</span>
-        <span class="total-amount">￥{{oneOrder.ALL_SPEND}}</span>
+        <span v-if="showPrice" class="total-amount">￥{{oneOrder.ALL_SPEND}}</span>
+        <span v-else class="total-amount">***</span>
       </div>
     </div>
     <div class="bottom-nav" v-show="notpayBottom">
@@ -148,8 +151,13 @@ export default {
       statusTitle: "",
       //是否能查看出货详情
       canCheckch: "",
-      from:"",
+      from: ""
     };
+  },
+  computed: {
+    showPrice() {
+      return this.$store.getters.getIsManage != "0";
+    }
   },
   methods: {
     toThdh(itemNo) {

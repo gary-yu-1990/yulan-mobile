@@ -49,19 +49,21 @@
             </tr>
             <tr>
               <th>单价：</th>
-              <td class="price">￥{{product.price}}</td>
+              <td v-if="showPrice" class="price">￥{{product.price}}</td>
+              <td v-else class="price">***</td>
               <!--<td class="product-num">数量：{{product.quantity}}卷</td>-->
             </tr>
             <tr>
               <th>小计：</th>
               <td
                 class="price"
-                v-if="product.quantity"
+                v-if="showPrice && product.quantity"
               >￥{{(product.quantity * product.price).toFixed(2)}}</td>
               <td
                 class="price"
-                v-if="!product.quantity"
+                v-else-if="showPrice && !product.quantity"
               >￥{{(product.width * product.height * product.price).toFixed(2)}}</td>
+              <td class="price" v-else-if="!showPrice">***</td>
             </tr>
           </table>
           <div class="product-num">
