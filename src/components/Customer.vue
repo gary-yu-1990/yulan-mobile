@@ -70,20 +70,30 @@ export default {
       //this.$store.commit("emptyMenuTreeList");
       await QueryAppMenuByUserId({
         userid: this.$store.state.info.data.userId
-      }).then(res => {
-        if (
-          res.data.children.length > 0 &&
-          res.data.children[0].children.length
-        ) {
-          //最顶层为app菜单
-          this.$store.commit("setMenuTreeList", res.data.children[0].children);
-        } else {
+      })
+        .then(res => {
+          if (
+            res.data.children.length > 0 &&
+            res.data.children[0].children.length
+          ) {
+            //最顶层为app菜单
+            this.$store.commit(
+              "setMenuTreeList",
+              res.data.children[0].children
+            );
+          } else {
+            Toast({
+              duration: 3000,
+              message: "没有菜单权限，请联系管理员配置"
+            });
+          }
+        })
+        .catch(res => {
           Toast({
             duration: 3000,
-            message: "没有菜单权限，请联系管理员配置"
+            message: "无网络连接，请连网后使用"
           });
-        }
-      });
+        });
     },
     isContainAttr(attr) {
       //是否包含权限

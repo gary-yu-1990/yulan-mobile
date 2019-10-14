@@ -52,15 +52,18 @@
             </tr>
             <tr v-for="(product,inndex) in orderList.ORDERBODY" :key="inndex">
               <td>{{product.ITEM_NO}}</td>
-              <td>￥{{product.UNIT_PRICE}}</td>
+              <td v-if="showPrice">￥{{product.UNIT_PRICE}}</td>
+              <td v-else>***</td>
               <td>{{product.QTY_REQUIRED}}</td>
-              <td>￥{{product.FINAL_COST}}</td>
+              <td v-if="showPrice">￥{{product.FINAL_COST}}</td>
+              <td v-else>***</td>
             </tr>
           </table>
         </div>
         <div class="good-accout">
           <span>共件{{orderList.ORDERBODY.length}}商品</span>
-          <span class="allhj">合计：￥{{orderList.ALL_SPEND}}元</span>
+          <span v-if="showPrice" class="allhj">合计：￥{{orderList.ALL_SPEND}}元</span>
+          <span v-else class="allhj">合计：***元</span>
         </div>
         <!--欠款待提交（提交的话需要做库存判断）-->
         <!--欠款可提交（提交的话不用库存判断）-->
@@ -470,6 +473,9 @@ export default {
       return this.orderLists.filter(orderList => {
         return orderList.ORDER_NO.match(this.xhInput);
       });
+    },
+    showPrice() {
+      return this.$store.getters.getIsManage != "0";
     }
   },
   created() {

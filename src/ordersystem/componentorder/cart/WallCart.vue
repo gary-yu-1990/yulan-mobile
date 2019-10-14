@@ -41,7 +41,8 @@
             </tr>
             <tr>
               <th>单价：</th>
-              <td class="price">￥{{product.price}}</td>
+              <td v-if="showPrice" class="price">￥{{product.price}}</td>
+              <td v-else class="price">***</td>
               <!--<td class="product-num" v-if="product.quantity">数量：{{product.quantity}}{{product.unit}}</td>-->
               <!--<td class="product-num" v-if="!product.quantity">数量：{{product.width}}*{{product.height}}平方米</td>-->
             </tr>
@@ -49,12 +50,13 @@
               <th>小计：</th>
               <td
                 class="price"
-                v-if="product.quantity"
+                v-if="showPrice && product.quantity"
               >￥{{(product.quantity * product.price).toFixed(2)}}</td>
               <td
                 class="price"
-                v-if="!product.quantity"
+                v-else-if="showPrice && !product.quantity"
               >￥{{(product.width * product.height * product.price).toFixed(2)}}</td>
+              <td class="price" v-else-if="!showPrice">***</td>
             </tr>
           </table>
           <div class="product-num">
@@ -68,7 +70,7 @@
       <div class="cart-right" v-if="!showSubmitCheck&&!showManage">
         <span>合计：</span>
         <span v-if="showPrice" class="total-price">￥{{totalPrice}}</span>
-        <span v-else class="total-price">****</span>
+        <span v-else class="total-price">***</span>
         <span class="settle-down" @click="fillOrder">结算</span>
       </div>
       <!--购物车管理-->

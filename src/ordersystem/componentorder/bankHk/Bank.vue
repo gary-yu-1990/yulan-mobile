@@ -229,7 +229,7 @@ export default {
       if (this.jsDataSet === "结束时间") {
         jsTime = "";
       } else {
-        jsTime = this.jsDataSet + " 00:00:00";
+        jsTime = this.jsDataSet + " 23:59:59";
       }
       // this.ksDataSet === "起始时间" ? '':this.ksDataSet + " 00:00:00";
       // this.jsDataSet === "结束时间" ? '':this.jsDataSet + " 23:59:59";

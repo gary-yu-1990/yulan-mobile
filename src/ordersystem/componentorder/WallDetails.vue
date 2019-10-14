@@ -1,6 +1,6 @@
 <template>
   <div>
-    <top :top="set" :from ="from"></top>
+    <top :top="set" :from="from"></top>
     <div class="single-msg">
       <ul class="lists">
         <li>型号： {{wallMegs.itemNo}}</li>
@@ -15,7 +15,8 @@
             <input class="input-num" v-model.number="price" @input="oninput4" type="number" />
           </div>
         </li>
-        <li v-if="!AddOrNot&&customerType !='10'">单价： ￥{{price}}</li>
+        <li v-if="!AddOrNot && customerType !='10'&& showPrice">单价： ￥{{price}}</li>
+        <li v-else-if="!AddOrNot && customerType !='10'&& !showPrice">单价： ***</li>
         <li class="order-num">
           订购数量：
           <div class="input-num-right" v-if="dwType">
@@ -181,10 +182,20 @@ export default {
       hidshow: true, //显示或者隐藏footer
       decimalNum: 2, //保留小数的位数
       AddOrNot: true,
-      from: ""
+      from: "",
+      //价格隐藏字段
+      showPrice: null
     };
   },
   methods: {
+    //价格是否隐藏
+    isShowPrice() {
+      if (this.$store.getters.getIsManage == "0") {
+        this.showPrice = false;
+      } else {
+        this.showPrice = true;
+      }
+    },
     //加入购物车或者修改购物车
     toCart() {
       if (this.beizhu == undefined) {
@@ -464,6 +475,7 @@ export default {
     }
   },
   created() {
+    this.isShowPrice();
     this.from = this.$route.params.from;
     let wallUrl = this.orderBaseUrl + "/item/getWallpaperInfo.do";
     let data = {

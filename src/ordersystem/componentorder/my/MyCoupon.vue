@@ -3,7 +3,11 @@
     <top :top="set" :from="from"></top>
     <div class="my-coupoon">
       <template v-for="(coupon,index) in couponLists">
-        <div class="coupon-item" v-if="coupon.dateId == 1" :key="index">
+        <div
+          class="coupon-item"
+          v-if="coupon.dateId == 1 && (coupon.dateId == 0 && coupon.rebateMoneyOver > 0)"
+          :key="index"
+        >
           <div class="coupon-top">
             <div class="coupon-notes">{{coupon.notes}}</div>
             <div class="coupon-allmoney">总面值{{coupon.rebateMoney}}元</div>
@@ -12,7 +16,8 @@
           <div class="coupon-content">
             <div>
               <span class="coupon-remian">余额：￥</span>
-              <span class="remian-money">{{coupon.rebateMoneyOver}}</span>
+              <span v-if="showPrice" class="remian-money">{{coupon.rebateMoneyOver}}</span>
+              <span v-else class="remian-money">***</span>
             </div>
             <div class="coupon-yxq">有效期：{{coupon.dateStart}}至{{coupon.dateEnd}}</div>
             <div class="coupon-sy">适用：{{coupon.application}}</div>
@@ -31,7 +36,8 @@
           <div class="coupon-content">
             <div>
               <span class="coupon-remian2">余额：￥</span>
-              <span class="remian-money2">{{coupon.rebateMoneyOver}}</span>
+              <span v-if="showPrice" class="remian-money2">{{coupon.rebateMoneyOver}}</span>
+              <span v-else class="remian-money2">***</span>
             </div>
             <div class="coupon-yxq2">有效期：{{coupon.dateStart}}至{{coupon.dateEnd}}</div>
             <div class="coupon-sy">适用：{{coupon.application}}</div>
@@ -79,7 +85,8 @@
             <!--</tr>-->
           </table>
           <div class="use-amount">
-            <span>使用金额：{{couponRecord.rebateMoney}}</span>
+            <span v-if="showPrice">使用金额：{{couponRecord.rebateMoney}}</span>
+            <span v-else>使用金额：***</span>
           </div>
         </div>
       </div>
@@ -116,7 +123,8 @@
             </tr>
           </table>
           <div class="use-amount">
-            <span>返利金额：{{couponRecord.returnMoney}}</span>
+            <span v-if="showPrice">返利金额：{{couponRecord.returnMoney}}</span>
+            <span v-else>返利金额：***</span>
           </div>
         </div>
       </div>
@@ -146,6 +154,11 @@ export default {
       allflRecord: [],
       from: ""
     };
+  },
+  computed: {
+    showPrice() {
+      return this.$store.getters.getIsManage != "0";
+    }
   },
   methods: {
     getCoupon() {

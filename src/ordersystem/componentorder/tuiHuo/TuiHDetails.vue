@@ -67,7 +67,7 @@
         <p style="text-align: left;">经销商：{{bankDetails.cname}} 2019年07月30日</p>
       </div>
     </div>
-    <div class="edit-bank" v-show="bankDetails.state === '客户确认中'">
+    <div class="edit-bank" v-show="bankDetails.state === 'CUSTOMERAFFIRM'">
       <span class="edit-bank-xg" @click="toAgree('同意')">同意</span>
       <span class="edit-bank-dl" @click="toAgree('不同意')">不同意</span>
     </div>
@@ -121,6 +121,29 @@ export default {
           this.bankDetails.rtcbItems.forEach(item => {
             this.totleAcount += item.totalmoney;
           });
+        });
+    },
+    toAgree(val) {
+      var flag = val == "同意" ? "APPROVED" : "CANCELED";
+      let url =
+        this.capitalUrl +
+        "/returnCompensationBill/updateReturnCompensationBillState.do";
+      axios
+        .get(url, {
+          params: {
+            id: this.$route.params.id,
+            state: flag
+          }
+        })
+        .then(res => {
+          if (res.data.code == 0) {
+            Toast.success("反馈成功");
+            this.$router.push({
+              path: "/tuihuolists"
+            });
+          } else {
+            Toast.success("反馈失败");
+          }
         });
     },
     //  人名币小写金额转换为大写

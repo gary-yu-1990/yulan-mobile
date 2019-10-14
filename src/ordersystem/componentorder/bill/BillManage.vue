@@ -2,7 +2,7 @@
   <div class="all-view">
     <top :top="set"></top>
     <div class="alllists">
-      <div class="singleItem" v-for="bill in billLists">
+      <div class="singleItem" v-for="(bill,index) in billLists" :key="index">
         <table>
           <tr>
             <td>起始日期：</td>
@@ -47,113 +47,110 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import {Loading,Pagination } from 'vant'
-  import top from '../../../components/Top'
+import axios from "axios";
+import { Loading, Pagination } from "vant";
+import top from "../../../components/Top";
 
-  export default {
-    name: "",
-    components: {
-      top,
-      [Loading.name]:Loading,
-      [Pagination .name]:Pagination
-    },
-    data() {
-      return {
-        set: 30,
-        loading:false,
-        billLists:{},
-        customerInfo:{},//对账单明细表头
-        currentPage:1,//当前页数
-        totalPage:0,//总页数
-      }
-    },
-    methods: {
-      getBillLists(){
-        this.billLists = {}
-        this.loading = true
-        let url = this.orderBaseUrl + "/customerBalance/getCustomerBalanceInfo.do"
-        let data = {
-          "cid":this.$store.getters.getCId,
-          "limit":8,
-          "page":this.currentPage
+export default {
+  name: "",
+  components: {
+    top,
+    [Loading.name]: Loading,
+    [Pagination.name]: Pagination
+  },
+  data() {
+    return {
+      set: 30,
+      loading: false,
+      billLists: {},
+      customerInfo: {}, //对账单明细表头
+      currentPage: 1, //当前页数
+      totalPage: 0 //总页数
+    };
+  },
+  methods: {
+    getBillLists() {
+      this.billLists = {};
+      this.loading = true;
+      let url =
+        this.orderBaseUrl + "/customerBalance/getCustomerBalanceInfo.do";
+      let data = {
+        cid: this.$store.getters.getCId,
+        limit: 8,
+        page: this.currentPage
+      };
+      axios.post(url, data).then(res => {
+        this.loading = false;
+        this.billLists = res.data.customerBalancePeriodList;
+        this.customerInfo = res.data.customerInfo;
+        if (this.billLists) {
+          this.totalPage = parseInt(this.billLists[0].total / 8) + 1;
         }
-        // console.log(data)
-        axios.post(url,data).then(
-          res => {
-            this.loading = false
-            this.billLists = res.data.customerBalancePeriodList
-            this.customerInfo = res.data.customerInfo
-            if (this.billLists) {
-              this.totalPage = parseInt(this.billLists[0].total / 8) + 1
-            }
-            console.log(this.billLists)
-          }
-        )
-      },
-      changePage() {
-        this.getBillLists()
-      },
-    //  对账单详情
-      toBillDetails(bill){
-        this.$router.push({
-          name:"billdetails",
-          params:{
-            customerInfo:this.customerInfo,
-            billitem:bill,
-          }
-        })
-      }
+      });
     },
-    created() {
-      this.getBillLists()
+    changePage() {
+      this.getBillLists();
+    },
+    //  对账单详情
+    toBillDetails(bill) {
+      this.$router.push({
+        name: "billdetails",
+        params: {
+          customerInfo: this.customerInfo,
+          billitem: bill
+        }
+      });
     }
+  },
+  created() {
+    this.getBillLists();
   }
+};
 </script>
 
 <style scoped>
-  .all-view {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    top: 0px;
-    background-color: #f8f8f8;
-    overflow: scroll;
-  }
-  .alllists{
-    margin: 60px 0;
-  }
-  .singleItem {
-    position: relative;
-    background: white;
-    border-radius: 5px;
-    margin: 10px;
-    font-size: 14px;
-    padding: 5px 12px;
-  }
-  .singleItem td {
-    text-align: left;
-  }
-  .order-state {
-    background: #89cb81;
-    border-radius: 14px;
-    padding: 5px 10px;
-    position: absolute;
-    bottom: 8px;
-    right: 12px;
-    color: white;
-    font-size: 12px;
-  }
-  .fy-bottom {
-    border-top: 1px solid #d8d8d8;
-    background: #f8f8f8;
-    position: fixed;
-    width: 100%;
-    height: 50px;
-    bottom: 0;
-    color: white !important;
-  }
-  .fy-bottom .van-pagination__item {
-    color: #89cb81;
-  }
+.all-view {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  background-color: #f8f8f8;
+  overflow: scroll;
+}
+.alllists {
+  margin: 60px 0;
+}
+.singleItem {
+  position: relative;
+  background: white;
+  border-radius: 5px;
+  margin: 10px;
+  font-size: 14px;
+  padding: 5px 12px;
+}
+.singleItem td {
+  text-align: left;
+}
+.order-state {
+  background: #89cb81;
+  border-radius: 14px;
+  padding: 5px 10px;
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  color: white;
+  font-size: 12px;
+}
+.fy-bottom {
+  border-top: 1px solid #d8d8d8;
+  background: #f8f8f8;
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  bottom: 0;
+  color: white !important;
+}
+.fy-bottom .van-pagination__item {
+  color: #89cb81;
+}
 </style>
