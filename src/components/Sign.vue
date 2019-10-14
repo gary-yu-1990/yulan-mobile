@@ -154,7 +154,13 @@ export default {
           }
         })
         .catch(err => {
-          th.set = true;
+          if(err.request.status == 0){
+            this.warnMsg = "当前网络不可用";
+            this.set = true;
+          }else{
+            this.warnMsg = err.message;
+            this.set = true;
+          }
         });
     },
     listenset(data) {

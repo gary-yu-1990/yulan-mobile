@@ -105,7 +105,11 @@
                         }
                         else {
                             if(ischeck){
-                                showLoading.setTitle("已是最新版本");
+                                plus.nativeUI.toast("已是最新版本",{
+                                    duration: 'long',
+                                    align: 'center',
+                                    verticalAlign: 'center',
+                                });
                             }
                             plus.nativeUI.closeWaiting();
                         }

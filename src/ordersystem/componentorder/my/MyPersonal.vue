@@ -64,7 +64,7 @@ export default {
       });
     },
     checkVersion() {
-      if(!this.plus){
+      if(!vm.plus){
         Toast(
           {
             duration:3000,
