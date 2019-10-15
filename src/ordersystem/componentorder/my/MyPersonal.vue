@@ -9,8 +9,13 @@
         <span>我的优惠券</span>
         <img class="item-more" src="../../assetsorder/more.png" alt />
       </div>
+      <div class="item" @click="clickToPath('notificationList')">
+        <img class="item-icon" src="../../assetsorder/notification.png" alt />
+        <span>最新公告</span>
+        <img class="item-more" src="../../assetsorder/more.png" alt />
+      </div>
       <div class="item" @click="checkVersion()">
-        <img class="item-icon" src="../../assetsorder/setting.png" alt />
+        <img class="item-icon" src="../../assetsorder/version_update.png" alt />
         <span>检查新版本</span>
         <img class="item-more" src="../../assetsorder/more.png" alt />
       </div>
@@ -65,12 +70,7 @@ export default {
     },
     checkVersion() {
       if(!vm.plus){
-        Toast(
-          {
-            duration:3000,
-            message: "调试模式，不能检查更新"
-          }
-        );
+        Toast("调试模式，不能检查更新");
       }else{
         UpdateVersion(true);
       }

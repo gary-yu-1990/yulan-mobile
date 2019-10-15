@@ -152,7 +152,7 @@
 import axios from "axios";
 import {
   Search,
-  Actionsheet,
+  ActionSheet,
   Toast,
   Checkbox,
   CheckboxGroup,
@@ -202,7 +202,7 @@ export default {
   },
   components: {
     [Search.name]: Search,
-    [Actionsheet.name]: Actionsheet,
+    [ActionSheet.name]: ActionSheet,
     [Toast.name]: Toast,
     [Checkbox.name]: Checkbox,
     [CheckboxGroup.name]: CheckboxGroup,
