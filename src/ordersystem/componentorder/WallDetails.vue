@@ -119,7 +119,7 @@ import {
   Radio,
   Cell,
   CellGroup,
-  Actionsheet
+  ActionSheet
 } from "vant";
 import "../assetsorder/actionsheet.css";
 
@@ -137,7 +137,7 @@ export default {
     [Radio.name]: Radio,
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup,
-    [Actionsheet.name]: Actionsheet
+    [ActionSheet.name]: ActionSheet
   },
   data() {
     return {

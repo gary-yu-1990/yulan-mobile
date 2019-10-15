@@ -187,6 +187,11 @@ export default {
             });
           }
           break;
+        case 27.1://最新公告
+          this.$router.push({
+            path: "/mypersonal"
+          });
+          break;
         case 28:
           this.$router.push({
             path: "/searchcurtain"
@@ -256,7 +261,7 @@ export default {
           this.$router.push({
             path: "/customer"
           });
-          break;  
+          break;
       }
 
       //   if(this.top == 0|| this.top ==1 || this.top ==5  ){
@@ -364,6 +369,11 @@ export default {
     }
     if (this.top == 27) {
       this.msg = "优惠券管理";
+    }
+    if (this.top == 27.1) {
+      this.msg = "最新公告";
+      let a = this.$refs.top;
+      a.className = "top-green";
     }
     if (this.top == 28) {
       this.msg = "窗帘详情";

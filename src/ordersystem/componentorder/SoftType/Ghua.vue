@@ -78,7 +78,7 @@
 
 <script>
 import axios from "axios";
-import { Search, Actionsheet, Pagination, Toast } from "vant";
+import { Search, ActionSheet, Pagination, Toast } from "vant";
 import "../../assetsorder/actionsheet.css";
 
 export default {
@@ -111,7 +111,7 @@ export default {
   },
   components: {
     [Search.name]: Search,
-    [Actionsheet.name]: Actionsheet,
+    [ActionSheet.name]: ActionSheet,
     [Pagination.name]: Pagination,
     [Toast.name]: Toast
   },

@@ -69,6 +69,7 @@ import ThMsg from '@/ordersystem/componentorder/orderform/ThMsg'
 //个人中心
 import MyPersonal from '@/ordersystem/componentorder/my/MyPersonal'
 import MyCoupon from '@/ordersystem/componentorder/my/MyCoupon'
+import NotificationList from '@/ordersystem/componentorder/my/NotificationList'
 //银行汇款
 import Bank from '@/ordersystem/componentorder/bankHk/Bank'
 import BankDetails from '@/ordersystem/componentorder/bankHk/BankDetails'
@@ -382,6 +383,11 @@ var router = new Router({
       path: "/mycoupon",
       name: 'mycoupon',
       component: MyCoupon,
+    },
+    {
+      path: "/notificationlist",
+      name: 'notificationlist',
+      component: NotificationList,
     },
     {
       path: "/tasksearch",
