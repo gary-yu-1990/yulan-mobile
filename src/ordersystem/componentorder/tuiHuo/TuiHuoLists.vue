@@ -241,7 +241,7 @@ export default {
           this.totalPage = parseInt(this.totalLists / 10) + 1;
           if (this.allLists.length == 0) {
             Toast({
-              message: "暂无该状态委托喷绘书",
+              message: "暂无该状态退货赔偿书",
               duration: 2000
             });
           } else {
