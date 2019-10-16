@@ -31,12 +31,7 @@
       </div>
     </div>
     <div class="orders" v-if="orderLists.length">
-      <div
-        class="single-order"
-        v-for="(orderList,index) in orderLists"
-        @click="toOrderDetails(index)"
-        :key="index"
-      >
+      <div class="single-order" v-for="(orderList,index) in orderLists" :key="index">
         <div class="nav">
           <div class="wall-icon"></div>
           <span class="title">订单号:{{orderList.ORDER_NO}}</span>
@@ -51,7 +46,10 @@
               <th width="30%">应付金额</th>
             </tr>
             <tr v-for="(product,inndex) in orderList.ORDERBODY" :key="inndex">
-              <td>{{product.ITEM_NO}}</td>
+              <td v-if="product.packDetailId == 0">{{product.ITEM_NO}}</td>
+              <td v-else>
+                <a href="javascript:void(0);" @click="shipmentDetail(product)">{{product.ITEM_NO}}</a>
+              </td>
               <td v-if="showPrice">￥{{product.UNIT_PRICE}}</td>
               <td v-else>***</td>
               <td>{{product.QTY_REQUIRED}}</td>
@@ -65,6 +63,7 @@
           <span v-if="showPrice" class="allhj">合计：￥{{orderList.ALL_SPEND}}元</span>
           <span v-else class="allhj">合计：***元</span>
         </div>
+        <span class="detail-button" @click.stop="toOrderDetails(index)">查看详情</span>
         <!--欠款待提交（提交的话需要做库存判断）-->
         <!--欠款可提交（提交的话不用库存判断）-->
         <div class="next-do" v-if="orderList.showStatus">
@@ -131,6 +130,55 @@
         @confirm="onConfirmType"
       />
     </van-popup>
+    <!--出货详情-->
+    <van-popup v-model="showShipment" closeable style="width:80%">
+      <div class="shipment-title">
+        <span>出货详情</span>
+      </div>
+      <div style="width:95%;height:100%;margin:35px 5px 10px 5px;">
+        <table
+          style="width:100%;"
+          border="1"
+          cellspacing="0"
+          v-for="(item,index) in shipData"
+          :key="index"
+        >
+          <tr>
+            <td width="40%">提货单号：</td>
+            <td>{{item.SALE_NO}}</td>
+          </tr>
+          <tr>
+            <td>数量：</td>
+            <td>{{item.QTY_DELIVER}}</td>
+          </tr>
+          <tr>
+            <td>批号：</td>
+            <td>{{item.BATCH_NO}}</td>
+          </tr>
+          <tr>
+            <td>出货情况：</td>
+            <td v-if="item.DATE_OUT_STOCK==''||item.DATE_OUT_STOCK=='9999/12/31 00:00:00'">代发货</td>
+            <td v-else>已发货</td>
+          </tr>
+          <tr>
+            <td>发货日期：</td>
+            <td>{{item.DATE_OUT_STOCK}}</td>
+          </tr>
+          <tr>
+            <td>加收物流费：</td>
+            <td>{{item.FREIGHT}}</td>
+          </tr>
+          <tr>
+            <td>物流公司：</td>
+            <td>{{item.TRANSCOMPANY}}</td>
+          </tr>
+          <tr>
+            <td>物流单号：</td>
+            <td>{{item.TRANS_ID}}</td>
+          </tr>
+        </table>
+      </div>
+    </van-popup>
   </div>
 </template>
 <script>
@@ -147,7 +195,8 @@ import {
   getAllOrders,
   InsertOperationRecord,
   cancelOrderNew,
-  copyCartItem
+  copyCartItem,
+  getPackDetailInfo
 } from "@/api/orderListASP";
 import navBottom from "../../../components/navBottom";
 import "../../assetsorder/actionsheet.css";
@@ -222,7 +271,9 @@ export default {
       xhInput: "",
       docmHeight: document.documentElement.clientHeight, //默认屏幕高度
       showHeight: document.documentElement.clientHeight, //实时屏幕高度
-      hidshow: true //显示或者隐藏footer
+      hidshow: true, //显示或者隐藏footer
+      showShipment: false,
+      shipData: []
     };
   },
   methods: {
@@ -402,7 +453,6 @@ export default {
       });
       // this.$store.commit('hideLoading')
     },
-
     //订单详情
     toOrderDetails(index) {
       this.$router.push({
@@ -413,6 +463,17 @@ export default {
           orderType: this.myTypeCode,
           from: "myorder"
         }
+      });
+    },
+    //出货详情
+    shipmentDetail(item) {
+      getPackDetailInfo({
+        orderNo: item.ORDER_NO,
+        lineNo: item.LINE_NO,
+        itemNo: item.ITEM_NO
+      }).then(res => {
+        this.shipData = res.data[0].packDetails;
+        this.showShipment = true;
       });
     },
     //状态转换
@@ -688,26 +749,27 @@ ul {
   color: #89cb81;
 }
 
-/*单个订单*/
+/*订单显示*/
 .orders {
   margin: 130px 0 50px;
   padding: 10px 0;
   position: relative;
-  font-size: 14px;
+  font-size: 14.5px;
 }
-
+/*单个订单*/
 .single-order {
   /*height: 210px;*/
-  padding: 10px 10px;
+  padding: 10px;
   margin: 10px 15px;
   /*border: 1px solid red;*/
   border-radius: 5px;
   background: white;
+  position: relative;
 }
 
 .single-order .nav {
-  height: 40px;
-  line-height: 40px;
+  height: 30px;
+  line-height: 30px;
   border-bottom: 1px solid #ececec;
 }
 
@@ -753,5 +815,22 @@ ul {
 .next-do .to-pay {
   border: 1px solid #ff6352;
   color: #ff6352;
+}
+.detail-button {
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+  background: #89cb81;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 15px;
+}
+.shipment-title {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  top: 0;
+  font-size: 18px;
+  position: fixed;
 }
 </style>

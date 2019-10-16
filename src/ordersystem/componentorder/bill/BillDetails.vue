@@ -69,7 +69,12 @@
     </div>
     <div :class="{'details-list-title':true,'fix':isFixed}" id ref="scollctn">明细列表</div>
     <div class="alllists">
-      <div class="singleItem" v-for="(bill,index) in billDetailList" :key="index">
+      <div
+        class="singleItem"
+        v-for="(bill,index) in billDetailList"
+        :key="index"
+        @click="shipmentDetail(bill)"
+      >
         <ul>
           <li>
             <span class="item-sec">日期：</span>
@@ -81,7 +86,7 @@
           </li>
           <li>
             <span class="item-sec">类别：</span>
-            <span class="item-sec2">{{bill.billNo}}</span>
+            <span class="item-sec2">{{bill.billNo | stateChange}}</span>
           </li>
           <li>
             <span class="item-sec">发货总额：</span>
@@ -116,7 +121,7 @@
       <!--/>-->
       <!--</div>-->
     </div>
-    <div class="bill-handle">
+    <div class="bill-handle" v-if="billitem.customerCheckState =='待确认'">
       <span @click="comfirmBill('客户确认')">确认</span>
       <span @click="toShowBillBack">反馈</span>
     </div>
@@ -129,6 +134,74 @@
         </div>
       </van-popup>
     </div>
+    <!--对账单详情-->
+    <van-popup v-model="showShipment" closeable style="width:80%;max-height:40%;">
+      <div class="shipment-title">
+        <span>{{THtitle}}</span>
+      </div>
+      <div v-if="whatType" style="width:95%;height:100%;margin:35px 5px 10px 5px;">
+        <table
+          style="width:100%;"
+          border="1"
+          cellspacing="0"
+          v-for="(item,index) in THtabledata"
+          :key="index"
+        >
+          <tr>
+            <td width="40%">版本型号：</td>
+            <td>{{item.itemNo}}</td>
+          </tr>
+          <tr>
+            <td>名称：</td>
+            <td>{{item.itemNote}}</td>
+          </tr>
+          <tr>
+            <td>版本名称：</td>
+            <td>{{item.itemVersion}}</td>
+          </tr>
+          <tr>
+            <td>批号：</td>
+            <td>{{item.batchNo}}</td>
+          </tr>
+          <tr>
+            <td>单价：</td>
+            <td>{{item.salePrice}}</td>
+          </tr>
+          <tr>
+            <td>物流单价：</td>
+            <td>{{item.transPrice}}</td>
+          </tr>
+          <tr>
+            <td>数量：</td>
+            <td>{{item.qtyDeliver}}</td>
+          </tr>
+          <tr>
+            <td>金额：</td>
+            <td>{{item.money}}</td>
+          </tr>
+        </table>
+      </div>
+      <div v-if="!whatType" style="width:95%;height:100%;margin:35px 5px 10px 5px;">
+        <table style="width:100%;" border="1" cellspacing="0">
+          <tr>
+            <td>日期：</td>
+            <td>{{CZSK.dateOutStock}}</td>
+          </tr>
+          <tr>
+            <td>单据号：</td>
+            <td>{{THhead}}</td>
+          </tr>
+          <tr>
+            <td>收款金额：</td>
+            <td>{{CZSK.gatherMoneyFax}}</td>
+          </tr>
+          <tr>
+            <td>备注：</td>
+            <td>{{CZSK.notes}}</td>
+          </tr>
+        </table>
+      </div>
+    </van-popup>
     <van-loading class="loading" type="spinner" v-if="loading" color="black" />
   </div>
 </template>
@@ -159,8 +232,22 @@ export default {
       totalPage: 0, //总页数,
       showBillBack: false,
       fankuiContent: "", //反馈内容
-      isFixed: false
+      isFixed: false,
+      showShipment: false,
+      THtabledata: [],
+      whatType: true,
+      THtitle: "对账单明细",
+      THwidth: "70%",
+      THhead: "",
+      CZSK: []
     };
+  },
+  filters: {
+    stateChange(value) {
+      if (value == "CZSK") return "收款";
+      if (value == "TD") return "提单";
+      return value;
+    }
   },
   methods: {
     getBillLists() {
@@ -170,7 +257,7 @@ export default {
         this.orderBaseUrl +
         "/customerBalance/getCustomerBalancePeriodDetailInfo.do";
       let data = {
-        cid: "C19003",
+        cid: this.$store.getters.getCId,
         startDate: this.billitem.dateStart, //开始日期
         endDate: this.billitem.dateEnd, //结束日期
         limit: 9999,
@@ -187,7 +274,6 @@ export default {
         if (this.billDetailList.length) {
           this.totalPage = parseInt(this.billDetailList[0].total / 10) + 1;
         }
-        // console.log(this.billDetailList)
       });
     },
     changePage() {
@@ -195,7 +281,6 @@ export default {
     },
     toShowBillBack() {
       this.showBillBack = true;
-      console.log(this.showBillBack);
     },
     //  反馈
     comfirmBill(val) {
@@ -211,7 +296,6 @@ export default {
         customerCheckComment: this.fankuiContent //反馈内容
       };
       axios.post(url, data).then(res => {
-        console.log(res);
         if (res.data.code == 0) {
           if (val == "客户确认") {
             Toast.success("状态提交成功");
@@ -235,21 +319,44 @@ export default {
         (date.getMonth() + 1 < 10
           ? "0" + (date.getMonth() + 1)
           : date.getMonth() + 1) + "-";
-      var D = date.getDate() + " ";
+      var D =
+        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) + " ";
       return Y + M + D;
     },
     handleScroll() {
       let top = this.$refs.scollctn.scrollTop;
       let top2 = this.$refs.scollctn.offsetTop;
+    },
+    shipmentDetail(item) {
+      if (item.billNo == "CZSK" || item.billNo == "收款") {
+        this.whatType = false;
+        this.CZSK = item;
+        this.THhead = item.saleNo;
+        this.THtitle = "收款备注";
+        this.THwidth = "30%";
+        this.showShipment = true;
+      } else {
+        this.whatType = true;
+        this.THtitle = item.saleNo + "明细";
+        this.THwidth = "72%";
+        let url =
+          this.orderBaseUrl +
+          "/customerBalance/getCustomerBalancePackDetail.do";
+        let data = {
+          saleNO: item.saleNo
+        };
+        axios.post(url, data).then(res => {
+          this.THtabledata = res.data.packDetailList;
+          this.showShipment = true;
+        });
+      }
     }
   },
   created() {
     this.getBillLists();
     //window.addEventListener("scroll", this.handleScroll, true);
   },
-  mounted() {
-    
-  }
+  mounted() {}
 };
 </script>
 
@@ -372,5 +479,13 @@ export default {
   margin-top: 15px;
   padding: 5px;
   font-size: 14px;
+}
+.shipment-title {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  top: 0;
+  font-size: 18px;
+  position: fixed;
 }
 </style>

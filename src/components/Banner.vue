@@ -38,11 +38,9 @@ export default {
 
       if(this.$store.state.info.data.realName.length >=7){
         document.getElementsByClassName('customer-name')[0].style.fontSize="15px"
-        console.log(document.getElementsByClassName('customer-name')[0]);
       }
       if(this.$store.state.info.data.realName.length >=10){
         document.getElementsByClassName('customer-name')[0].style.fontSize="12px"
-        console.log(document.getElementsByClassName('customer-name')[0]);
       }
   },
   methods: {
