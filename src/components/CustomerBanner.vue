@@ -7,11 +7,11 @@
       <span>登陆:</span>
       <span class="time">{{logintime}}</span>
     </div>
-    <div class="announce" @click="toAnnouncement" v-show="newAnounces.length > 0">
+    <div class="announce" v-show="newAnounces.length > 0">
       <!-- <div class="suona-img" @click="toAnnouncement"></div> -->
       <van-icon class="suona1" slot="icon" name="volume-o" size="18px" dot color="#89cb81" />
-      <span class="notice">
-        <a href="javascript:void(0);">{{noticeTitle}}</a>
+      <span class="notice" >
+        <a href="javascript:void(0);" @click="toAnnouncement">{{noticeTitle}}</a>
       </span>
     </div>
 
@@ -209,6 +209,7 @@ p {
 }
 .announce {
   position: absolute;
+  z-index: 1000;
   top: 190px;
   left: 27px;
   width: 100%;

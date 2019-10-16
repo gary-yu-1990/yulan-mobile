@@ -62,7 +62,7 @@
       />
     </div>
     <!--查看库存-->
-    <van-actionsheet class="kucun-popup" v-model="showKucun" title="库存查询结果">
+    <van-action-sheet class="kucun-popup" v-model="showKucun" title="库存查询结果">
       <div class="kucun-result">
         <table width="100%">
           <tr v-for="(kucun,index) in singleKuCun" :key="index">
@@ -71,7 +71,7 @@
           </tr>
         </table>
       </div>
-    </van-actionsheet>
+    </van-action-sheet>
   </div>
 </template>
 
