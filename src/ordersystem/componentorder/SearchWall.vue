@@ -65,7 +65,7 @@
     </div>
     <navBottom v-show="hidshow"></navBottom>
     <!--查看库存-->
-    <van-actionsheet class="kucun-popup" v-model="showKucun" title="库存查询结果">
+    <van-action-sheet class="kucun-popup" v-model="showKucun" title="库存查询结果">
       <div class="kucun-result">
         <table width="100%">
           <tr>
@@ -80,7 +80,7 @@
           </tr>
         </table>
       </div>
-    </van-actionsheet>
+    </van-action-sheet>
     <van-loading class="loading" type="spinner" v-if="loading" color="black" />
   </div>
 </template>
@@ -167,6 +167,7 @@ export default {
     },
     //墙纸查询
     onSearchWall(inputValue) {
+      if(inputValue=='')return;
       this.wallMegs = {};
       this.loading = true;
       this.inputValue = inputValue;
@@ -177,12 +178,12 @@ export default {
         cid: this.CID
       };
       axios.post(wallUrl, data).then(data => {
-        this.wallMegs = data.data.data;
-        this.wallMegs.note = this.wallMegs.itemType.note;
         if (data.data.code == 0) {
           this.resY = true;
           this.resN = false;
           this.loading = false;
+          this.wallMegs = data.data.data;
+          this.wallMegs.note = this.wallMegs.itemType.note;
         } else {
           this.loading = false;
           this.resY = false;
