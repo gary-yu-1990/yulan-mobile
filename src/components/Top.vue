@@ -188,9 +188,15 @@ export default {
           }
           break;
         case 27.1://最新公告
-          this.$router.push({
-            path: "/mypersonal"
-          });
+           if (this.from) {
+            this.$router.push({
+              path: "/" + this.from
+            });
+          } else {
+            this.$router.push({
+              path: "/mypersonal"
+            });
+          }
           break;
         case 28:
           this.$router.push({

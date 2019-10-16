@@ -308,16 +308,13 @@ export default {
 </script>
 
 <style scoped>
-.all-view {
+.my-coupoon {
+  margin-top: 50px;
   position: fixed;
   width: 100%;
-  height: 100vh;
-  top: 0px;
+  height: 95%;
   background-color: #f8f8f8;
   overflow: scroll;
-}
-.my-coupoon {
-  margin-top: 60px;
 }
 .coupon-item {
   height: 200px;
