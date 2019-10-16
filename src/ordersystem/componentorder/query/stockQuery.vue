@@ -5,43 +5,43 @@
     <div class="search">
       <ul class="ulhead" id="ulhead">
         <li class="licenter" @click="showType = true">
-          <input class="time time-ks" type="text" v-model="myType" disabled />
+          <input class="time" type="text" v-model="myType" disabled />
         </li>
         <li class="licenter">
-          <van-field class="item_1 item_1-ks" v-model="myItem" placeholder="请输入产品型号" />
+          <van-field class="item_1" v-model="myItem" placeholder="请输入产品型号" />
         </li>
         <li>
-          <van-button type="primary" class="button" @click="clear">清空</van-button>
+          <van-button round class="button" @click="clear">清空</van-button>
         </li>
       </ul>
     </div>
     <div class="queryData" style="margin: 110px 10px 80px;">
       <div class="query_1" style="MIN-height:300px" v-show="stockInfo">
         <van-panel title="库存信息" style="MIN-height:300px">
-          <div
-            style="MAX-height:250px;width:100%"
-            v-for="stockInfo in stockInfo_1"
-          >
-            <table style="width:100%;font-size:10px;align:center">
+          <div style="MAX-height:250px;width:100%" v-for="stockInfo in stockInfo_1">
+            <table style="width:100%;font-size:15px;align:center">
               <tr>
-                <td colspan="2">仓库名称：</td>
-                <td colspan="2">{{stockInfo.NOTE}}</td>
+                <td style="width:25%;text-align:left">仓库名称：</td>
+                <td>{{stockInfo.NOTE}}</td>
               </tr>
               <tr>
-                <td colspan="2">批号:</td>
-                <td colspan="2">{{stockInfo.BATCH_NO}}</td>
-              </tr>
-              <br />
-              <tr>
-                <td>区</td>
-                <td>位</td>
-                <td>箱</td>
-                <td>可分配量</td>
+                <td style="width:25%;text-align:left">批号:</td>
+                <td>{{stockInfo.BATCH_NO}}</td>
               </tr>
               <tr>
+                <td style="width:25%;text-align:left">区:</td>
                 <td>{{stockInfo.AREA}}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">位:</td>
                 <td>{{stockInfo.SEAT}}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">箱:</td>
                 <td>{{stockInfo.BOX}}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">可分配量:</td>
                 <td>{{stockInfo.QTY_SUM}}</td>
               </tr>
             </table>
@@ -49,74 +49,101 @@
           </div>
         </van-panel>
       </div>
-      <div class="query_2" style="height:300px;margin-top:15px" v-show="stockInfo">
-        <van-panel title="产品信息" style="height:300px">
-          <div style="height:300px" >
+      <div class="query_2" style="MIN-height:300px;margin-top:15px" v-show="stockInfo">
+        <van-panel title="产品信息" style="MIN-height:300px">
+          <div style="MIN-height:300px">
             <table
               width="100%"
               class="table_1"
-              border="1"
-              style="font-weight:normal;font-size:10px;align:center"
+              style="font-weight:normal;font-size:15px;align:center"
             >
               <tr>
-                <td class="CPXXBJYS">型号</td>
-                <td style="width:70px">{{ dormitory.ITEM_NO }}</td>
-                <td class="CPXXBJYS">墙纸规格</td>
-                <td width="85px">{{ dormitory.PRODUCT_PAPER_ID | transPaper }}</td>
-                <td class="CPXXBJYS">毛重（kg）</td>
-                <td width="50px">{{ dormitory.GROSS }}</td>
+                <td style="width:25%;text-align:left">型号:</td>
+                <td>{{ dormitory.ITEM_NO }}</td>
               </tr>
               <tr>
-                <td class="CPXXBJYS">样版型号</td>
+                <td style="width:25%;text-align:left">墙纸规格:</td>
+                <td>{{ dormitory.PRODUCT_PAPER_ID | transPaper }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">毛重（kg）:</td>
+                <td>{{ dormitory.GROSS }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">样版型号:</td>
                 <td>{{ dormitory.OLD_ITEM_NO }}</td>
-                <td class="CPXXBJYS">墙纸基材</td>
-                <td width="50px">{{ dormitory.PROPERTY_TYPE_NAME }}</td>
-                <td class="CPXXBJYS">净重（kg）</td>
-                <td width="50px">{{ dormitory.NET_WEIGHT }}</td>
               </tr>
               <tr>
-                <td class="CPXXBJYS">产品类别</td>
-                <td width="50px">{{ dormitory.ITEM_TYPE_1 }}</td>
-                <td class="CPXXBJYS">墙纸功能</td>
-                <td width="50px">{{ dormitory.MARK_TYPE | transMark }}</td>
-                <td class="CPXXBJYS">拼花</td>
-                <td width="50px">{{ dormitory.DUIPIN_NOTE_1 }}</td>
+                <td style="width:25%;text-align:left">墙纸基材:</td>
+                <td>{{ dormitory.PROPERTY_TYPE_NAME }}</td>
               </tr>
               <tr>
-                <td class="CPXXBJYS">品牌</td>
-                <td width="50px">{{ dormitory.BRAND_NAME }}</td>
-                <td class="CPXXBJYS">长度（mm）</td>
-                <td width="50px">{{ dormitory.LENGTH }}</td>
-                <td class="CPXXBJYS">拼花尺寸</td>
-                <td width="50px">{{ dormitory.DUIPIN_SIZE }}</td>
+                <td style="width:25%;text-align:left">净重（kg）:</td>
+                <td>{{ dormitory.NET_WEIGHT }}</td>
               </tr>
               <tr>
-                <td class="CPXXBJYS">最新版本号</td>
-                <td width="50px">{{ dormitory.PRODUCTVERSION_NAME }}</td>
-                <td class="CPXXBJYS">宽度（mm）</td>
-                <td width="50px">{{ dormitory.WIDTH }}</td>
-                <td class="CPXXBJYS">图案</td>
-                <td width="50px">{{ dormitory.PATTERN | transPattern }}</td>
+                <td style="width:25%;text-align:left">产品类别:</td>
+                <td>{{ dormitory.ITEM_TYPE_1 }}</td>
               </tr>
               <tr>
-                <td class="CPXXBJYS">自产代理</td>
-                <td width="50px">{{ dormitory.GET_ID | transId }}</td>
-                <td class="CPXXBJYS">规格</td>
-                <td width="50px">{{ dormitory.GRADE }}</td>
-                <td class="CPXXBJYS">颜色</td>
-                <td width="50px">{{ dormitory.COLOUR | transColour }}</td>
+                <td style="width:25%;text-align:left">墙纸功能:</td>
+                <td>{{ dormitory.MARK_TYPE | transMark }}</td>
               </tr>
               <tr>
-                <td class="CPXXBJYS">计量单位</td>
-                <td width="50px">{{ dormitory.UNIT_NOTE_1 }}</td>
-                <td class="CPXXBJYS">纸箱规格</td>
-                <td width="50px">{{ dormitory.BOX_TYPE }}</td>
-                <td class="CPXXBJYS">风格</td>
-                <td width="50px">{{ dormitory.STYLE | transStyle }}</td>
+                <td style="width:25%;text-align:left">拼花:</td>
+                <td>{{ dormitory.DUIPIN_NOTE_1 }}</td>
               </tr>
               <tr>
-                <td class="CPXXBJYS">备注</td>
-                <td colspan="6"></td>
+                <td style="width:25%;text-align:left">品牌:</td>
+                <td>{{ dormitory.BRAND_NAME }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">长度（mm）:</td>
+                <td>{{ dormitory.LENGTH }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">拼花尺寸:</td>
+                <td>{{ dormitory.DUIPIN_SIZE }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">最新版本号:</td>
+                <td>{{ dormitory.PRODUCTVERSION_NAME }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">宽度（mm）:</td>
+                <td>{{ dormitory.WIDTH }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">图案:</td>
+                <td>{{ dormitory.PATTERN | transPattern }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">自产代理:</td>
+                <td>{{ dormitory.GET_ID | transId }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">规格:</td>
+                <td>{{ dormitory.GRADE }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">颜色:</td>
+                <td>{{ dormitory.COLOUR | transColour }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">计量单位:</td>
+                <td>{{ dormitory.UNIT_NOTE_1 }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">纸箱规格:</td>
+                <td>{{ dormitory.BOX_TYPE }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">风格:</td>
+                <td>{{ dormitory.STYLE | transStyle }}</td>
+              </tr>
+              <tr>
+                <td style="width:25%;text-align:left">备注:</td>
+                <td></td>
               </tr>
             </table>
           </div>
@@ -477,8 +504,7 @@ export default {
           this.count = res.count;
           if (this.count == 1) {
             this.KC_CP_SC(res.data[0]);
-          }
-          else {
+          } else {
             Toast({
               duration: 2000,
               message: "暂只能精确查询"
@@ -494,8 +520,8 @@ export default {
     },
     //清空
     clear() {
-      this.myType = "产品类型"
-      this.myTypeCode = ""
+      this.myType = "产品类型";
+      this.myTypeCode = "";
       this.value = "";
       this.search = "";
       this.tables = [];
@@ -567,9 +593,11 @@ export default {
 <style scoped>
 .button {
   background: #8bc34a;
-  height: 33px;
+  height: 30px;
+  width: 67px;
   text-align: center;
   line-height: 5px;
+  color: rgb(255, 255, 255);
 }
 .item_1 {
   top: 1px;
@@ -634,16 +662,21 @@ input {
 }
 
 .time {
-  width: 110px;
+  width: 100px;
   height: 30px;
   line-height: 20px;
   background-color: hsl(0, 0%, 100%);
   font-size: 13px;
-  border: none;
-  text-align: center;
+  padding-left: 15px;
+  text-align: left;
+  background-image: url("../../assetsorder/time-zk.png");
+  background-repeat: no-repeat;
+  background-position-x: 90px;
+  background-position-y: 3vw;
+  background-size: 15px;
 }
 .table_1 {
   border-collapse: collapse;
-  border: 1px solid black;
+  border: 0px solid black;
 }
 </style>
