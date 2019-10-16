@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="all-view">
     <top :top="set" :from="from"></top>
     <div class="my-coupoon">
       <template v-for="(coupon,index) in couponLists">
@@ -308,6 +308,14 @@ export default {
 </script>
 
 <style scoped>
+.all-view {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  background-color: #f8f8f8;
+  overflow: scroll;
+}
 .my-coupoon {
   margin-top: 60px;
 }
