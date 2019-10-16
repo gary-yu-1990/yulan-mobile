@@ -9,7 +9,7 @@
         <span>我的优惠券</span>
         <img class="item-more" src="../../assetsorder/more.png" alt />
       </div>
-      <div class="item" @click="clickToPath('notificationList')">
+      <div class="item" @click="clickToPath('notificationlist')">
         <img class="item-icon" src="../../assetsorder/notification.png" alt />
         <span>最新公告</span>
         <img class="item-more" src="../../assetsorder/more.png" alt />
@@ -62,16 +62,16 @@ export default {
     },
     clickToPath(path) {
       this.$router.push({
-        name: path,
+        name: path,//name不能忽略大小写
         params: {
-          from: path
+          from: "mypersonal"
         }
       });
     },
     checkVersion() {
-      if(!vm.plus){
+      if (!vm.plus) {
         Toast("调试模式，不能检查更新");
-      }else{
+      } else {
         UpdateVersion(true);
       }
     },
