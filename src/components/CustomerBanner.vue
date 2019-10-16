@@ -7,8 +7,14 @@
       <span>登陆:</span>
       <span class="time">{{logintime}}</span>
     </div>
-    <!-- <div class="suona-img" @click="toAnnouncement"></div> -->
-    <!-- <p class="notice"  @click="toAnnouncement">{{notice}}</p> -->
+    <div class="announce" @click="toAnnouncement" v-show="newAnounces.length > 0">
+      <!-- <div class="suona-img" @click="toAnnouncement"></div> -->
+      <van-icon class="suona1" slot="icon" name="volume-o" size="18px" dot color="#89cb81" />
+      <span class="notice">
+        <a href="javascript:void(0);">{{noticeTitle}}</a>
+      </span>
+    </div>
+
     <div class="left-img"></div>
     <div class="right-img"></div>
   </div>
@@ -18,18 +24,26 @@
 import Protocol from "./Protocol";
 // import sidebar from '../utils/move492.js'
 import { bus } from "../utils/eventBus.js";
+import { Icon } from 'vant';
+import { getNewNotification } from "@/api/notificationASP";
 // import Salesman from './Salesman'
 
 export default {
   name: "Banner",
+  components: {
+    [Icon.name]: Icon,
+  },
   data() {
-    return {};
+    return {
+      newAnounces: [],
+      noticeTitle: '',
+      timer: null,
+      currentNoticeIndex: 0,
+      currentNotice: null,
+    };
   },
   props: ["IsSidebarOut"],
   computed: {
-    notice() {
-      return "公告";
-    },
     customer() {
       if (this.$store.state.info.data)
         return this.$store.state.info.data.realName;
@@ -56,7 +70,41 @@ export default {
       document.getElementsByClassName("customer-name")[1].style.fontSize =
         "16px";
     }
+
+    getNewNotification({ cid: this.$store.getters.getCId }).then((res) => {
+      var _this = this;
+      this.newAnounces = [];
+      for (let i = 0; i < res.data.length; i++) {
+        this.newAnounces.push(res.data[i]);
+      }
+      if (this.newAnounces.length > 0) {
+        _this.currentNotice=_this.newAnounces[0];
+        this.noticeTitle = this.newAnounces[0].TITLE;
+        if (this.newAnounces.length > 1) {
+          if (this.timer == null) {
+            this.timer = setInterval(function () {
+              if(_this.currentNoticeIndex+1>=_this.newAnounces.length){
+                _this.currentNoticeIndex=0;
+              }else{
+                _this.currentNoticeIndex++;
+              }
+              _this.currentNotice=_this.newAnounces[_this.currentNoticeIndex];
+              _this.noticeTitle=_this.newAnounces[_this.currentNoticeIndex].TITLE;
+
+            }, 5000);
+          }
+        }
+      }
+      if (this.newAnounces.length < 2) {
+        if (this.timer != null) {
+          clearInterval(this.timer);
+        }
+      }
+
+    }).catch((err) => {
+    })
   },
+
   methods: {
     Sidebar() {
       console.log(this.IsSidebarOut);
@@ -69,12 +117,17 @@ export default {
           bus.$emit("sidebarout");
         }, 300);
       }
+    },
+    toAnnouncement() {
+      this.$router.push({
+        name: "notificationlist",
+        params: {
+          showNotification: true,
+          CONTENT:this.currentNotice.CONTENT,
+          from: 'customer',
+        }
+      });
     }
-    // toAnnouncement() {
-    //   this.$router.push({
-    //     path:'/announcement'
-    //   })
-    // }
   }
 };
 </script>
@@ -114,14 +167,14 @@ p {
   position: absolute;
   z-index: 1000;
   left: 27px;
-  top: 119px;
+  top: 115px;
   text-align: left;
 }
 .login-time {
   font-size: 13px;
   color: #7d7d7d;
   position: absolute;
-  top: 170px;
+  top: 160px;
   left: 27px;
 }
 .right-img {
@@ -145,22 +198,35 @@ p {
   top: 85px;
 }
 .suona-img {
-  background-image: url("../assets/suona2.png");
-  width: 24px;
-  height: 20px;
+  background: url("../assets/suona2.png") no-repeat;
+  width: 20px;
+  height: 16px;
   background-size: contain;
   background-position: center;
   position: absolute;
-  bottom: 45px;
-  left: 31px;
-  z-index: 100;
+  top: 190px;
+  left: 27px;
+}
+.announce {
+  position: absolute;
+  top: 190px;
+  left: 27px;
+  width: 100%;
+  text-align: left;
+  line-height: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+.suona1 {
+  width: 20px;
+  float: left;
 }
 .notice {
-  font-size: 15px;
-  color: #7d7d7d;
-  position: absolute;
-  z-index: 100;
-  bottom: 45px;
-  left: 72px;
+  margin-left: 23px;
+  font-size: 13px;
+  text-decoration: underline;
+  line-height: 20px;
+  height: 20px;
+  display: block;
 }
 </style>

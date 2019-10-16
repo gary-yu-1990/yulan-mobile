@@ -20,7 +20,7 @@
         <img class="item-more" src="../../assetsorder/more.png" alt />
       </div>
       <div style="height:20px;"></div>
-      <div class="item" style="text-align:center;" @click="clickToPath()">
+      <div class="item" style="text-align:center;" @click="logout()">
         <span style="margin:auto 0;">退出登录</span>
       </div>
     </div>
@@ -62,7 +62,7 @@ export default {
     },
     clickToPath(path) {
       this.$router.push({
-        path: "/" + path,
+        name: path,
         params: {
           from: path
         }
