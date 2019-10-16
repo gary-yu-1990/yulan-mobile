@@ -263,6 +263,16 @@ export default {
             path: "/customer"
           });
           break;
+        case 93:
+          this.$router.push({
+            path: "/areaQuery"
+          });
+          break;
+        case 94:
+          this.$router.push({
+            path: "/orderQuery"
+          });
+          break;
         case 95:
           this.$router.push({
             path: "/customer"
@@ -441,6 +451,16 @@ export default {
     }
     if (this.top == 92) {
       this.msg = "区域订单查询";
+      let a = this.$refs.top;
+      a.className = "top-green";
+    }
+    if (this.top == 93) {
+      this.msg = "区域订货单列表";
+      let a = this.$refs.top;
+      a.className = "top-green";
+    }
+    if (this.top == 94) {
+      this.msg = "区域订单列表";
       let a = this.$refs.top;
       a.className = "top-green";
     }
